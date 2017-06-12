@@ -1,0 +1,37 @@
+<li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }" *ngIf="isLoggedIn()" id="currentUser">
+  <a [routerLink]="['/users/'+getCurrentUserName()]">{{getCurrentUserName()}}</a>
+</li>
+<li *ngIf="isLoggedIn()">
+  <a (click)="logout()" href="#" (click)="$event.preventDefault()">Logout</a>
+</li>
+<li *ngIf="!isLoggedIn()">
+  <a (click)="showLoginModal()" href="#" (click)="$event.preventDefault()">Login</a>
+</li>
+
+<!-- Sign in Modal -->
+<div bsModal #loginModal="bs-modal" class="modal fade" tabindex="-1" [config]="{backdrop: false}" role="dialog" aria-labelledby="Login Form" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="hideLoginModal(username, password)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Please, sign in...</h4>
+      </div>
+      <div class="modal-body">
+
+        <div *ngIf="errorMessage" class="label-danger">{{ errorMessage }}</div>
+
+        <form class="form-signin" (submit)="login(username, password)">
+          <label for="username" class="sr-only">User</label>
+          <input type="text" id="username" class="form-control" placeholder="User Name" required #username>
+          <label for="password" class="sr-only">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="Password" required #password>
+          <p></p>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-md-4">
+    <h4 *ngIf="fields.length == 0">There are no fields registered</h4>
+    <h4 *ngIf="fields.length > 0">There are {{fields.length}} fields registered</h4>
+  </div>
+  <div class="col-md-8">
+    <h4>
+      <a class="btn btn-primary" role="button"
+         [routerLink]="['/fields/new']">Register New Field</a>
+    </h4>
+  </div>
+</div>
+
+<div class="row">
+  <h3 class="col-md-12">Fields</h3>
+  <div class="col-md-12">
+    <app-fields-search (onSearchited)="onSearch($event)" [fields]="fields"></app-fields-search>
+  </div>
+</div>
+
+<div class="row">
+  <div class="panel-group col-md-12">
+    <div class="panel panel-default" *ngFor="let field of fields">
+      <div class="panel-heading">
+        <h4>Title: <a routerLink="{{field.uri}}">{{field.title}}</a></h4>
+      </div>
+      <div class="panel-body">
+        <div class="col-md-6">
+          <h4>Description:</h4>
+          <p>{{field.description}}</p>
+        </div>
+        <div class="col-md-6">
+          <h4>Additional details:</h4>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

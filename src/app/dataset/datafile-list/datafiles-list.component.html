@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-md-4">
+    <h4 *ngIf="datafiles.length == 0">There are no datafiles registered</h4>
+    <h4 *ngIf="datafiles.length > 0">There are {{datafiles.length}} datafiles registered</h4>
+  </div>
+</div>
+<div class="row">
+  <h3 class="col-md-12">Datafiles</h3>
+  <div class="col-md-12">
+    <app-datafile-search (onSearchited)="onSearch($event)" [datafiles]="datafiles"></app-datafile-search>
+  </div>
+</div>
+<div class="row">
+  <div class="panel-group col-md-12">
+    <div class="panel panel-default" *ngFor="let datafile of datafiles">
+      <div class="panel-heading">
+        <h4>Title: <a routerLink="{{datafile.uri}}">{{datafile.title}}</a></h4>
+      </div>
+      <div class="panel-body">
+        <div class="col-md-6">
+          <h4>Description:</h4>
+          <p>{{datafile.description}}</p>
+        </div>
+        <div class="col-md-6">
+          <h4>Additional details:</h4>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-4">
+    <h4 *ngIf="datasets?.length == 0">There are no datasets registered</h4>
+    <h4 *ngIf="datasets?.length > 0">There are {{bigTotalItems}} datasets registered</h4>
+  </div>
+  <div class="col-md-8">
+    <h4>
+      <a class="btn btn-primary" role="button"
+         [routerLink]="['/datasets/new']">Register New Dataset</a>
+    </h4>
+  </div>
+</div>
+
+<div class="row">
+  <h3 class="col-md-12">Datasets</h3>
+  <div class="col-md-12">
+    <app-dataset-search (onSearchited)="onSearch($event)" [datasets]="datasets" [totalDatasets]="bigTotalItems"></app-dataset-search>
+  </div>
+</div>
+
+<div class="row">
+  <div class="panel-group col-md-12">
+    <div class="panel panel-default" *ngFor="let dataset of datasets">
+      <div class="panel-heading">
+        <h4>Title: <a routerLink="{{dataset.uri}}">{{dataset.title}}</a></h4>
+      </div>
+      <div class="panel-body">
+        <div class="col-md-6">
+          <h4>Description:</h4>
+          <p>{{dataset.description}}</p>
+        </div>
+        <div class="col-md-6">
+          <h4>Additional details:</h4>
+          <h5>Owner: <a *ngIf="datasetOwners != undefined" [routerLink]="['/users/'+datasetOwners[dataset.uri]]">{{datasetOwners[dataset.uri]}}</a></h5>
+          <h5>Tags: <span *ngIf="dataset.tags != undefined" class="badge">{{dataset.tags.length}}</span></h5>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row text-center col-md-12" *ngIf="datasets?.length > 0">
+  <pagination [totalItems]="bigTotalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage"
+              [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)"></pagination>
+
+
+</div>
+<div class="row text-center col-md-12" *ngIf="datasets?.length > 0">
+  Datasets per page
+    <select (change)="onChange($event.target.value)" style="margin-left: 10px;">
+      <option value="10">10</option>
+      <option value="20" selected="selected">20</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+    </select>
+</div>

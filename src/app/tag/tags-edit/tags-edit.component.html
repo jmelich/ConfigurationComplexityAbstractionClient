@@ -1,0 +1,35 @@
+<h2>Edit {{tag.name}}</h2>
+<form [formGroup]="tagForm" (ngSubmit)="onSubmit()">
+  <fieldset>
+
+    <!-- Text input-->
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="name">Tag Name*</label>
+      <div class="col-md-9">
+        <input id="title" name="name" type="text" placeholder="Name" class="form-control input-md"
+               [class.has-error]="nameCtrl.touched && nameCtrl.hasError('required')"
+               [formControl]="tagForm.controls['name']"
+               [(ngModel)]="tag.name">
+        <div *ngIf="nameCtrl.touched && nameCtrl.hasError('required')" class="label-warning">
+          A name is required
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="form-group row">
+      <div class="col-md-3"></div>
+      <div class="label-danger col-md-9">{{ errorMessage }}</div>
+    </div>
+
+    <!-- Button -->
+    <div class="form-group row">
+      <div class="col-md-3"></div>
+      <div class="col-md-9">
+        <button id="createTag" name="createTag" type="submit"
+                class="btn btn-success pull-right" [disabled]="!tagForm.valid">Save</button>
+      </div>
+    </div>
+
+  </fieldset>
+</form>
+

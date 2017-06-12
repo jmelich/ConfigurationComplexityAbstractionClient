@@ -1,0 +1,4 @@
+<h4>Search by Dataset title</h4>
+<input name="title" #searchTerm (keyup)="performSearch(searchTerm.value)">
+<button (click)="performSearch(searchTerm.value)">Search</button>
+<p i18n>{comments.length, plural, =0 {No comments found} =1 {1 comment found} other {{{comments.length}} comments found}}</p>

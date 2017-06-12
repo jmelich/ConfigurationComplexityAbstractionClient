@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-md-4">
+        <h4 *ngIf="closedLicenses.length == 0">There are no closed licenses registered</h4>
+        <h4 *ngIf="closedLicenses.length > 0">There are {{closedLicenses.length}} closed licenses registered</h4>
+    </div>
+    <div class="col-md-8">
+        <h4>
+            <a class="btn btn-lg btn-primary" role="button" [routerLink]="['/closedLicenses/new']">Register Closed License</a>
+        </h4>
+    </div>
+</div>
+
+<app-closed-license-search (onSearchited)="onSearch($event)" [closedLicenses]="closedLicenses"></app-closed-license-search>
+
+<div class="row">
+    <h3>Closed Licenses</h3>
+    <div class="panel-group">
+        <div class="panel panel-default" *ngFor="let closedLicense of closedLicenses">
+            <div class="panel-heading">
+                <h4>Text: <a routerLink="{{closedLicense.uri}}">{{closedLicense.text}}</a></h4>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <h4>Price:</h4>
+                    <p>{{closedLicense.price}} €</p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Additional details:</h4>
+                    <h5 *ngIf="licenseOwner">Owner: {{licenseOwner[closedLicense.uri]}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

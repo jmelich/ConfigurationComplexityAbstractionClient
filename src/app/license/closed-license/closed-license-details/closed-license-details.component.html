@@ -1,0 +1,28 @@
+<div class="row">
+    <h3>Closed License Details</h3>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h4>Text</h4>
+        <p>{{closedLicense.text}}</p>
+    </div>
+    <div class="col-md-2">
+        <h4>Price</h4>
+        <p>{{closedLicense.price}}</p>
+    </div>
+    <div class="col-md-2" *ngIf="isOwner">
+        <a class="btn btn-lg btn-primary" role="button" routerLink="{{closedLicense.uri}}/edit">Edit Closed License</a>
+        <a class="btn btn-danger" role="button" (click)="onDelete(closedLicense)">Delete</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h4>Owner</h4>
+        <h5>{{ownerName}}</h5>
+    </div>
+    <div class="col-md-4">
+        <h4>Datasets</h4>
+        <a [routerLink]="[closedLicense.uri+'/datasets']">List datasets of {{closedLicense.text}}</a>
+    </div>
+</div>

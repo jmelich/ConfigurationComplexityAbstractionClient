@@ -1,0 +1,63 @@
+<div class="row">
+  <h3>{{user.getUserName()}} Details</h3>
+</div>
+
+<main>
+  <input id="tab1" type="radio" name="tabs" checked>
+  <label for="tab1">Datasets</label>
+
+  <input id="tab2" type="radio" name="tabs">
+  <label for="tab2">Schemas</label>
+
+  <input id="tab3" type="radio" name="tabs">
+  <label for="tab3">Open Licenses</label>
+
+  <input id="tab4" type="radio" name="tabs">
+  <label for="tab4">Closed Licenses</label>
+
+  <section id="content1">
+    <div *ngIf="datasets?.length <= 0"><b>{{user.getUserName()}} has not registered any datasets yet</b></div>
+    <div class="panel panel-default" *ngFor="let dataset of datasets">
+      <div class="panel-heading">
+        <h4>Title: <a routerLink="{{dataset.uri}}">{{dataset.title}}</a></h4>
+      </div>
+      <div class="panel-body">
+        <div class="col-md-6">
+          <h4>Description:</h4>
+          <p>{{dataset.description}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="content2">
+    <div *ngIf="schemas?.length <= 0"><b>{{user.getUserName()}} has not registered any schemas yet</b></div>
+    <div class="panel-body" *ngFor="let schema of schemas">
+      <div class="col-md-6">
+        <h4>Title: <a routerLink="{{schema.uri}}">{{schema.title}}</a></h4>
+        <h4>Description:</h4>
+        <p>{{schema.description}}</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="content3">
+    <div *ngIf="openLicenses?.length <= 0"><b>{{user.getUserName()}} has not registered any open licenses yet</b></div>
+    <div class="panel-body" *ngFor="let openLicense of openLicenses">
+      <div class="col-md-6">
+        <h4>Title: <a routerLink="{{openLicense.uri}}">{{openLicense.text}}</a></h4>
+      </div>
+    </div>
+  </section>
+
+  <section id="content4">
+    <div *ngIf="closedLicenses?.length <= 0"><b>{{user.getUserName()}} has not registered any closed licenses yet</b>
+    </div>
+    <div class="panel-body" *ngFor="let closedLicense of closedLicenses">
+      <div class="col-md-6">
+        <h4>Title: <a routerLink="{{closedLicense.uri}}">{{closedLicense.text}}</a></h4>
+      </div>
+    </div>
+  </section>
+</main>
+
