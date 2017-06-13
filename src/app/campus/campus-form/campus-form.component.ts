@@ -19,7 +19,10 @@ export class CampusFormComponent implements OnInit {
               private router: Router,
               private campusService: CampusService) {
     this.campusForm = fb.group({
-      'title': ['Campus title', Validators.required]
+      'title': ['Campus title', Validators.required],
+      'description' : ['Campus description'],
+      'latitude' : ['Campus latitude'],
+      'longitude' : ['Campus longitude'],
     });
     this.titleCtrl = this.campusForm.controls['title'];
     this.campus = new Campus();
@@ -34,5 +37,6 @@ export class CampusFormComponent implements OnInit {
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         });
+    console.log(this.campus.uri);
   }
 }

@@ -31,12 +31,14 @@ export class CampusService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  /*// GET /comments/id
-  getComment(uri: string): Observable<Comment> {
+  // GET /campuses/id
+  getCampus(uri: string): Observable<Campus> {
     return this.http.get(`${environment.API}${uri}`)
-      .map((res: Response) => new Comment(res.json()))
+      .map((res: Response) => new Campus(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
+
+  /*
 
   // GET /comments/OrderById
   getAllCommentsOrderedById(): Observable<Comment[]> {

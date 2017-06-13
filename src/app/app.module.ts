@@ -73,6 +73,7 @@ import { DatastreamEditComponent } from './dataset/datastream-edit/datastream-ed
 import {CampusListComponent} from './campus/campus-list/campus-list.component';
 import {CampusService} from "./campus/campus.service";
 import {CampusFormComponent} from "./campus/campus-form/campus-form.component";
+import {CampusDetailsComponent} from "./campus/campus-details/campus-details.component";
 
 @NgModule({
   declarations: [
@@ -130,7 +131,8 @@ import {CampusFormComponent} from "./campus/campus-form/campus-form.component";
     DatastreamsListComponent,
     DatastreamsSearchComponent,
     CampusListComponent,
-    CampusFormComponent
+    CampusFormComponent,
+    CampusDetailsComponent
   ],
   imports: [
     BrowserModule,

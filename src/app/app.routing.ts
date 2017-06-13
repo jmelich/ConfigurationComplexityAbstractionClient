@@ -41,6 +41,7 @@ import { DatastreamDetailsComponent } from './dataset/datastream-details/datastr
 import { DatastreamEditComponent } from './dataset/datastream-edit/datastream-edit.component';
 import { CampusListComponent } from './campus/campus-list/campus-list.component';
 import { CampusFormComponent } from './campus/campus-form/campus-form.component';
+import {CampusDetailsComponent} from "./campus/campus-details/campus-details.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -86,4 +87,5 @@ export const routes: Routes = [
   { path: 'comments/:id/edit', component: CommentEditComponent, canActivate: [LoggedInGuard] },
   { path: 'campuses', component: CampusListComponent },
   { path: 'campuses/new', component: CampusFormComponent },
+  { path: 'campuses/:id', component: CampusDetailsComponent },
 ];
