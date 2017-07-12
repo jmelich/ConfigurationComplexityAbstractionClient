@@ -1,17 +1,40 @@
 <div class="row">
-  <h3>Campus Details</h3>
+  <div class="col-md-3">
+    <h3>Campus Details</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-1">
+    <a class="btn btn-primary" role="button" routerLink="{{campus.uri}}/edit">Edit</a>
+  </div>
 </div>
 
 <div class="row">
   <div class="col-md-4">
-    <h4>Campus</h4>
+    <h4>Title</h4>
     <p>{{campus.title}}</p>
   </div>
+</div>
+
+<div class="row">
   <div class="col-md-4">
-    <h4>description</h4>
+    <h4>Description</h4>
     <p>{{campus.description}}</p>
   </div>
-  <div class="col-md-2" *ngIf="isOwner">
-    <a class="btn btn-primary" role="button" routerLink="{{comment.uri}}/edit">Edit</a>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <h4>latitude</h4>
+    <p>{{campus.latitude}}</p>
   </div>
+  <div class="col-md-2">
+    <h4>longitude</h4>
+    <p>{{campus.longitude}}</p>
+  </div>
+</div>
+
+<div class="row">
+
 </div>

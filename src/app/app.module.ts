@@ -74,6 +74,7 @@ import {CampusListComponent} from './campus/campus-list/campus-list.component';
 import {CampusService} from "./campus/campus.service";
 import {CampusFormComponent} from "./campus/campus-form/campus-form.component";
 import {CampusDetailsComponent} from "./campus/campus-details/campus-details.component";
+import {CampusEditComponent} from "./campus/campus-edit/campus-edit.component";
 
 @NgModule({
   declarations: [
@@ -132,7 +133,8 @@ import {CampusDetailsComponent} from "./campus/campus-details/campus-details.com
     DatastreamsSearchComponent,
     CampusListComponent,
     CampusFormComponent,
-    CampusDetailsComponent
+    CampusDetailsComponent,
+    CampusEditComponent
   ],
   imports: [
     BrowserModule,

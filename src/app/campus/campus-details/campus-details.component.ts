@@ -14,7 +14,7 @@ import { OwnerService } from '../../user/owner.service';
 export class CampusDetailsComponent implements OnInit {
   public campus: Campus = new Campus();
   public errorMessage: string;
-  public isOwner: boolean;
+  // public isOwner: boolean;
 
   constructor(private route: ActivatedRoute,
               private campusService: CampusService,

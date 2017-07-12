@@ -38,6 +38,18 @@ export class CampusService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  // PUT /campuses/id
+  updateCampus(campus: Campus): Observable<Campus> {
+    const body = JSON.stringify(campus);
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+
+    return this.http.put(`${environment.API}${campus.uri}`, body, options)
+      .map((res: Response) => new Campus(res.json()))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   /*
 
   // GET /comments/OrderById
@@ -66,17 +78,7 @@ export class CampusService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // PUT /datasets/id
-  updateComment(comment: Comment): Observable<Comment> {
-    const body = JSON.stringify(comment);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({headers: headers});
 
-    return this.http.put(`${environment.API}${comment.uri}`, body, options)
-      .map((res: Response) => new Comment(res.json()))
-      .catch((error: any) => Observable.throw(error.json()));
-  }
 
   // DELETE /comment/{id}
   deleteComment(comment: Comment): Observable<Response> {
