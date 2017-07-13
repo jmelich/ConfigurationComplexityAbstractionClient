@@ -75,6 +75,7 @@ import {CampusService} from './campus/campus.service';
 import {CampusFormComponent} from './campus/campus-form/campus-form.component';
 import {CampusDetailsComponent} from './campus/campus-details/campus-details.component';
 import {CampusEditComponent} from './campus/campus-edit/campus-edit.component';
+import { CampusSearchComponent} from './campus/campus-search/campus-search.component';
 import {BuildingListComponent} from './building/building-list/building-list.component';
 import {BuildingService} from './building/building.service';
 import {BuildingFormComponent} from './building/building-form/building-form.component';
@@ -140,6 +141,7 @@ import {BuildingEditComponent} from './building/building-edit/building-edit.comp
     CampusFormComponent,
     CampusDetailsComponent,
     CampusEditComponent,
+    CampusSearchComponent,
     BuildingListComponent,
     BuildingFormComponent,
     BuildingDetailsComponent,
