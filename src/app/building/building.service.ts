@@ -1,6 +1,8 @@
 import {AuthenticationBasicService} from '../login-basic/authentication-basic.service';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 import {environment} from '../../environments/environment';
 import {Building} from './building';
 import {Injectable} from '@angular/core';
@@ -47,6 +49,13 @@ export class BuildingService {
 
     return this.http.patch(`${environment.API}${building.uri}`, body, options)
       .map((res: Response) => new Building(res.json()))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /buildings
+  getBuildingsOfCampus(uri: string): Observable<Building[]> {
+    return this.http.get(`${environment.API}${uri}/buildings`)
+      .map((res: Response) => res.json()._embedded.buildings.map(json => new Building(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 

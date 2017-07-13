@@ -35,6 +35,14 @@
   </div>
 </div>
 
+
+<div *ngIf="buildings" class="col-md-2">
+  <h4>Buildings:</h4>
+  <div *ngFor="let building of buildings">
+    <a href="{{building.uri}}">{{building.title}}</a>
+  </div>
+</div>
+
 <div class="row">
 
 </div>

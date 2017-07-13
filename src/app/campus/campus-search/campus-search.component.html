@@ -1,4 +1,3 @@
 <h4>Search Campus by title</h4>
 <input name="title" #searchTerm (keyup)="performSearch(searchTerm.value)">
-<button (click)="performSearch(searchTerm.value)">Search</button>
 <p i18n>{campuses.length, plural, =0 {No campuses found} =1 {1 campus found} other {{{campuses.length}} campuses found}}</p>

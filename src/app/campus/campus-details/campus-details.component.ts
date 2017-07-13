@@ -4,6 +4,8 @@ import { CampusService } from '../campus.service';
 import { Campus } from '../campus';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
 import { OwnerService } from '../../user/owner.service';
+import {Building} from '../../building/building';
+import {BuildingService} from '../../building/building.service';
 
 
 @Component({
@@ -13,11 +15,13 @@ import { OwnerService } from '../../user/owner.service';
 })
 export class CampusDetailsComponent implements OnInit {
   public campus: Campus = new Campus();
+  public buildings: Building[] = [];
   public errorMessage: string;
   // public isOwner: boolean;
 
   constructor(private route: ActivatedRoute,
               private campusService: CampusService,
+              private buildingService: BuildingService,
               private authenticationService: AuthenticationBasicService,
               private ownerService: OwnerService) {
   }
@@ -37,6 +41,9 @@ export class CampusDetailsComponent implements OnInit {
                   this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
                 });
             }*/
+            this.buildingService.getBuildingsOfCampus(uri).subscribe(
+              buildings => this.buildings = buildings
+            );
           },
           error => this.errorMessage = <any>error.message,
         );
