@@ -29,10 +29,11 @@
         <div class="form-group row">
             <label class="col-md-3 control-label" for="schema">Schema</label>
             <div class="col-md-9">
-                <select class="form-control" id="schema" name="schema" [formControl]="datasetForm.controls['schema']" [(ngModel)]="dataset.schema">
+                <select class="form-control" id="schema" name="schema"
+                        [formControl]="datasetForm.controls['schema']"
+                        [(ngModel)]="dataset.schema">
           <option *ngFor="let schema of schemas" [ngValue]="schema.uri">{{schema.title}}</option>
         </select>
-
             </div>
         </div>
 

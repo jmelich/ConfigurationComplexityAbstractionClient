@@ -1,0 +1,72 @@
+<h2>Create Building</h2>
+<form id="building-form" [formGroup]="buildingForm" (ngSubmit)="onSubmit()">
+  <fieldset>
+
+    <!-- Text input-->
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="title">Building Title*</label>
+      <div class="col-md-9">
+        <input id="title" name="title" type="text" placeholder="Title" class="form-control input-md"
+               [class.has-error]="titleCtrl.touched && titleCtrl.hasError('required')"
+               [formControl]="buildingForm.controls['title']"
+               [(ngModel)]="building.title">
+        <div *ngIf="titleCtrl.touched && titleCtrl.hasError('required')" class="label-warning">
+           A title is required
+        </div>
+      </div>
+    </div>
+
+    <!-- Textarea -->
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="description">Building Description</label>
+      <div class="col-md-9">
+        <textarea class="form-control" id="description" name="description" placeholder="Description"
+                  [formControl]="buildingForm.controls['description']"
+                  [(ngModel)]="building.description"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="isInCampus">Campus</label>
+      <div class="col-md-9">
+        <select class="form-control" id="isInCampus" name="isInCampus"
+                [formControl]="buildingForm.controls['isInCampus']"
+                [(ngModel)]="building.isInCampus">
+          <option *ngFor="let campus of campuses" [ngValue]="campus.uri">{{campus.title}}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Textarea -->
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="latitude">Building latitude</label>
+      <div class="col-md-9">
+        <textarea class="form-control" id="latitude" name="latitude" placeholder="Latitude"
+                  [formControl]="buildingForm.controls['latitude']"
+                  [(ngModel)]="building.latitude"></textarea>
+      </div>
+    </div>
+
+    <!-- Textarea -->
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="longitude">Building longitude</label>
+      <div class="col-md-9">
+        <textarea class="form-control" id="longitude" name="longitude" placeholder="Longitude"
+                  [formControl]="buildingForm.controls['longitude']"
+                  [(ngModel)]="building.longitude"></textarea>
+      </div>
+    </div>
+
+    <!-- Button -->
+    <div class="form-group row">
+        <div class="col-md-3"></div>
+        <div class="col-md-9">
+            <button id="createBuilding" name="createBuilding" type="submit"
+                    class="btn btn-success pull-right" [disabled]="!buildingForm.valid">Create
+            </button>
+        </div>
+    </div>
+
+  </fieldset>
+</form>
+

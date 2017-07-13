@@ -71,10 +71,15 @@ import { DatastreamsListComponent } from './dataset/datastream-list/datastreams-
 import { DatastreamDetailsComponent } from './dataset/datastream-details/datastream-details.component';
 import { DatastreamEditComponent } from './dataset/datastream-edit/datastream-edit.component';
 import {CampusListComponent} from './campus/campus-list/campus-list.component';
-import {CampusService} from "./campus/campus.service";
-import {CampusFormComponent} from "./campus/campus-form/campus-form.component";
-import {CampusDetailsComponent} from "./campus/campus-details/campus-details.component";
-import {CampusEditComponent} from "./campus/campus-edit/campus-edit.component";
+import {CampusService} from './campus/campus.service';
+import {CampusFormComponent} from './campus/campus-form/campus-form.component';
+import {CampusDetailsComponent} from './campus/campus-details/campus-details.component';
+import {CampusEditComponent} from './campus/campus-edit/campus-edit.component';
+import {BuildingListComponent} from './building/building-list/building-list.component';
+import {BuildingService} from './building/building.service';
+import {BuildingFormComponent} from './building/building-form/building-form.component';
+import {BuildingDetailsComponent} from './building/building-details/building-details.component';
+import {BuildingEditComponent} from './building/building-edit/building-edit.component';
 
 @NgModule({
   declarations: [
@@ -134,7 +139,11 @@ import {CampusEditComponent} from "./campus/campus-edit/campus-edit.component";
     CampusListComponent,
     CampusFormComponent,
     CampusDetailsComponent,
-    CampusEditComponent
+    CampusEditComponent,
+    BuildingListComponent,
+    BuildingFormComponent,
+    BuildingDetailsComponent,
+    BuildingEditComponent
   ],
   imports: [
     BrowserModule,
@@ -147,7 +156,7 @@ import {CampusEditComponent} from "./campus/campus-edit/campus-edit.component";
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService,
               OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, UserService,
-              FieldService, CommentService, OwnerService, DataStreamService, CampusService],
+              FieldService, CommentService, OwnerService, DataStreamService, CampusService, BuildingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

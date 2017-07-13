@@ -15,23 +15,26 @@ export class CampusEditComponent implements OnInit {
   public campus: Campus = new Campus();
   public errorMessage: string;
   public campusForm: FormGroup;
-  public textCtrl: AbstractControl;
+  public titleCtrl: AbstractControl;
 
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
               private campusService: CampusService,
               private router: Router) {
     this.campusForm = fb.group({
-      'title': ['Campus title', Validators.required]
+      'title': ['Campus title', Validators.required],
+      'description' : ['Campus description'],
+      'latitude' : ['Campus latitude'],
+      'longitude' : ['Campus longitude'],
     });
-    this.textCtrl = this.campusForm.controls['text'];
+    this.titleCtrl = this.campusForm.controls['title'];
   }
 
   ngOnInit() {
     this.route.params
       .map(params => params['id'])
       .subscribe((id) => {
-        const uri = `/campus/${id}`;
+        const uri = `/campuses/${id}`;
         this.campusService.getCampus(uri).subscribe(
           campus => this.campus = campus,
           error => this.errorMessage = <any>error.message,

@@ -41,8 +41,12 @@ import { DatastreamDetailsComponent } from './dataset/datastream-details/datastr
 import { DatastreamEditComponent } from './dataset/datastream-edit/datastream-edit.component';
 import { CampusListComponent } from './campus/campus-list/campus-list.component';
 import { CampusFormComponent } from './campus/campus-form/campus-form.component';
-import {CampusDetailsComponent} from './campus/campus-details/campus-details.component';
-import {CampusEditComponent} from './campus/campus-edit/campus-edit.component';
+import { CampusDetailsComponent } from './campus/campus-details/campus-details.component';
+import { CampusEditComponent } from './campus/campus-edit/campus-edit.component';
+import { BuildingListComponent } from './building/building-list/building-list.component';
+import { BuildingFormComponent } from './building/building-form/building-form.component';
+import { BuildingDetailsComponent } from './building/building-details/building-details.component';
+import { BuildingEditComponent } from './building/building-edit/building-edit.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -90,4 +94,8 @@ export const routes: Routes = [
   { path: 'campuses/new', component: CampusFormComponent },
   { path: 'campuses/:id', component: CampusDetailsComponent },
   { path: 'campuses/:id/edit', component: CampusEditComponent },
+  { path: 'buildings', component: BuildingListComponent },
+  { path: 'buildings/new', component: BuildingFormComponent },
+  { path: 'buildings/:id', component: BuildingDetailsComponent },
+  { path: 'buildings/:id/edit', component: BuildingEditComponent },
 ];
