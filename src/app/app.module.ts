@@ -82,6 +82,12 @@ import {BuildingFormComponent} from './building/building-form/building-form.comp
 import {BuildingDetailsComponent} from './building/building-details/building-details.component';
 import {BuildingEditComponent} from './building/building-edit/building-edit.component';
 import { BuildingSearchComponent} from './building/building-search/building-search.component';
+import {FloorListComponent} from './floor/floor-list/floor-list.component';
+import {FloorFormComponent} from './floor/floor-form/floor-form.component';
+import {FloorEditComponent} from 'app/floor/floor-edit/floor-edit.component';
+import {FloorDetailsComponent} from './floor/floor-details/floor-details.component';
+import {FloorSearchComponent} from 'app/floor/floor-search/floor-search.component';
+import {FloorService} from './floor/floor.service';
 
 @NgModule({
   declarations: [
@@ -148,6 +154,11 @@ import { BuildingSearchComponent} from './building/building-search/building-sear
     BuildingDetailsComponent,
     BuildingEditComponent,
     BuildingSearchComponent,
+    FloorListComponent,
+    FloorFormComponent,
+    FloorDetailsComponent,
+    FloorEditComponent,
+    FloorSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -160,7 +171,7 @@ import { BuildingSearchComponent} from './building/building-search/building-sear
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService,
               OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, UserService,
-              FieldService, CommentService, OwnerService, DataStreamService, CampusService, BuildingService],
+              FieldService, CommentService, OwnerService, DataStreamService, CampusService, BuildingService, FloorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

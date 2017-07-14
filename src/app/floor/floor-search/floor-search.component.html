@@ -1,0 +1,3 @@
+<h4>Search Floor by title</h4>
+<input name="title" #searchTerm (keyup)="performSearch(searchTerm.value)">
+<p i18n>{floors.length, plural, =0 {No floors found} =1 {1 floor found} other {{{floors.length}} floors found}}</p>

@@ -47,6 +47,10 @@ import { BuildingListComponent } from './building/building-list/building-list.co
 import { BuildingFormComponent } from './building/building-form/building-form.component';
 import { BuildingDetailsComponent } from './building/building-details/building-details.component';
 import { BuildingEditComponent } from './building/building-edit/building-edit.component';
+import {FloorListComponent} from './floor/floor-list/floor-list.component';
+import {FloorFormComponent} from './floor/floor-form/floor-form.component';
+import {FloorDetailsComponent} from './floor/floor-details/floor-details.component';
+import {FloorEditComponent} from './floor/floor-edit/floor-edit.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -98,4 +102,8 @@ export const routes: Routes = [
   { path: 'buildings/new', component: BuildingFormComponent },
   { path: 'buildings/:id', component: BuildingDetailsComponent },
   { path: 'buildings/:id/edit', component: BuildingEditComponent },
+  { path: 'floors', component: FloorListComponent },
+  { path: 'floors/new', component: FloorFormComponent },
+  { path: 'floors/:id', component: FloorDetailsComponent },
+  { path: 'floors/:id/edit', component: FloorEditComponent },
 ];

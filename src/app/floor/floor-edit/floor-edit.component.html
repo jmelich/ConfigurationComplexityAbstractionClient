@@ -1,0 +1,52 @@
+<h2>Edit Floor</h2>
+<form id="floor-form" [formGroup]="floorForm" (ngSubmit)="onSubmit()">
+  <fieldset>
+
+    <!-- Text input-->
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="title">Floor Title*</label>
+      <div class="col-md-9">
+        <input id="title" name="title" type="text" placeholder="Title" class="form-control input-md"
+               [class.has-error]="titleCtrl.touched && titleCtrl.hasError('required')"
+               [formControl]="floorForm.controls['title']"
+               [(ngModel)]="floor.title">
+        <div *ngIf="titleCtrl.touched && titleCtrl.hasError('required')" class="label-warning">
+          A title is required
+        </div>
+      </div>
+    </div>
+
+    <!-- Textarea -->
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="description">Floor Description</label>
+      <div class="col-md-9">
+        <textarea class="form-control" id="description" name="description" placeholder="Description"
+                  [formControl]="floorForm.controls['description']"
+                  [(ngModel)]="floor.description"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="isInBuilding">Building</label>
+      <div class="col-md-9">
+        <select class="form-control" id="isInBuilding" name="isInBuilding"
+                [formControl]="floorForm.controls['isInBuilding']"
+                [(ngModel)]="floor.isInBuilding">
+          <option *ngFor="let buildingItem of buildings" [ngValue]="buildingItem.uri" [selected]="buildingItem.title == building.title">{{buildingItem.title}}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Button -->
+    <div class="form-group row">
+      <div class="col-md-3"></div>
+      <div class="col-md-9">
+        <button id="createFloor" name="createFloor" type="submit"
+                class="btn btn-success pull-right" [disabled]="!floorForm.valid">Save
+        </button>
+      </div>
+    </div>
+
+  </fieldset>
+</form>
+
