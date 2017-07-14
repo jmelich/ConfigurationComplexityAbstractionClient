@@ -59,6 +59,14 @@ export class BuildingService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+
+  // GET /buildings/search/findByBuildingByTitleContaining?title
+  getBuildingsByTitleContaining(building: string): Observable<Building[]> {
+    return this.http.get(environment.API + '/buildings/search/findByTitleContaining?title=' + building)
+      .map((res: Response) => res.json()._embedded.buildings.map(json => new Building(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   /*
 
   // GET /comments/OrderById

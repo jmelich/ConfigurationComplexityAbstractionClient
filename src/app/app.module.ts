@@ -81,6 +81,7 @@ import {BuildingService} from './building/building.service';
 import {BuildingFormComponent} from './building/building-form/building-form.component';
 import {BuildingDetailsComponent} from './building/building-details/building-details.component';
 import {BuildingEditComponent} from './building/building-edit/building-edit.component';
+import { BuildingSearchComponent} from './building/building-search/building-search.component';
 
 @NgModule({
   declarations: [
@@ -145,7 +146,8 @@ import {BuildingEditComponent} from './building/building-edit/building-edit.comp
     BuildingListComponent,
     BuildingFormComponent,
     BuildingDetailsComponent,
-    BuildingEditComponent
+    BuildingEditComponent,
+    BuildingSearchComponent,
   ],
   imports: [
     BrowserModule,
