@@ -88,6 +88,12 @@ import {FloorEditComponent} from 'app/floor/floor-edit/floor-edit.component';
 import {FloorDetailsComponent} from './floor/floor-details/floor-details.component';
 import {FloorSearchComponent} from 'app/floor/floor-search/floor-search.component';
 import {FloorService} from './floor/floor.service';
+import {DealerListComponent} from './dealer/dealer-list/dealer-list.component';
+import {DealerFormComponent} from './dealer/dealer-form/dealer-form.component';
+import {DealerDetailsComponent} from './dealer/dealer-details/dealer-details.component';
+import {DealerEditComponent} from './dealer/dealer-edit/dealer-edit.component';
+import {DealerSearchComponent} from './dealer/dealer-search/dealer-search.component';
+import {DealerService} from './dealer/dealer.service';
 
 @NgModule({
   declarations: [
@@ -159,6 +165,11 @@ import {FloorService} from './floor/floor.service';
     FloorDetailsComponent,
     FloorEditComponent,
     FloorSearchComponent,
+    DealerListComponent,
+    DealerFormComponent,
+    DealerDetailsComponent,
+    DealerEditComponent,
+    DealerSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -171,7 +182,7 @@ import {FloorService} from './floor/floor.service';
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService,
               OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, UserService,
-              FieldService, CommentService, OwnerService, DataStreamService, CampusService, BuildingService, FloorService],
+              FieldService, CommentService, OwnerService, DataStreamService, CampusService, BuildingService, FloorService, DealerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

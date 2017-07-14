@@ -27,8 +27,8 @@ export class FloorEditComponent implements OnInit {
               private buildingService: BuildingService,
               private router: Router) {
     this.floorForm = fb.group({
-      'title': ['Building title', Validators.required],
-      'description' : ['Building description'],
+      'title': ['Floor title', Validators.required],
+      'description' : ['Floor description'],
       'isInBuilding'  : ['Floor building']
     });
     this.titleCtrl = this.floorForm.controls['title'];

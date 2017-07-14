@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-4">
+    <h4 *ngIf="dealers.length == 0">There are no dealers registered</h4>
+    <h4 *ngIf="dealers.length > 0">There are {{dealers.length}} dealers registered</h4>
+  </div>
+  <div class="col-md-8">
+    <h4>
+      <a class="btn btn-primary" role="button"
+         [routerLink]="['/dealers/new']">Register New Dealer</a>
+    </h4>
+  </div>
+</div>
+
+<div class="row">
+  <h3 class="col-md-12">Dealers</h3>
+  <div class="col-md-12">
+    <app-dealer-search (onSearchited)="onSearch($event)" [dealers]="dealers"></app-dealer-search>
+  </div>
+</div>
+
+<div class="row">
+  <h3 class="col-md-12">Dealers</h3>
+</div>
+
+<div class="row">
+  <div class="panel-group col-md-12">
+    <div class="panel panel-default" *ngFor="let dealer of dealers">
+      <div class="panel-heading">
+        <h4><a routerLink="{{dealer.uri}}">{{dealer.title}}</a></h4>
+      </div>
+    </div>
+  </div>
+</div>
