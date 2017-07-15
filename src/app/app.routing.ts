@@ -59,6 +59,10 @@ import {EquipmentListComponent} from './equipment/equipment-list/equipment-list.
 import {EquipmentFormComponent} from './equipment/equipment-form/equipment-form.component';
 import {EquipmentDetailsComponent} from './equipment/equipment-details/equipment-details.component';
 import {EquipmentEditComponent} from './equipment/equipment-edit/equipment-edit.component';
+import {CardListComponent} from './card/card-list/card-list.component';
+import {CardFormComponent} from './card/card-form/card-form.component';
+import {CardDetailsComponent} from './card/card-details/card-details.component';
+import {CardEditComponent} from './card/card-edit/card-edit.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -122,4 +126,9 @@ export const routes: Routes = [
   { path: 'equipments/new', component: EquipmentFormComponent },
   { path: 'equipments/:id', component: EquipmentDetailsComponent },
   { path: 'equipments/:id/edit', component: EquipmentEditComponent },
+
+  { path: 'cards', component: CardListComponent },
+  { path: 'cards/new', component: CardFormComponent },
+  { path: 'cards/:id', component: CardDetailsComponent },
+  { path: 'cards/:id/edit', component: CardEditComponent },
 ];

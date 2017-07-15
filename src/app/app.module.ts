@@ -100,6 +100,12 @@ import {EquipmentDetailsComponent} from './equipment/equipment-details/equipment
 import {EquipmentEditComponent} from './equipment/equipment-edit/equipment-edit.component';
 import {EquipmentSearchComponent} from './equipment/equipment-search/equipment-search.component';
 import {EquipmentService} from './equipment/equipment.service';
+import {CardListComponent} from './card/card-list/card-list.component';
+import {CardFormComponent} from './card/card-form/card-form.component';
+import {CardDetailsComponent} from './card/card-details/card-details.component';
+import {CardEditComponent} from './card/card-edit/card-edit.component';
+import {CardSearchComponent} from './card/card-search/card-search.component';
+import {CardService} from './card/card.service';
 
 @NgModule({
   declarations: [
@@ -181,6 +187,11 @@ import {EquipmentService} from './equipment/equipment.service';
     EquipmentDetailsComponent,
     EquipmentEditComponent,
     EquipmentSearchComponent,
+    CardListComponent,
+    CardFormComponent,
+    CardDetailsComponent,
+    CardEditComponent,
+    CardSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -194,7 +205,7 @@ import {EquipmentService} from './equipment/equipment.service';
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService,
               OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, UserService,
               FieldService, CommentService, OwnerService, DataStreamService, CampusService, BuildingService, FloorService, DealerService,
-  EquipmentService],
+  EquipmentService, CardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
