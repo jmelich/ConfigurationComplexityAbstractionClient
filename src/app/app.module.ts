@@ -94,6 +94,12 @@ import {DealerDetailsComponent} from './dealer/dealer-details/dealer-details.com
 import {DealerEditComponent} from './dealer/dealer-edit/dealer-edit.component';
 import {DealerSearchComponent} from './dealer/dealer-search/dealer-search.component';
 import {DealerService} from './dealer/dealer.service';
+import {EquipmentListComponent} from './equipment/equipment-list/equipment-list.component';
+import {EquipmentFormComponent} from './equipment/equipment-form/equipment-form.component';
+import {EquipmentDetailsComponent} from './equipment/equipment-details/equipment-details.component';
+import {EquipmentEditComponent} from './equipment/equipment-edit/equipment-edit.component';
+import {EquipmentSearchComponent} from './equipment/equipment-search/equipment-search.component';
+import {EquipmentService} from './equipment/equipment.service';
 
 @NgModule({
   declarations: [
@@ -170,6 +176,11 @@ import {DealerService} from './dealer/dealer.service';
     DealerDetailsComponent,
     DealerEditComponent,
     DealerSearchComponent,
+    EquipmentListComponent,
+    EquipmentFormComponent,
+    EquipmentDetailsComponent,
+    EquipmentEditComponent,
+    EquipmentSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -182,7 +193,8 @@ import {DealerService} from './dealer/dealer.service';
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService,
               OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, UserService,
-              FieldService, CommentService, OwnerService, DataStreamService, CampusService, BuildingService, FloorService, DealerService],
+              FieldService, CommentService, OwnerService, DataStreamService, CampusService, BuildingService, FloorService, DealerService,
+  EquipmentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

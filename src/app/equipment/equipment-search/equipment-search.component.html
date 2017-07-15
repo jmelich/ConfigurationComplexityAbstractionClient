@@ -1,0 +1,3 @@
+<h4>Search Equipment by title</h4>
+<input name="title" #searchTerm (keyup)="performSearch(searchTerm.value)">
+<p i18n>{equipments.length, plural, =0 {No equipments found} =1 {1 equipment found} other {{{equipments.length}} equipments found}}</p>

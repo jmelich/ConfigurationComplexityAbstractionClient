@@ -55,6 +55,10 @@ import {DealerListComponent} from './dealer/dealer-list/dealer-list.component';
 import {DealerFormComponent} from './dealer/dealer-form/dealer-form.component';
 import {DealerDetailsComponent} from './dealer/dealer-details/dealer-details.component';
 import {DealerEditComponent} from './dealer/dealer-edit/dealer-edit.component';
+import {EquipmentListComponent} from './equipment/equipment-list/equipment-list.component';
+import {EquipmentFormComponent} from './equipment/equipment-form/equipment-form.component';
+import {EquipmentDetailsComponent} from './equipment/equipment-details/equipment-details.component';
+import {EquipmentEditComponent} from './equipment/equipment-edit/equipment-edit.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -114,4 +118,8 @@ export const routes: Routes = [
   { path: 'dealers/new', component: DealerFormComponent },
   { path: 'dealers/:id', component: DealerDetailsComponent },
   { path: 'dealers/:id/edit', component: DealerEditComponent },
+  { path: 'equipments', component: EquipmentListComponent },
+  { path: 'equipments/new', component: EquipmentFormComponent },
+  { path: 'equipments/:id', component: EquipmentDetailsComponent },
+  { path: 'equipments/:id/edit', component: EquipmentEditComponent },
 ];

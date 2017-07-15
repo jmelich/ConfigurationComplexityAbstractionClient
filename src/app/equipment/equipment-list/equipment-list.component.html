@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-4">
+    <h4 *ngIf="equipments.length == 0">There are no equipments registered</h4>
+    <h4 *ngIf="equipments.length > 0">There are {{equipments.length}} equipments registered</h4>
+  </div>
+  <div class="col-md-8">
+    <h4>
+      <a class="btn btn-primary" role="button"
+         [routerLink]="['/equipments/new']">Register New Equipment</a>
+    </h4>
+  </div>
+</div>
+
+<div class="row">
+  <h3 class="col-md-12">Equipments</h3>
+  <div class="col-md-12">
+    <app-equipment-search (onSearchited)="onSearch($event)" [equipments]="equipments"></app-equipment-search>
+  </div>
+</div>
+
+<div class="row">
+  <h3 class="col-md-12">Equipments</h3>
+</div>
+
+<div class="row">
+  <div class="panel-group col-md-12">
+    <div class="panel panel-default" *ngFor="let equipment of equipments">
+      <div class="panel-heading">
+        <h4><a routerLink="{{equipment.uri}}">{{equipment.title}}</a></h4>
+      </div>
+    </div>
+  </div>
+</div>
