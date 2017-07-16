@@ -11,12 +11,12 @@
   </div>
 </div>
 
-<div class="row">
+<!--<div class="row">
   <h3 class="col-md-12">Cards</h3>
   <div class="col-md-12">
     <app-card-search (onSearchited)="onSearch($event)" [cards]="cards"></app-card-search>
   </div>
-</div>
+</div>-->
 
 <div class="row">
   <h3 class="col-md-12">Cards</h3>
@@ -26,7 +26,7 @@
   <div class="panel-group col-md-12">
     <div class="panel panel-default" *ngFor="let card of cards">
       <div class="panel-heading">
-        <h4><a routerLink="{{card.uri}}">{{card.numberOfCard}}</a></h4>
+        <h4><a routerLink="{{card.uri}}">{{card.title}}</a></h4>
       </div>
     </div>
   </div>

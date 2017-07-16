@@ -53,7 +53,8 @@ export class CardService {
   }
 
   // GET /cards
-  getCardsOfBuilding(uri: string): Observable<Card[]> {
+  getCardsOfEquipment(uri: string): Observable<Card[]> {
+    console.log(`${environment.API}${uri}/cards`);
     return this.http.get(`${environment.API}${uri}/cards`)
       .map((res: Response) => res.json()._embedded.cards.map(json => new Card(json)))
       .catch((error: any) => Observable.throw(error.json()));

@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { EquipmentService } from '../../equipment/equipment.service';
 import {Equipment} from '../../equipment/equipment';
 
+import { UpdateCardService } from '../update.card.service';
+
 @Component({
   selector: 'app-card-form',
   templateUrl: './card-form.component.html',
@@ -21,6 +23,7 @@ export class CardFormComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private router: Router,
               private equipmentService: EquipmentService,
+              private updateService: UpdateCardService,
               private cardService: CardService) {
     this.cardForm = fb.group({
       'title': ['Card title', Validators.required],
@@ -41,10 +44,11 @@ export class CardFormComponent implements OnInit {
   onSubmit(): void {
     this.cardService.addCard(this.card)
       .subscribe(
-        card => { this.router.navigate([card.uri]); },
+        card => { /*this.router.navigate([card.uri]);*/ /*this.card = card;*/ this.updateService.announceCard(card); },
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         });
     console.log(this.card.uri);
+    this.card = new Card;
   }
 }

@@ -106,6 +106,7 @@ import {CardDetailsComponent} from './card/card-details/card-details.component';
 import {CardEditComponent} from './card/card-edit/card-edit.component';
 import {CardSearchComponent} from './card/card-search/card-search.component';
 import {CardService} from './card/card.service';
+import {UpdateCardService} from "./card/update.card.service";
 
 @NgModule({
   declarations: [
@@ -205,7 +206,7 @@ import {CardService} from './card/card.service';
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService,
               OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, UserService,
               FieldService, CommentService, OwnerService, DataStreamService, CampusService, BuildingService, FloorService, DealerService,
-  EquipmentService, CardService],
+  EquipmentService, CardService, UpdateCardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

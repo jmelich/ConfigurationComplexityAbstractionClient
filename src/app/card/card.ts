@@ -1,8 +1,9 @@
 export class Card {
   uri: string;
+  title: string;
   numberOfCard: number;
   numberOfPorts: number;
-  belongsTo: string;
+  isInEquipment: string;
   dateTime: string;
   lastModified: string;
   _links: any = {};
