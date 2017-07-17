@@ -17,6 +17,7 @@ export class EquipmentDetailsComponent implements OnInit {
   public equipment: Equipment = new Equipment();
   public dealer: Dealer = new Dealer();
   public errorMessage: string;
+  public showChildForm: any = false;
   // public isOwner: boolean;
 
   constructor(private route: ActivatedRoute,

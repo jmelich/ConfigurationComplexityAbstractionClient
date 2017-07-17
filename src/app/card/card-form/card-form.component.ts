@@ -19,6 +19,7 @@ export class CardFormComponent implements OnInit {
   public cardForm: FormGroup;
   public titleCtrl: AbstractControl;
   public errorMessage: string;
+  public showForm: any = false;
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -44,11 +45,16 @@ export class CardFormComponent implements OnInit {
   onSubmit(): void {
     this.cardService.addCard(this.card)
       .subscribe(
-        card => { /*this.router.navigate([card.uri]);*/ /*this.card = card;*/ this.updateService.announceCard(card); },
+        card => {
+          this.updateService.announceCard(card);
+          this.showForm = false;
+          },
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         });
     console.log(this.card.uri);
     this.card = new Card;
   }
+
+
 }
