@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-4">
+    <h4 *ngIf="cards.length == 0">There are no cards registered</h4>
+    <h4 *ngIf="cards.length > 0">There are {{cards.length}} cards registered</h4>
+  </div>
+  <!--<div class="col-md-8">
+    <h4>
+      <a class="btn btn-primary" role="button"
+         [routerLink]="['/cards/new']">Register New Card</a>
+    </h4>
+  </div>-->
+</div>
+
+<!--<div class="row">
+  <h3 class="col-md-12">Cards</h3>
+  <div class="col-md-12">
+    <app-card-search (onSearchited)="onSearch($event)" [cards]="cards"></app-card-search>
+  </div>
+</div>-->
+
+<div class="row">
+  <h3 class="col-md-12">Cards</h3>
+</div>
+
+<div class="row">
+  <div class="panel-group col-md-12">
+    <div class="panel panel-default" *ngFor="let card of cards">
+      <div class="panel-heading">
+        <h4><a routerLink="{{card.uri}}">{{card.title}}</a></h4>
+      </div>
+    </div>
+  </div>
+</div>
