@@ -1,43 +1,43 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { CardService } from '../card.service';
-import { Card } from '../card';
-import {Equipment} from '../../equipment/equipment';
+import { ConnectorService } from '../connector.service';
+import { Connector } from '../connector';
+import {Floor} from '../../floor/floor';
 
-import { UpdateCardService } from '../update.card.service';
+import { UpdateConnectorService } from '../update.connector.service';
 
 @Component({
-  selector: 'app-card-list',
-  templateUrl: './card-list.component.html',
-  styleUrls: ['./card-list.component.css']
+  selector: 'app-connector-list',
+  templateUrl: './connector-list.component.html',
+  styleUrls: ['./connector-list.component.css']
 })
-export class CardListComponent implements OnInit {
-  public cards: Card[] = [];
-  @Input() equipment: Equipment;
+export class ConnectorListComponent implements OnInit {
+  public connectors: Connector[] = [];
+  @Input() floor: Floor;
   public errorMessage: string;
 
-  constructor(private cardService: CardService,
-              private updateService: UpdateCardService) {
-    updateService.addedCard$.subscribe(
-      card => {
-        this.cards.push(card);
+  constructor(private connectorService: ConnectorService,
+              private updateService: UpdateConnectorService) {
+    updateService.addedConnector$.subscribe(
+      connector => {
+        this.connectors.push(connector);
       }
     );
   }
 
-  onSearch(cards) {
-    this.cards = cards;
+  onSearch(connectors) {
+    this.connectors = connectors;
   }
 
   ngOnInit() {
-    if ( this.equipment !== undefined) {
-      console.log(this.equipment.uri);
-      this.cardService.getCardsOfEquipment(this.equipment.uri).subscribe(
-        cards => { this.cards = cards; },
+    if ( this.floor !== undefined) {
+      console.log(this.floor.uri);
+      this.connectorService.getConnectorsOfFloor(this.floor.uri).subscribe(
+        connectors => { this.connectors = connectors; },
         error => this.errorMessage = <any>error.message
       );
     } else {
-      this.cardService.getAllCards().subscribe(
-        cards => { this.cards = cards; },
+      this.connectorService.getAllConnectors().subscribe(
+        connectors => { this.connectors = connectors; },
         error => this.errorMessage = <any>error.message
       );
     }

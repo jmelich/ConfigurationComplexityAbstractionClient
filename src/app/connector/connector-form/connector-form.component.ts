@@ -1,59 +1,59 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { Card } from '../card';
-import { CardService } from '../card.service';
+import { Connector } from '../connector';
+import { ConnectorService } from '../connector.service';
 import { Router } from '@angular/router';
-import { EquipmentService } from '../../equipment/equipment.service';
-import {Equipment} from '../../equipment/equipment';
+import { FloorService } from '../../floor/floor.service';
+import {Floor} from '../../floor/floor';
 
-import { UpdateCardService } from '../update.card.service';
+import { UpdateConnectorService } from '../update.connector.service';
 
 @Component({
-  selector: 'app-card-form',
-  templateUrl: './card-form.component.html',
-  styleUrls: ['./card-form.component.css']
+  selector: 'app-connector-form',
+  templateUrl: './connector-form.component.html',
+  styleUrls: ['./connector-form.component.css']
 })
-export class CardFormComponent implements OnInit {
-  public card: Card;
-  public equipments: Equipment[] = [];
-  public cardForm: FormGroup;
+export class ConnectorFormComponent implements OnInit {
+  public connector: Connector;
+  public floors: Floor[] = [];
+  public connectorForm: FormGroup;
   public titleCtrl: AbstractControl;
   public errorMessage: string;
   public showForm: any = false;
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private equipmentService: EquipmentService,
-              private updateService: UpdateCardService,
-              private cardService: CardService) {
-    this.cardForm = fb.group({
-      'title': ['Card title', Validators.required],
-      'description' : ['Card description'],
-      'isInEquipment'  : ['Card equipment'],
+              private floorService: FloorService,
+              private updateService: UpdateConnectorService,
+              private connectorService: ConnectorService) {
+    this.connectorForm = fb.group({
+      'title': ['Connector title', Validators.required],
+      'description' : ['Connector description'],
+      'isInFloor'  : ['Connector floor'],
       'numberOfPorts' : ['Number of Ports'],
     });
-    this.titleCtrl = this.cardForm.controls['title'];
-    this.card = new Card();
+    this.titleCtrl = this.connectorForm.controls['title'];
+    this.connector = new Connector();
   }
 
   ngOnInit() {
-    this.equipmentService.getAllEquipments().subscribe(
-      equipments => { this.equipments = equipments; },
+    this.floorService.getAllFloors().subscribe(
+      floors => { this.floors = floors; },
       error => this.errorMessage = <any>error.message
     );
   }
 
   onSubmit(): void {
-    this.cardService.addCard(this.card)
+    this.connectorService.addConnector(this.connector)
       .subscribe(
-        card => {
-          this.updateService.announceCard(card);
+        connector => {
+          this.updateService.announceConnector(connector);
           this.showForm = false;
           },
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         });
-    console.log(this.card.uri);
-    this.card = new Card;
+    console.log(this.connector.uri);
+    this.connector = new Connector;
   }
 }

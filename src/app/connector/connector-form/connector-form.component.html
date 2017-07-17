@@ -1,22 +1,22 @@
-<form id="card-form" [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+<form id="connector-form" [formGroup]="connectorForm" (ngSubmit)="onSubmit()">
   <fieldset>
 
 
     <div *ngIf="!showForm" class="col-md-4">
-      <button id="showForm" name="createCard" type="submit" (click)="showForm = true;"
-              class="btn btn-primary">Add a new card
+      <button id="showForm" name="createConnector" type="submit" (click)="showForm = true;"
+              class="btn btn-primary">Add a new connector
       </button>
     </div>
 
 
     <!-- Text input-->
     <div *ngIf="showForm" class="form-group row">
-      <label class="col-md-3 control-label" for="title">Card Title*</label>
+      <label class="col-md-3 control-label" for="title">Connector Title*</label>
       <div class="col-md-9">
         <input id="title" name="title" type="text" placeholder="Title" class="form-control input-md"
                [class.has-error]="titleCtrl.touched && titleCtrl.hasError('required')"
-               [formControl]="cardForm.controls['title']"
-               [(ngModel)]="card.title">
+               [formControl]="connectorForm.controls['title']"
+               [(ngModel)]="connector.title">
         <div *ngIf="titleCtrl.touched && titleCtrl.hasError('required')" class="label-warning">
            A title is required
         </div>
@@ -28,18 +28,18 @@
       <label class="col-md-3 control-label" for="numberOfPorts">Number of Ports</label>
       <div class="col-md-9">
         <textarea class="form-control" id="numberOfPorts" name="numberOfPorts" placeholder="Number of Ports"
-                  [formControl]="cardForm.controls['numberOfPorts']"
-                  [(ngModel)]="card.numberOfPorts"></textarea>
+                  [formControl]="connectorForm.controls['numberOfPorts']"
+                  [(ngModel)]="connector.numberOfPorts"></textarea>
       </div>
     </div>
 
     <div *ngIf="showForm" class="form-group row">
-      <label class="col-md-3 control-label" for="isInEquipment">Equipment</label>
+      <label class="col-md-3 control-label" for="isInFloor">Floor</label>
       <div class="col-md-9">
-        <select class="form-control" id="isInEquipment" name="isInEquipment"
-                [formControl]="cardForm.controls['isInEquipment']"
-                [(ngModel)]="card.isInEquipment">
-          <option *ngFor="let equipment of equipments" [ngValue]="equipment.uri">{{equipment.title}}</option>
+        <select class="form-control" id="isInFloor" name="isInFloor"
+                [formControl]="connectorForm.controls['isInFloor']"
+                [(ngModel)]="connector.isInFloor">
+          <option *ngFor="let floor of floors" [ngValue]="floor.uri">{{floor.title}}</option>
         </select>
       </div>
     </div>
@@ -48,8 +48,8 @@
     <div *ngIf="showForm" class="form-group row">
         <div class="col-md-9"></div>
         <div class="col-md-3">
-          <button id="createCard" name="createCard" type="submit"
-                  class="btn btn-success pull-right" [disabled]="!cardForm.valid" >Create
+          <button id="createConnector" name="createConnector" type="submit"
+                  class="btn btn-success pull-right" [disabled]="!connectorForm.valid" >Create
           </button>
 
           <button id="cancelForm" name="cancelForm" (click)="showForm = false;"

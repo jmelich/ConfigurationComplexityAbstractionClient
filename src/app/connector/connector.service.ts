@@ -53,7 +53,7 @@ export class ConnectorService {
   }
 
   // GET /connectors
-  getConnectorsOfCard(uri: string): Observable<Connector[]> {
+  getConnectorsOfFloor(uri: string): Observable<Connector[]> {
     console.log(`${environment.API}${uri}/connectors`);
     return this.http.get(`${environment.API}${uri}/connectors`)
       .map((res: Response) => res.json()._embedded.connectors.map(json => new Connector(json)))

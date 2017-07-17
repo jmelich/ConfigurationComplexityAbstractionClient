@@ -111,6 +111,13 @@ import {UpdateBuildingService} from './building/update.building.service';
 import {UpdateFloorService} from './floor/update.floor.service';
 import {UpdateDealerService} from './dealer/update.dealer.service';
 import {UpdateEquipmentService} from './equipment/update.equipment.service';
+import {ConnectorListComponent} from "./connector/connector-list/connector-list.component";
+import {ConnectorFormComponent} from "./connector/connector-form/connector-form.component";
+import {ConnectorDetailsComponent} from "./connector/connector-details/connector-details.component";
+import {ConnectorEditComponent} from "./connector/connector-edit/connector-edit.component";
+import {ConnectorSearchComponent} from "./connector/connector-search/connector-search.component";
+import {ConnectorService} from "./connector/connector.service";
+import {UpdateConnectorService} from "./connector/update.connector.service";
 
 @NgModule({
   declarations: [
@@ -197,6 +204,12 @@ import {UpdateEquipmentService} from './equipment/update.equipment.service';
     CardDetailsComponent,
     CardEditComponent,
     CardSearchComponent,
+
+    ConnectorListComponent,
+    ConnectorFormComponent,
+    ConnectorDetailsComponent,
+    ConnectorEditComponent,
+    ConnectorSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -210,7 +223,8 @@ import {UpdateEquipmentService} from './equipment/update.equipment.service';
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService,
               OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, UserService,
               FieldService, CommentService, OwnerService, DataStreamService, CampusService, BuildingService, FloorService, DealerService,
-  EquipmentService, CardService, UpdateCardService, UpdateBuildingService, UpdateFloorService, UpdateDealerService, UpdateEquipmentService],
+  EquipmentService, CardService, ConnectorService, UpdateCardService, UpdateBuildingService, UpdateFloorService, UpdateDealerService, UpdateEquipmentService,
+  UpdateConnectorService, ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

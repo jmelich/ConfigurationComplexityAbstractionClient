@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CardService } from '../card.service';
-import { Card } from '../card';
+import { ConnectorService } from '../connector.service';
+import { Connector } from '../connector';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
 import { OwnerService } from '../../user/owner.service';
-import {EquipmentService} from '../../equipment/equipment.service';
-import {Equipment} from '../../equipment/equipment';
+import {FloorService} from '../../floor/floor.service';
+import {Floor} from '../../floor/floor';
 
 
 @Component({
-  selector: 'app-card-details',
-  templateUrl: './card-details.component.html',
-  styleUrls: ['./card-details.component.css']
+  selector: 'app-connector-details',
+  templateUrl: './connector-details.component.html',
+  styleUrls: ['./connector-details.component.css']
 })
-export class CardDetailsComponent implements OnInit {
-  public card: Card = new Card();
-  public equipment: Equipment = new Equipment();
+export class ConnectorDetailsComponent implements OnInit {
+  public connector: Connector = new Connector();
+  public floor: Floor = new Floor();
   public errorMessage: string;
   // public isOwner: boolean;
 
   constructor(private route: ActivatedRoute,
-              private cardService: CardService,
-              private equipmentService: EquipmentService,
+              private connectorService: ConnectorService,
+              private floorService: FloorService,
               private authenticationService: AuthenticationBasicService,
               private ownerService: OwnerService) {
   }
@@ -30,17 +30,17 @@ export class CardDetailsComponent implements OnInit {
     this.route.params
       .map(params => params['id'])
       .subscribe((id) => {
-        const uri = `/cards/${id}`;
-        this.cardService.getCard(uri).subscribe(
-          card => {
-            this.card = card;
+        const uri = `/connectors/${id}`;
+        this.connectorService.getConnector(uri).subscribe(
+          connector => {
+            this.connector = connector;
 
-            const uri_equipment = `/cards/${id}/isInEquipment`;
-            this.equipmentService.getEquipment(uri_equipment).subscribe(
-              equipment => this.equipment = equipment
+            const uri_floor = `/connectors/${id}/isInFloor`;
+            this.floorService.getFloor(uri_floor).subscribe(
+              floor => this.floor = floor
             );
-            /*if (this.equipment._links != null) {
-              this.ownerService.getOwner(this.equipment._links.owner.href).subscribe(
+            /*if (this.floor._links != null) {
+              this.ownerService.getOwner(this.floor._links.owner.href).subscribe(
                 owner => {
                   this.comment.user = owner.getUserName();
                   this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();

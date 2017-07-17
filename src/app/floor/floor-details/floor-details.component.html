@@ -43,6 +43,21 @@
   </div>
 </div>
 
+
+
+
+<div *ngIf="floor.uri !== undefined" class="row">
+  <div class="col-md-12">
+    <app-connector-list [floor]="floor"></app-connector-list>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <app-connector-form ></app-connector-form>
+  </div>
+</div>
+
 <div class="row">
 
 </div>

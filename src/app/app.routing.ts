@@ -63,6 +63,10 @@ import {CardListComponent} from './card/card-list/card-list.component';
 import {CardFormComponent} from './card/card-form/card-form.component';
 import {CardDetailsComponent} from './card/card-details/card-details.component';
 import {CardEditComponent} from './card/card-edit/card-edit.component';
+import {ConnectorListComponent} from './connector/connector-list/connector-list.component';
+import {ConnectorFormComponent} from './connector/connector-form/connector-form.component';
+import {ConnectorDetailsComponent} from './connector/connector-details/connector-details.component';
+import {ConnectorEditComponent} from './connector/connector-edit/connector-edit.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -131,4 +135,9 @@ export const routes: Routes = [
   { path: 'cards/new', component: CardFormComponent },
   { path: 'cards/:id', component: CardDetailsComponent },
   { path: 'cards/:id/edit', component: CardEditComponent },
+
+  { path: 'connectors', component: ConnectorListComponent },
+  { path: 'connectors/new', component: ConnectorFormComponent },
+  { path: 'connectors/:id', component: ConnectorDetailsComponent },
+  { path: 'connectors/:id/edit', component: ConnectorEditComponent },
 ];
