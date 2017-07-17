@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { DealerService } from '../../dealer/dealer.service';
 import {Dealer} from '../../dealer/dealer';
 
+import { UpdateEquipmentService } from '../update.equipment.service';
+
 @Component({
   selector: 'app-equipment-form',
   templateUrl: './equipment-form.component.html',
@@ -17,10 +19,12 @@ export class EquipmentFormComponent implements OnInit {
   public equipmentForm: FormGroup;
   public titleCtrl: AbstractControl;
   public errorMessage: string;
+  public showForm: any = false;
 
   constructor(private fb: FormBuilder,
               private router: Router,
               private dealerService: DealerService,
+              private updateService: UpdateEquipmentService,
               private equipmentService: EquipmentService) {
     this.equipmentForm = fb.group({
       'title': ['Equipment title', Validators.required],
@@ -46,10 +50,14 @@ export class EquipmentFormComponent implements OnInit {
   onSubmit(): void {
     this.equipmentService.addEquipment(this.equipment)
       .subscribe(
-        equipment => { this.router.navigate([equipment.uri]); },
+        equipment => {
+          this.updateService.announceEquipment(equipment);
+          this.showForm = false;
+          },
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         });
     console.log(this.equipment.uri);
+    this.equipment = new Equipment;
   }
 }
