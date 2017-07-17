@@ -1,9 +1,15 @@
-<h2>Create Building</h2>
 <form id="building-form" [formGroup]="buildingForm" (ngSubmit)="onSubmit()">
   <fieldset>
 
+
+    <div *ngIf="!showForm" class="col-md-4">
+      <button id="showForm" name="createBuilding" type="submit" (click)="showForm = true;"
+              class="btn btn-primary">Add a new building
+      </button>
+    </div>
+
     <!-- Text input-->
-    <div class="form-group row">
+    <div *ngIf="showForm" class="form-group row">
       <label class="col-md-3 control-label" for="title">Building Title*</label>
       <div class="col-md-9">
         <input id="title" name="title" type="text" placeholder="Title" class="form-control input-md"
@@ -17,7 +23,7 @@
     </div>
 
     <!-- Textarea -->
-    <div class="form-group row">
+    <div *ngIf="showForm" class="form-group row">
       <label class="col-md-3 control-label" for="description">Building Description</label>
       <div class="col-md-9">
         <textarea class="form-control" id="description" name="description" placeholder="Description"
@@ -26,7 +32,7 @@
       </div>
     </div>
 
-    <div class="form-group row">
+    <div *ngIf="showForm" class="form-group row">
       <label class="col-md-3 control-label" for="isInCampus">Campus</label>
       <div class="col-md-9">
         <select class="form-control" id="isInCampus" name="isInCampus"
@@ -38,7 +44,7 @@
     </div>
 
     <!-- Textarea -->
-    <div class="form-group row">
+    <div *ngIf="showForm" class="form-group row">
       <label class="col-md-3 control-label" for="latitude">Building latitude</label>
       <div class="col-md-9">
         <textarea class="form-control" id="latitude" name="latitude" placeholder="Latitude"
@@ -48,7 +54,7 @@
     </div>
 
     <!-- Textarea -->
-    <div class="form-group row">
+    <div *ngIf="showForm" class="form-group row">
       <label class="col-md-3 control-label" for="longitude">Building longitude</label>
       <div class="col-md-9">
         <textarea class="form-control" id="longitude" name="longitude" placeholder="Longitude"
@@ -58,11 +64,15 @@
     </div>
 
     <!-- Button -->
-    <div class="form-group row">
+    <div *ngIf="showForm" class="form-group row">
         <div class="col-md-3"></div>
         <div class="col-md-9">
             <button id="createBuilding" name="createBuilding" type="submit"
                     class="btn btn-success pull-right" [disabled]="!buildingForm.valid">Create
+            </button>
+
+            <button id="cancelForm" name="cancelForm" (click)="showForm = false;"
+                    class="btn btn-danger pull-right">Cancel
             </button>
         </div>
     </div>

@@ -55,6 +55,4 @@ export class CardFormComponent implements OnInit {
     console.log(this.card.uri);
     this.card = new Card;
   }
-
-
 }

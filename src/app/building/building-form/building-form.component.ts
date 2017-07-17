@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { CampusService } from '../../campus/campus.service';
 import {Campus} from '../../campus/campus';
 
+import { UpdateBuildingService } from '../update.building.service';
+
 @Component({
   selector: 'app-building-form',
   templateUrl: './building-form.component.html',
@@ -17,10 +19,12 @@ export class BuildingFormComponent implements OnInit {
   public buildingForm: FormGroup;
   public titleCtrl: AbstractControl;
   public errorMessage: string;
+  public showForm: any = false;
 
   constructor(private fb: FormBuilder,
               private router: Router,
               private campusService: CampusService,
+              private updateService: UpdateBuildingService,
               private buildingService: BuildingService) {
     this.buildingForm = fb.group({
       'title': ['Building title', Validators.required],
@@ -43,10 +47,14 @@ export class BuildingFormComponent implements OnInit {
   onSubmit(): void {
     this.buildingService.addBuilding(this.building)
       .subscribe(
-        building => { this.router.navigate([building.uri]); },
+        building => {
+          this.updateService.announceBuilding(building);
+          this.showForm = false;
+          },
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         });
     console.log(this.building.uri);
+    this.building = new Building();
   }
 }

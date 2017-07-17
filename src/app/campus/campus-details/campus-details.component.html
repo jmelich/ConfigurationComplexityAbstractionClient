@@ -36,10 +36,22 @@
 </div>
 
 
-<div *ngIf="buildings" class="col-md-2">
+<!--<div *ngIf="buildings" class="col-md-2">
   <h4>Buildings:</h4>
   <div *ngFor="let building of buildings">
     <a href="{{building.uri}}">{{building.title}}</a>
+  </div>
+</div> -->
+
+<div *ngIf="campus.uri !== undefined" class="row">
+  <div class="col-md-12">
+    <app-building-list [campus]="campus"></app-building-list>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <app-building-form ></app-building-form>
   </div>
 </div>
 
