@@ -1,9 +1,14 @@
-<h2>Create Floor</h2>
 <form id="floor-form" [formGroup]="floorForm" (ngSubmit)="onSubmit()">
   <fieldset>
 
+    <div *ngIf="!showForm" class="col-md-4">
+      <button id="showForm" name="createFloor" type="submit" (click)="showForm = true;"
+              class="btn btn-primary">Add a new floor
+      </button>
+    </div>
+
     <!-- Text input-->
-    <div class="form-group row">
+    <div *ngIf="showForm" class="form-group row">
       <label class="col-md-3 control-label" for="title">Floor Title*</label>
       <div class="col-md-9">
         <input id="title" name="title" type="text" placeholder="Title" class="form-control input-md"
@@ -17,7 +22,7 @@
     </div>
 
     <!-- Textarea -->
-    <div class="form-group row">
+    <div *ngIf="showForm" class="form-group row">
       <label class="col-md-3 control-label" for="description">Floor Description</label>
       <div class="col-md-9">
         <textarea class="form-control" id="description" name="description" placeholder="Description"
@@ -26,7 +31,7 @@
       </div>
     </div>
 
-    <div class="form-group row">
+    <div *ngIf="showForm" class="form-group row">
       <label class="col-md-3 control-label" for="isInBuilding">Building</label>
       <div class="col-md-9">
         <select class="form-control" id="isInBuilding" name="isInBuilding"
@@ -38,11 +43,15 @@
     </div>
 
     <!-- Button -->
-    <div class="form-group row">
+    <div *ngIf="showForm" class="form-group row">
         <div class="col-md-3"></div>
         <div class="col-md-9">
             <button id="createFloor" name="createFloor" type="submit"
                     class="btn btn-success pull-right" [disabled]="!floorForm.valid">Create
+            </button>
+
+            <button id="cancelForm" name="cancelForm" (click)="showForm = false;"
+                    class="btn btn-danger pull-right">Cancel
             </button>
         </div>
     </div>

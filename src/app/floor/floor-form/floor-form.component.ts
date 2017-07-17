@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { BuildingService } from '../../building/building.service';
 import {Building} from '../../building/building';
 
+import { UpdateFloorService } from '../update.floor.service';
+
 @Component({
   selector: 'app-floor-form',
   templateUrl: './floor-form.component.html',
@@ -17,10 +19,12 @@ export class FloorFormComponent implements OnInit {
   public floorForm: FormGroup;
   public titleCtrl: AbstractControl;
   public errorMessage: string;
+  public showForm: any = false;
 
   constructor(private fb: FormBuilder,
               private router: Router,
               private buildingService: BuildingService,
+              private updateService: UpdateFloorService,
               private floorService: FloorService) {
     this.floorForm = fb.group({
       'title': ['Floor title', Validators.required],
@@ -41,10 +45,14 @@ export class FloorFormComponent implements OnInit {
   onSubmit(): void {
     this.floorService.addFloor(this.floor)
       .subscribe(
-        floor => { this.router.navigate([floor.uri]); },
+        floor => {
+          this.updateService.announceFloor(floor);
+          this.showForm = false;
+          },
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         });
     console.log(this.floor.uri);
+    this.floor = new Floor();
   }
 }

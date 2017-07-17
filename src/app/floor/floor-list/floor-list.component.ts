@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { FloorService } from '../floor.service';
 import { Floor } from '../floor';
+import {Building} from '../../building/building';
+import {UpdateFloorService} from '../update.floor.service';
 
 @Component({
   selector: 'app-floor-list',
@@ -9,18 +11,34 @@ import { Floor } from '../floor';
 })
 export class FloorListComponent implements OnInit {
   public floors: Floor[] = [];
+  @Input() building: Building;
   public errorMessage: string;
 
-  constructor(private floorService: FloorService) { }
+  constructor(private floorService: FloorService,
+              private updateService: UpdateFloorService) {
+    updateService.addedFloor$.subscribe(
+      floor => {
+        this.floors.push(floor);
+      }
+    );
+  }
 
   onSearch(floors) {
     this.floors = floors;
   }
 
   ngOnInit() {
-    this.floorService.getAllFloors().subscribe(
-      floors => { this.floors = floors; },
-      error => this.errorMessage = <any>error.message
-    );
+    if (this.building !== undefined) {
+      this.floorService.getFloorsOfBuilding(this.building.uri).subscribe(
+        floors => { this.floors = floors; },
+        error => this.errorMessage = <any>error.message
+      );
+    }else {
+      this.floorService.getAllFloors().subscribe(
+        floors => { this.floors = floors; },
+        error => this.errorMessage = <any>error.message
+      );
+    }
+
   }
 }
