@@ -23,6 +23,16 @@
       </div>
     </div>
 
+    <!-- Textarea -->
+    <div *ngIf="showForm" class="form-group row">
+      <label class="col-md-3 control-label" for="numberOfPorts">Number of Ports</label>
+      <div class="col-md-9">
+        <textarea class="form-control" id="numberOfPorts" name="numberOfPorts" placeholder="Number of Ports"
+                  [formControl]="cardForm.controls['numberOfPorts']"
+                  [(ngModel)]="card.numberOfPorts"></textarea>
+      </div>
+    </div>
+
     <div *ngIf="showForm" class="form-group row">
       <label class="col-md-3 control-label" for="isInEquipment">Equipment</label>
       <div class="col-md-9">

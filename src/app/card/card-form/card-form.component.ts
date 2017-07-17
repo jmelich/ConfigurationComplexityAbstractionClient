@@ -29,7 +29,8 @@ export class CardFormComponent implements OnInit {
     this.cardForm = fb.group({
       'title': ['Card title', Validators.required],
       'description' : ['Card description'],
-      'isInEquipment'  : ['Card equipment']
+      'isInEquipment'  : ['Card equipment'],
+      'numberOfPorts' : ['Number of Ports'],
     });
     this.titleCtrl = this.cardForm.controls['title'];
     this.card = new Card();
