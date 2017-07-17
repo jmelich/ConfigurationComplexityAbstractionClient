@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { BuildingService } from '../building.service';
 import { Building } from '../building';
-import {Campus} from "../../campus/campus";
-import {UpdateBuildingService} from "../update.building.service";
+import {Campus} from '../../campus/campus';
+import {UpdateBuildingService} from '../update.building.service';
 
 @Component({
   selector: 'app-building-list',

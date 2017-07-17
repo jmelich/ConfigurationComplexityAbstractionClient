@@ -5,6 +5,7 @@ import { DealerService } from '../dealer.service';
 import { Router } from '@angular/router';
 import { FloorService } from '../../floor/floor.service';
 import {Floor} from '../../floor/floor';
+import {UpdateDealerService} from "../update.dealer.service";
 
 @Component({
   selector: 'app-dealer-form',
@@ -17,10 +18,12 @@ export class DealerFormComponent implements OnInit {
   public dealerForm: FormGroup;
   public titleCtrl: AbstractControl;
   public errorMessage: string;
+  public showForm: any = false;
 
   constructor(private fb: FormBuilder,
               private router: Router,
               private dealerService: DealerService,
+              private updateService: UpdateDealerService,
               private floorService: FloorService) {
     this.dealerForm = fb.group({
       'title': ['Dealer title', Validators.required],
@@ -41,10 +44,14 @@ export class DealerFormComponent implements OnInit {
   onSubmit(): void {
     this.dealerService.addDealer(this.dealer)
       .subscribe(
-        dealer => { this.router.navigate([dealer.uri]); },
+        dealer => {
+          this.updateService.announceDealer(dealer);
+          this.showForm = false;
+        },
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         });
     console.log(this.dealer.uri);
+    this.dealer = new Dealer();
   }
 }

@@ -31,6 +31,18 @@
   </div>
 </div>
 
+<div *ngIf="floor.uri !== undefined" class="row">
+  <div class="col-md-12">
+    <app-dealer-list [floor]="floor"></app-dealer-list>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <app-dealer-form ></app-dealer-form>
+  </div>
+</div>
+
 <div class="row">
 
 </div>
