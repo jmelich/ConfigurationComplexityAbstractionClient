@@ -30,6 +30,7 @@ export class ConnectorDetailsComponent implements OnInit {
   public equipments: Equipment[] = [];
   public cards: Card[] = [];
   public ports: Port[] = [];
+  public port: Port;
   public errorMessage: string;
   // public isOwner: boolean;
 
@@ -62,9 +63,11 @@ export class ConnectorDetailsComponent implements OnInit {
                     this.floorService.getFloorsOfBuilding(uri_building).subscribe(
                       floors => this.floors = floors
                     );
-                  }
+                  },
+                  error => this.errorMessage = <any>error.message,
                 );
-              }
+              },
+              error => this.errorMessage = <any>error.message,
             );
           },
           error => this.errorMessage = <any>error.message,
