@@ -13,6 +13,8 @@ import {EquipmentService} from '../../equipment/equipment.service';
 import {Equipment} from '../../equipment/equipment';
 import {CardService} from '../../card/card.service';
 import {Card} from '../../card/card';
+import {PortService} from '../../port/port.service';
+import {Port} from '../../port/port';
 
 
 @Component({
@@ -27,7 +29,7 @@ export class ConnectorDetailsComponent implements OnInit {
   public dealers: Dealer[] = [];
   public equipments: Equipment[] = [];
   public cards: Card[] = [];
-  public ports: Card[] = [];
+  public ports: Port[] = [];
   public errorMessage: string;
   // public isOwner: boolean;
 
@@ -37,6 +39,7 @@ export class ConnectorDetailsComponent implements OnInit {
               private dealerService: DealerService,
               private equipmentService: EquipmentService,
               private cardService: CardService,
+              private portService: PortService,
               private authenticationService: AuthenticationBasicService,
               private ownerService: OwnerService) {
   }
@@ -101,10 +104,10 @@ export class ConnectorDetailsComponent implements OnInit {
   }
   onChangeCard(selection) {
     console.log(selection.uri);
-    /*this.portService.getPortsOfCard(selection.uri).subscribe(
+    this.portService.getPortsOfCard(selection.uri).subscribe(
       ports => {
         this.ports = ports;
       }
-    );*/
+    );
   }
 }

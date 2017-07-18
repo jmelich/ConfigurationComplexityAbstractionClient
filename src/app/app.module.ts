@@ -118,6 +118,7 @@ import {ConnectorEditComponent} from "./connector/connector-edit/connector-edit.
 import {ConnectorSearchComponent} from "./connector/connector-search/connector-search.component";
 import {ConnectorService} from "./connector/connector.service";
 import {UpdateConnectorService} from "./connector/update.connector.service";
+import {PortService} from "./port/port.service";
 
 @NgModule({
   declarations: [
@@ -224,7 +225,7 @@ import {UpdateConnectorService} from "./connector/update.connector.service";
               OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, UserService,
               FieldService, CommentService, OwnerService, DataStreamService, CampusService, BuildingService, FloorService, DealerService,
   EquipmentService, CardService, ConnectorService, UpdateCardService, UpdateBuildingService, UpdateFloorService, UpdateDealerService, UpdateEquipmentService,
-  UpdateConnectorService, ],
+  UpdateConnectorService, PortService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
