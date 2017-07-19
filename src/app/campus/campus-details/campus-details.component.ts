@@ -41,9 +41,9 @@ export class CampusDetailsComponent implements OnInit {
                   this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
                 });
             }*/
-            this.buildingService.getBuildingsOfCampus(uri).subscribe(
+            /*this.buildingService.getBuildingsOfCampus(uri).subscribe(
               buildings => this.buildings = buildings
-            );
+            );*/
           },
           error => this.errorMessage = <any>error.message,
         );

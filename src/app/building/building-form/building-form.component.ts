@@ -43,7 +43,6 @@ export class BuildingFormComponent implements OnInit {
       campuses => { this.campuses = campuses; },
       error => this.errorMessage = <any>error.message
     );
-    console.log('afterInitCampus:' + this.campus.uri);
   }
 
   onSubmit(): void {
