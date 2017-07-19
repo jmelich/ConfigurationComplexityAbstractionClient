@@ -6,6 +6,7 @@ import 'rxjs/add/observable/throw';
 import {environment} from '../../environments/environment';
 import {Building} from './building';
 import {Injectable} from '@angular/core';
+import {Campus} from "../campus/campus";
 
 @Injectable()
 export class BuildingService {
@@ -63,6 +64,12 @@ export class BuildingService {
   // GET /buildings/search/findByBuildingByTitleContaining?title
   getBuildingsByTitleContaining(building: string): Observable<Building[]> {
     return this.http.get(environment.API + '/buildings/search/findByTitleContaining?title=' + building)
+      .map((res: Response) => res.json()._embedded.buildings.map(json => new Building(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  getBuildingsByTitleContainingAndInCampus(building: string, campus: Campus): Observable<Building[]> {
+    return this.http.get(environment.API + '/buildings/search/findByTitleContainingAndIsInCampus?title=' + building + '&campus=' + campus.uri)
       .map((res: Response) => res.json()._embedded.buildings.map(json => new Building(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }

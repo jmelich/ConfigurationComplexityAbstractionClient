@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {Building} from '../building';
 import {BuildingService} from '../building.service';
+import {Campus} from '../../campus/campus';
 
 @Component({
   selector: 'app-building-search',
@@ -9,6 +10,8 @@ import {BuildingService} from '../building.service';
   styleUrls: ['building-search.component.css']
 })
 export class BuildingSearchComponent {
+  @Input()
+  campus: Campus;
   @Input()
   buildings: Building[];
   @Output()
@@ -28,13 +31,23 @@ export class BuildingSearchComponent {
       .subscribe((id) => {
         if (id != null) { this.building = `/buildings/${id}`; }
       });
-    this.buildingService.getBuildingsByTitleContaining(searchTerm).subscribe(
-      buildings => {
-        // Send to output emitter
-        this.onSearchited.emit(buildings);
-      },
-      error => this.errorMessage = <any>error.message
-    );
+    if (this.campus !== undefined) {
+      this.buildingService.getBuildingsByTitleContainingAndInCampus(searchTerm, this.campus).subscribe(
+        buildings => {
+          // Send to output emitter
+          this.onSearchited.emit(buildings);
+        },
+        error => this.errorMessage = <any>error.message
+      );
+    }else {
+      this.buildingService.getBuildingsByTitleContaining(searchTerm).subscribe(
+        buildings => {
+          // Send to output emitter
+          this.onSearchited.emit(buildings);
+        },
+        error => this.errorMessage = <any>error.message
+      );
+    }
   }
 
 }
