@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+  import {Component, Input, OnInit} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Building } from '../building';
 import { BuildingService } from '../building.service';
@@ -15,6 +15,7 @@ import { UpdateBuildingService } from '../update.building.service';
 })
 export class BuildingFormComponent implements OnInit {
   public building: Building;
+  @Input() campus: Campus;
   public campuses: Campus[] = [];
   public buildingForm: FormGroup;
   public titleCtrl: AbstractControl;
@@ -42,6 +43,7 @@ export class BuildingFormComponent implements OnInit {
       campuses => { this.campuses = campuses; },
       error => this.errorMessage = <any>error.message
     );
+    console.log('afterInitCampus:' + this.campus.uri);
   }
 
   onSubmit(): void {
