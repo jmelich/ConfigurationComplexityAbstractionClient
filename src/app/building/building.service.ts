@@ -63,13 +63,13 @@ export class BuildingService {
 
   // GET /buildings/search/findByBuildingByTitleContaining?title
   getBuildingsByTitleContaining(building: string): Observable<Building[]> {
-    return this.http.get(environment.API + '/buildings/search/findByTitleContaining?title=' + building)
+    return this.http.get(environment.API + '/buildings/search/findByTitleContainingIgnoreCase?title=' + building)
       .map((res: Response) => res.json()._embedded.buildings.map(json => new Building(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   getBuildingsByTitleContainingAndInCampus(building: string, campus: Campus): Observable<Building[]> {
-    return this.http.get(environment.API + '/buildings/search/findByTitleContainingAndIsInCampus?title=' + building + '&campus=' + campus.uri)
+    return this.http.get(environment.API + '/buildings/search/findByTitleContainingIgnoreCaseAndIsInCampus?title=' + building + '&campus=' + campus.uri)
       .map((res: Response) => res.json()._embedded.buildings.map(json => new Building(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
