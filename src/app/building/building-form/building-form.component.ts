@@ -21,6 +21,7 @@ export class BuildingFormComponent implements OnInit {
   public titleCtrl: AbstractControl;
   public errorMessage: string;
   public showForm: any = false;
+  public selectEnabled = true;
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -42,10 +43,14 @@ export class BuildingFormComponent implements OnInit {
     this.campusService.getAllCampuses().subscribe(
       campuses => {
         this.campuses = campuses;
-        this.building.isInCampus = this.campus.uri;
         },
       error => this.errorMessage = <any>error.message
     );
+    if (this.campus) {
+      this.building.isInCampus = this.campus.uri;
+      this.selectEnabled = false;
+      this.buildingForm.get('isInCampus').disable();
+    }
   }
 
   onSubmit(): void {
@@ -60,5 +65,6 @@ export class BuildingFormComponent implements OnInit {
         });
     console.log(this.building.uri);
     this.building = new Building();
+    this.building.isInCampus = this.campus.uri;
   }
 }

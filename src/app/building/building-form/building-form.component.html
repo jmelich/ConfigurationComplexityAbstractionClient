@@ -35,11 +35,11 @@
     <div *ngIf="showForm" class="form-group row">
       <label class="col-md-3 control-label" for="isInCampus">Campus</label>
       <div class="col-md-9">
-        <select *ngIf="campus.uri" class="form-control" id="isInCampus" name="isInCampus"
+        <select class="form-control" id="isInCampus" name="isInCampus"
                 [formControl]="buildingForm.controls['isInCampus']"
                 [(ngModel)]="building.isInCampus">
           <option *ngFor="let campusItem of campuses"
-                  [ngValue]="campusItem.uri">{{campusItem.title + campus.uri}}
+                  [ngValue]="campusItem.uri">{{campusItem.title}}
           </option>
         </select>
       </div>

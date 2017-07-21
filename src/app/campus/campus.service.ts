@@ -54,7 +54,7 @@ export class CampusService {
 
   // GET /campuses/ + search/findByDatasetContaining?dataset
   getCampusesByTitleContaining(campus: string): Observable<Campus[]> {
-    return this.http.get(environment.API + '/campuses/search/findByTitleContaining?title=' + campus)
+    return this.http.get(environment.API + '/campuses/search/findByTitleContainingIgnoreCase?title=' + campus)
       .map((res: Response) => res.json()._embedded.campuses.map(json => new Campus(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
