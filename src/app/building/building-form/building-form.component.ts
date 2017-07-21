@@ -40,7 +40,10 @@ export class BuildingFormComponent implements OnInit {
 
   ngOnInit() {
     this.campusService.getAllCampuses().subscribe(
-      campuses => { this.campuses = campuses; },
+      campuses => {
+        this.campuses = campuses;
+        this.building.isInCampus = this.campus.uri;
+        },
       error => this.errorMessage = <any>error.message
     );
   }

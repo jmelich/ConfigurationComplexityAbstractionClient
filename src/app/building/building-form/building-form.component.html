@@ -39,8 +39,7 @@
                 [formControl]="buildingForm.controls['isInCampus']"
                 [(ngModel)]="building.isInCampus">
           <option *ngFor="let campusItem of campuses"
-                  [ngValue]="campusItem.uri"
-                  [selected]="campusItem.uri.trim() === campus?.uri.trim()">{{campusItem.title}}
+                  [ngValue]="campusItem.uri">{{campusItem.title + campus.uri}}
           </option>
         </select>
       </div>
