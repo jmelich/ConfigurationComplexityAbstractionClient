@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {Equipment} from '../equipment';
 import {EquipmentService} from '../equipment.service';
+import {Dealer} from '../../dealer/dealer';
 
 @Component({
   selector: 'app-equipment-search',
@@ -9,10 +10,9 @@ import {EquipmentService} from '../equipment.service';
   styleUrls: ['equipment-search.component.css']
 })
 export class EquipmentSearchComponent {
-  @Input()
-  equipments: Equipment[];
-  @Output()
-  onSearchited: EventEmitter<any> = new EventEmitter();
+  @Input()  equipments: Equipment[];
+  @Input()  dealer: Dealer;
+  @Output()  onSearchited: EventEmitter<any> = new EventEmitter();
   private equipment: string = null;
 
   public errorMessage: string;
@@ -28,13 +28,24 @@ export class EquipmentSearchComponent {
       .subscribe((id) => {
         if (id != null) { this.equipment = `/equipments/${id}`; }
       });
-    this.equipmentService.getEquipmentsByTitleContaining(searchTerm).subscribe(
-      equipments => {
-        // Send to output emitter
-        this.onSearchited.emit(equipments);
-      },
-      error => this.errorMessage = <any>error.message
-    );
+    if (this.dealer !== undefined) {
+      this.equipmentService.getEquipmentsByTitleContainingAndInDealer(searchTerm, this.dealer).subscribe(
+        equipments => {
+          // Send to output emitter
+          this.onSearchited.emit(equipments);
+        },
+        error => this.errorMessage = <any>error.message
+      );
+    } else {
+      this.equipmentService.getEquipmentsByTitleContaining(searchTerm).subscribe(
+        equipments => {
+          // Send to output emitter
+          this.onSearchited.emit(equipments);
+        },
+        error => this.errorMessage = <any>error.message
+      );
+    }
+
   }
 
 }

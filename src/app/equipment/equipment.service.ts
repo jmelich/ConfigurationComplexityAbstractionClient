@@ -6,6 +6,7 @@ import 'rxjs/add/observable/throw';
 import {environment} from '../../environments/environment';
 import {Equipment} from './equipment';
 import {Injectable} from '@angular/core';
+import {Dealer} from '../dealer/dealer';
 
 @Injectable()
 export class EquipmentService {
@@ -62,7 +63,14 @@ export class EquipmentService {
 
   // GET /equipments/search/findByByTitleContaining?title
   getEquipmentsByTitleContaining(equipment: string): Observable<Equipment[]> {
-    return this.http.get(environment.API + '/equipments/search/findByTitleContaining?title=' + equipment)
+    return this.http.get(environment.API + '/equipments/search/findByTitleContainingIgnoreCase?title=' + equipment)
+      .map((res: Response) => res.json()._embedded.equipments.map(json => new Equipment(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /equipments/search/findByByTitleContaining?title
+  getEquipmentsByTitleContainingAndInDealer(equipment: string, dealer: Dealer): Observable<Equipment[]> {
+    return this.http.get(environment.API + '/equipments/search/findByTitleContainingIgnoreCaseAndIsInDealer?title=' + equipment + '&dealer=' + dealer.uri)
       .map((res: Response) => res.json()._embedded.equipments.map(json => new Equipment(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Equipment } from '../equipment';
 import { EquipmentService } from '../equipment.service';
@@ -15,6 +15,7 @@ import { UpdateEquipmentService } from '../update.equipment.service';
 })
 export class EquipmentFormComponent implements OnInit {
   public equipment: Equipment;
+  @Input() dealer:  Dealer;
   public dealers: Dealer[] = [];
   public equipmentForm: FormGroup;
   public titleCtrl: AbstractControl;
@@ -45,6 +46,10 @@ export class EquipmentFormComponent implements OnInit {
       dealers => { this.dealers = dealers; },
       error => this.errorMessage = <any>error.message
     );
+    if (this.dealer) {
+      this.equipment.isInDealer = this.dealer.uri;
+      this.equipmentForm.get('isInDealer').disable();
+    }
   }
 
   onSubmit(): void {
@@ -59,5 +64,6 @@ export class EquipmentFormComponent implements OnInit {
         });
     console.log(this.equipment.uri);
     this.equipment = new Equipment;
+    this.equipment.isInDealer = this.dealer.uri;
   }
 }
