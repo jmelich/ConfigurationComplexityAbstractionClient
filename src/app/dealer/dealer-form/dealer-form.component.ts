@@ -60,6 +60,8 @@ export class DealerFormComponent implements OnInit {
         });
     console.log(this.dealer.uri);
     this.dealer = new Dealer();
-    this.dealer.isInFloor = this.floor.uri;
+    if (this.floor) {
+      this.dealer.isInFloor = this.floor.uri;
+    }
   }
 }

@@ -65,6 +65,8 @@ export class BuildingFormComponent implements OnInit {
         });
     console.log(this.building.uri);
     this.building = new Building();
-    this.building.isInCampus = this.campus.uri;
+    if (this.campus){
+      this.building.isInCampus = this.campus.uri;
+    }
   }
 }

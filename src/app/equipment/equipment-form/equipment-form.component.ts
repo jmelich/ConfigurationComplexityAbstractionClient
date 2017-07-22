@@ -64,6 +64,8 @@ export class EquipmentFormComponent implements OnInit {
         });
     console.log(this.equipment.uri);
     this.equipment = new Equipment;
-    this.equipment.isInDealer = this.dealer.uri;
+    if (this.dealer) {
+      this.equipment.isInDealer = this.dealer.uri;
+    }
   }
 }
