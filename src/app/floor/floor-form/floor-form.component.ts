@@ -41,6 +41,10 @@ export class FloorFormComponent implements OnInit {
       buildings => { this.buildings = buildings; },
       error => this.errorMessage = <any>error.message
     );
+    if (this.building) {
+      this.floor.isInBuilding = this.building.uri;
+      this.floorForm.get('isInBuilding').disable();
+    }
   }
 
   onSubmit(): void {

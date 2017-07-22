@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Dealer } from '../dealer';
 import { DealerService } from '../dealer.service';
@@ -13,6 +13,7 @@ import {UpdateDealerService} from "../update.dealer.service";
   styleUrls: ['./dealer-form.component.css']
 })
 export class DealerFormComponent implements OnInit {
+  @Input() floor: Floor;
   public dealer: Dealer;
   public floors: Floor[] = [];
   public dealerForm: FormGroup;
@@ -36,9 +37,15 @@ export class DealerFormComponent implements OnInit {
 
   ngOnInit() {
     this.floorService.getAllFloors().subscribe(
-      floors => { this.floors = floors; },
+      floors => {
+        this.floors = floors;
+        },
       error => this.errorMessage = <any>error.message
     );
+    if (this.floor) {
+      this.dealer.isInFloor = this.floor.uri;
+      this.dealerForm.get('isInFloor').disable();
+    }
   }
 
   onSubmit(): void {

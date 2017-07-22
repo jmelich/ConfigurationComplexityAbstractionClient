@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {Dealer} from '../dealer';
 import {DealerService} from '../dealer.service';
+import {Floor} from '../../floor/floor';
 
 @Component({
   selector: 'app-dealer-search',
@@ -9,10 +10,9 @@ import {DealerService} from '../dealer.service';
   styleUrls: ['dealer-search.component.css']
 })
 export class DealerSearchComponent {
-  @Input()
-  dealers: Dealer[];
-  @Output()
-  onSearchited: EventEmitter<any> = new EventEmitter();
+  @Input()  dealers: Dealer[];
+  @Input()  floor: Floor;
+  @Output()  onSearchited: EventEmitter<any> = new EventEmitter();
   private dealer: string = null;
 
   public errorMessage: string;
@@ -28,13 +28,24 @@ export class DealerSearchComponent {
       .subscribe((id) => {
         if (id != null) { this.dealer = `/dealers/${id}`; }
       });
-    this.dealerService.getDealersByTitleContaining(searchTerm).subscribe(
-      dealers => {
-        // Send to output emitter
-        this.onSearchited.emit(dealers);
-      },
-      error => this.errorMessage = <any>error.message
-    );
+    if (this.floor !== undefined) {
+      this.dealerService.getDealersByTitleContainingAndInFloor(searchTerm, this.floor).subscribe(
+        dealers => {
+          // Send to output emitter
+          this.onSearchited.emit(dealers);
+        },
+        error => this.errorMessage = <any>error.message
+      );
+    } else {
+      this.dealerService.getDealersByTitleContaining(searchTerm).subscribe(
+        dealers => {
+          // Send to output emitter
+          this.onSearchited.emit(dealers);
+        },
+        error => this.errorMessage = <any>error.message
+      );
+    }
+
   }
 
 }

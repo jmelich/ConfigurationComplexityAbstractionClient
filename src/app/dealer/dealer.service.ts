@@ -6,6 +6,7 @@ import 'rxjs/add/observable/throw';
 import {environment} from '../../environments/environment';
 import {Dealer} from './dealer';
 import {Injectable} from '@angular/core';
+import {Floor} from "../floor/floor";
 
 @Injectable()
 export class DealerService {
@@ -62,7 +63,13 @@ export class DealerService {
 
   // GET /dealers/search/findByByTitleContaining?title
   getDealersByTitleContaining(dealer: string): Observable<Dealer[]> {
-    return this.http.get(environment.API + '/dealers/search/findByTitleContaining?title=' + dealer)
+    return this.http.get(environment.API + '/dealers/search/findByTitleContainingIgnoreCase?title=' + dealer)
+      .map((res: Response) => res.json()._embedded.dealers.map(json => new Dealer(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  getDealersByTitleContainingAndInFloor(dealer: string, floor: Floor): Observable<Dealer[]> {
+    return this.http.get(environment.API + '/dealers/search/findByTitleContainingIgnoreCaseAndIsInFloor?title=' + dealer + '&floor=' + floor.uri)
       .map((res: Response) => res.json()._embedded.dealers.map(json => new Dealer(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }

@@ -11,12 +11,12 @@
   </div>-->
 </div>
 
-<!--<div class="row">
+<div class="row">
   <h3 class="col-md-12">Dealers</h3>
   <div class="col-md-12">
-    <app-dealer-search (onSearchited)="onSearch($event)" [dealers]="dealers"></app-dealer-search>
+    <app-dealer-search (onSearchited)="onSearch($event)" [dealers]="dealers" [floor]="floor"></app-dealer-search>
   </div>
-</div>-->
+</div>
 
 <div class="row">
   <h3 class="col-md-12">Dealers</h3>
@@ -29,5 +29,12 @@
         <h4><a routerLink="{{dealer.uri}}">{{dealer.title}}</a></h4>
       </div>
     </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <app-dealer-form [floor] = "floor"></app-dealer-form>
   </div>
 </div>

@@ -1,7 +1,7 @@
 <form id="dealer-form" [formGroup]="dealerForm" (ngSubmit)="onSubmit()">
   <fieldset>
 
-    <div *ngIf="!showForm" class="col-md-4">
+    <div *ngIf="!showForm" class="col-md-4" style="padding-left: 0px;">
       <button id="showForm" name="createDealer" type="submit" (click)="showForm = true;"
               class="btn btn-primary">Add a new dealer
       </button>
