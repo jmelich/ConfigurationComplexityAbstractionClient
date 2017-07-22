@@ -10,7 +10,7 @@
 <div class="row">
   <h3 class="col-md-12">Floors</h3>
   <div class="col-md-12">
-    <app-floor-search (onSearchited)="onSearch($event)" [floors]="floors"></app-floor-search>
+    <app-floor-search (onSearchited)="onSearch($event)" [floors]="floors" [building]="building"></app-floor-search>
   </div>
 </div>
 
@@ -21,5 +21,11 @@
         <h4><a routerLink="{{floor.uri}}">{{floor.title}}</a></h4>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <app-floor-form [building] = "building"></app-floor-form>
   </div>
 </div>

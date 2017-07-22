@@ -1,7 +1,7 @@
 <form id="floor-form" [formGroup]="floorForm" (ngSubmit)="onSubmit()">
   <fieldset>
 
-    <div *ngIf="!showForm" class="col-md-4">
+    <div *ngIf="!showForm" class="col-md-4" style="padding-left: 0px;">
       <button id="showForm" name="createFloor" type="submit" (click)="showForm = true;"
               class="btn btn-primary">Add a new floor
       </button>

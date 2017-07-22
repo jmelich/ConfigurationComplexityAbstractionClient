@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Floor } from '../floor';
 import { FloorService } from '../floor.service';
@@ -14,6 +14,7 @@ import { UpdateFloorService } from '../update.floor.service';
   styleUrls: ['./floor-form.component.css']
 })
 export class FloorFormComponent implements OnInit {
+  @Input() building: Building;
   public floor: Floor;
   public buildings: Building[] = [];
   public floorForm: FormGroup;
