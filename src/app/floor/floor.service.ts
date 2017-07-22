@@ -63,7 +63,14 @@ export class FloorService {
 
   // GET /floors/search/findByByTitleContaining?title
   getFloorsByTitleContaining(floor: string): Observable<Floor[]> {
-    return this.http.get(environment.API + '/floors/search/findByTitleContaining?title=' + floor)
+    return this.http.get(environment.API + '/floors/search/findByTitleContainingIgnoreCase?title=' + floor)
+      .map((res: Response) => res.json()._embedded.floors.map(json => new Floor(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /floors/search/findByTitleContainingIgnoreCaseAndIsInBuilding?title
+  getFloorsByTitleContainingAndInBuilding(floor: string, building: Building): Observable<Floor[]> {
+    return this.http.get(environment.API + '/floors/search/findByTitleContainingIgnoreCaseAndIsInBuilding?title=' + floor + '&building=' + building.uri)
       .map((res: Response) => res.json()._embedded.floors.map(json => new Floor(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }

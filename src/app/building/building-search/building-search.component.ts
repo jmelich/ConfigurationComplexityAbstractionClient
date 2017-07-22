@@ -10,12 +10,9 @@ import {Campus} from '../../campus/campus';
   styleUrls: ['building-search.component.css']
 })
 export class BuildingSearchComponent {
-  @Input()
-  campus: Campus;
-  @Input()
-  buildings: Building[];
-  @Output()
-  onSearchited: EventEmitter<any> = new EventEmitter();
+  @Input()  campus: Campus;
+  @Input()  buildings: Building[];
+  @Output()  onSearchited: EventEmitter<any> = new EventEmitter();
   private building: string = null;
 
   public errorMessage: string;
