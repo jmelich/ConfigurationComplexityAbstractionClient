@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Connector } from '../connector';
 import { ConnectorService } from '../connector.service';
@@ -14,6 +14,7 @@ import { UpdateConnectorService } from '../update.connector.service';
   styleUrls: ['./connector-form.component.css']
 })
 export class ConnectorFormComponent implements OnInit {
+  @Input() floor: Floor;
   public connector: Connector;
   public floors: Floor[] = [];
   public connectorForm: FormGroup;
@@ -31,6 +32,8 @@ export class ConnectorFormComponent implements OnInit {
       'description' : ['Connector description'],
       'isInFloor'  : ['Connector floor'],
       'numberOfPorts' : ['Number of Ports'],
+      'latitude'  : ['Connector latitude'],
+      'longitude'  : ['Connector longitude']
     });
     this.titleCtrl = this.connectorForm.controls['title'];
     this.connector = new Connector();
@@ -38,7 +41,13 @@ export class ConnectorFormComponent implements OnInit {
 
   ngOnInit() {
     this.floorService.getAllFloors().subscribe(
-      floors => { this.floors = floors; },
+      floors => {
+        this.floors = floors;
+        if (this.floor) {
+          this.connector.isInFloor = this.floor.uri;
+          this.connectorForm.get('isInFloor').disable();
+        }
+        },
       error => this.errorMessage = <any>error.message
     );
   }
@@ -55,5 +64,8 @@ export class ConnectorFormComponent implements OnInit {
         });
     console.log(this.connector.uri);
     this.connector = new Connector;
+    if (this.floor) {
+      this.connector.isInFloor = this.floor.uri;
+    }
   }
 }
