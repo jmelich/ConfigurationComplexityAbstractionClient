@@ -32,6 +32,14 @@
     </div>
 
     <div *ngIf="showForm" class="form-group row">
+      <input type="file" id="picture" autofocus=""  #file (change)="addPicture(file)" />
+      <div *ngIf="floor.picture" class="picture-container" >
+        <img [src]="floor.picture" />
+      </div>
+      <!--<app-loading class="container" ></app-loading>-->
+    </div>
+
+    <div *ngIf="showForm" class="form-group row">
       <label class="col-md-3 control-label" for="isInBuilding">Building</label>
       <div class="col-md-9">
         <select class="form-control" id="isInBuilding" name="isInBuilding"

@@ -3,6 +3,7 @@ export class Floor {
   title: string;
   description: string;
   isInBuilding: string;
+  picture: string;
   dateTime: string;
   lastModified: string;
   _links: any = {};

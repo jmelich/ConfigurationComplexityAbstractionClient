@@ -30,7 +30,8 @@ export class FloorFormComponent implements OnInit {
     this.floorForm = fb.group({
       'title': ['Floor title', Validators.required],
       'description' : ['Floor description'],
-      'isInBuilding'  : ['Floor building']
+      'isInBuilding'  : ['Floor building'],
+      'picture'  : ['Floor picture'],
     });
     this.titleCtrl = this.floorForm.controls['title'];
     this.floor = new Floor();
@@ -62,5 +63,63 @@ export class FloorFormComponent implements OnInit {
     if (this.building) {
       this.floor.isInBuilding = this.building.uri;
     }
+  }
+
+  /*fileChange(event) {
+    this.floor.picture = event.target.files[0];
+  }*/
+
+  /*fileChange(event): void {
+    const fileList: FileList = event.target.files;
+    const file: File = fileList[0];
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onloadend = (e) => {
+      this.floor.picture = reader.result;
+    };
+  }*/
+  fileChange(input) {
+    const file = input.target.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', (event: any) => {
+      this.floor.picture = this.resizeImage(file.result, file.type, 240, 240);
+    });
+  }
+
+  addPicture(input) {
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', (event: any) => {
+      this.floor.picture = this.resizeImage(event.target.result, file.type, 240, 240);
+    }, false);
+
+    reader.readAsDataURL(file);
+  }
+
+  resizeImage(imageData, type, MAX_WIDTH = 480, MAX_HEIGHT = 480) {
+    const img = document.createElement('img');
+    img.src = imageData;
+    let width = img.width;
+    let height = img.height;
+    if (width > height) {
+      if (width > MAX_WIDTH) {
+        height *= MAX_WIDTH / width;
+        width = MAX_WIDTH;
+      }
+    } else {
+      if (height > MAX_HEIGHT) {
+        width *= MAX_HEIGHT / height;
+        height = MAX_HEIGHT;
+      }
+    }
+    const canvas = document.createElement('canvas');
+    // canvas.width = width;
+    // canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, width, height);
+    console.log(canvas.toDataURL(type));
+    return canvas.toDataURL(type);
   }
 }
