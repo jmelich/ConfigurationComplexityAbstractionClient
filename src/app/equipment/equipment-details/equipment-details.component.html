@@ -26,13 +26,6 @@
 
 <div class="row">
   <div class="col-md-4">
-    <h4>Number of Ports</h4>
-    <p>{{equipment.numberOfPorts}}</p>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-4">
     <h4>Username</h4>
     <p>{{equipment.username}}</p>
   </div>
@@ -69,12 +62,6 @@
 <div *ngIf="equipment.uri !== undefined" class="row">
   <div class="col-md-12">
     <app-card-list [equipment]="equipment"></app-card-list>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-12">
-    <app-card-form ></app-card-form>
   </div>
 </div>
 

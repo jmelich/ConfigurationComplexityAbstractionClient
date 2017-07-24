@@ -2,7 +2,7 @@
   <fieldset>
 
 
-    <div *ngIf="!showForm" class="col-md-4">
+    <div *ngIf="!showForm" class="col-md-4" style="padding-left: 0px;">
       <button id="showForm" name="createCard" type="submit" (click)="showForm = true;"
               class="btn btn-primary">Add a new card
       </button>
@@ -41,6 +41,16 @@
                 [(ngModel)]="card.isInEquipment">
           <option *ngFor="let equipment of equipments" [ngValue]="equipment.uri">{{equipment.title}}</option>
         </select>
+      </div>
+    </div>
+
+    <!-- Textarea -->
+    <div *ngIf="showForm" class="form-group row">
+      <label class="col-md-3 control-label" for="numberOfCard">Number of Card</label>
+      <div class="col-md-9">
+        <textarea class="form-control" id="numberOfCard" name="numberOfCard" placeholder="Number of Card In Equipment"
+                  [formControl]="cardForm.controls['numberOfCard']"
+                  [(ngModel)]="card.numberOfCard"></textarea>
       </div>
     </div>
 

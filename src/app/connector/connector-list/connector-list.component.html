@@ -1,8 +1,4 @@
 <div class="row">
-  <div class="col-md-4">
-    <h4 *ngIf="connectors.length == 0">There are no connectors registered</h4>
-    <h4 *ngIf="connectors.length > 0">There are {{connectors.length}} connectors registered</h4>
-  </div>
   <!--<div class="col-md-8">
     <h4>
       <a class="btn btn-primary" role="button"
@@ -11,12 +7,12 @@
   </div>-->
 </div>
 
-<!--<div class="row">
+<div class="row">
   <h3 class="col-md-12">Connectors</h3>
   <div class="col-md-12">
-    <app-connector-search (onSearchited)="onSearch($event)" [connectors]="connectors"></app-connector-search>
+    <app-connector-search (onSearchited)="onSearch($event)" [connectors]="connectors" [floor]="floor" ></app-connector-search>
   </div>
-</div>-->
+</div>
 
 <div class="row">
   <h3 class="col-md-12">Connectors</h3>
@@ -29,5 +25,12 @@
         <h4><a routerLink="{{connector.uri}}">{{connector.title}}</a></h4>
       </div>
     </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <app-connector-form [floor]="floor"></app-connector-form>
   </div>
 </div>

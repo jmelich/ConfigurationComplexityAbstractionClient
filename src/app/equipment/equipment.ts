@@ -2,7 +2,6 @@ export class Equipment {
   uri: string;
   title: string;
   description: string;
-  numberOfPorts: number;
   ip: string;
   username: string;
   password: string;

@@ -6,6 +6,7 @@ import 'rxjs/add/observable/throw';
 import {environment} from '../../environments/environment';
 import {Connector} from './connector';
 import {Injectable} from '@angular/core';
+import {Floor} from "../floor/floor";
 
 @Injectable()
 export class ConnectorService {
@@ -63,7 +64,14 @@ export class ConnectorService {
 
   // GET /connectors/search/findByByTitleContaining?title
   getConnectorsByTitleContaining(connector: string): Observable<Connector[]> {
-    return this.http.get(environment.API + '/connectors/search/findByTitleContaining?title=' + connector)
+    return this.http.get(environment.API + '/connectors/search/findByTitleContainingIgnoreCase?title=' + connector)
+      .map((res: Response) => res.json()._embedded.connectors.map(json => new Connector(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /connectors/search/findByByTitleContainingAndInFloor?title
+  getConnectorsByTitleContainingAndInFloor(connector: string, floor: Floor): Observable<Connector[]> {
+    return this.http.get(environment.API + '/connectors/search/findByTitleContainingIgnoreCaseAndIsInFloor?title='  + connector + '&floor=' + floor.uri)
       .map((res: Response) => res.json()._embedded.connectors.map(json => new Connector(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }

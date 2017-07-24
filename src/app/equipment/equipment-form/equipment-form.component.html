@@ -44,16 +44,6 @@
 
     <!-- Textarea -->
     <div *ngIf="showForm" class="form-group row">
-      <label class="col-md-3 control-label" for="description">Equipment portsnumber</label>
-      <div class="col-md-9">
-        <textarea class="form-control" id="numberOfPorts" name="numberOfPorts" placeholder="Number of ports"
-                  [formControl]="equipmentForm.controls['numberOfPorts']"
-                  [(ngModel)]="equipment.numberOfPorts"></textarea>
-      </div>
-    </div>
-
-    <!-- Textarea -->
-    <div *ngIf="showForm" class="form-group row">
       <label class="col-md-3 control-label" for="username">Equipment username</label>
       <div class="col-md-9">
         <textarea class="form-control" id="username" name="username" placeholder="Username"

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {Connector} from '../connector';
 import {ConnectorService} from '../connector.service';
+import {Floor} from '../../floor/floor';
 
 @Component({
   selector: 'app-connector-search',
@@ -9,10 +10,9 @@ import {ConnectorService} from '../connector.service';
   styleUrls: ['connector-search.component.css']
 })
 export class ConnectorSearchComponent {
-  @Input()
-  connectors: Connector[];
-  @Output()
-  onSearchited: EventEmitter<any> = new EventEmitter();
+  @Input() floor: Floor;
+  @Input()  connectors: Connector[];
+  @Output()  onSearchited: EventEmitter<any> = new EventEmitter();
   private connector: string = null;
 
   public errorMessage: string;
@@ -28,13 +28,23 @@ export class ConnectorSearchComponent {
       .subscribe((id) => {
         if (id != null) { this.connector = `/connectors/${id}`; }
       });
-    this.connectorService.getConnectorsByTitleContaining(searchTerm).subscribe(
-      connectors => {
-        // Send to output emitter
-        this.onSearchited.emit(connectors);
-      },
-      error => this.errorMessage = <any>error.message
-    );
+    if (this.floor !== undefined) {
+      this.connectorService.getConnectorsByTitleContainingAndInFloor(searchTerm, this.floor).subscribe(
+        connectors => {
+          // Send to output emitter
+          this.onSearchited.emit(connectors);
+        },
+        error => this.errorMessage = <any>error.message
+      );
+    } else {
+      this.connectorService.getConnectorsByTitleContaining(searchTerm).subscribe(
+        connectors => {
+          // Send to output emitter
+          this.onSearchited.emit(connectors);
+        },
+        error => this.errorMessage = <any>error.message
+      );
+    }
   }
 
 }
