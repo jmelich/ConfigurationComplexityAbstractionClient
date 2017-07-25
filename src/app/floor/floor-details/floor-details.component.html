@@ -46,7 +46,18 @@
   </div>
 </div>
 
-<img [src]="floor.picture" />
+<!--<div *ngIf="floor.picture" class="picture-container" style="overflow: auto;max-height: 200px;">
+  <img [src]="floor.picture" />
+</div>-->
+
+<img-map
+  #imgMap
+  [src]="floor.picture"
+  markerRadius="15"
+  [markers]="markers"
+  (mark)="onMark($event)"
+  (change)="onChange($event)"
+></img-map>
 
 
 

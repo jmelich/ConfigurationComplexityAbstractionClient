@@ -64,6 +64,7 @@ import {ConnectorService} from './connector/connector.service';
 import {UpdateConnectorService} from './connector/update.connector.service';
 import {PortService} from './port/port.service';
 import {UpdateCampusService} from './campus/update.campus.service';
+import {ImgMapComponent} from 'ng2-img-map';
 
 @NgModule({
   declarations: [
@@ -106,6 +107,8 @@ import {UpdateCampusService} from './campus/update.campus.service';
     ConnectorDetailsComponent,
     ConnectorEditComponent,
     ConnectorSearchComponent,
+
+    ImgMapComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +117,7 @@ import {UpdateCampusService} from './campus/update.campus.service';
     HttpModule,
     RouterModule.forRoot(routes),
     LoginBasicModule,
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, OwnerService, UserService, OwnerService, CampusService,
     BuildingService, FloorService, DealerService, EquipmentService, CardService, ConnectorService, UpdateCardService,

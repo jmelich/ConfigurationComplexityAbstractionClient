@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FloorService } from '../floor.service';
 import { Floor } from '../floor';
@@ -6,12 +6,13 @@ import { AuthenticationBasicService } from '../../login-basic/authentication-bas
 import { OwnerService } from '../../user/owner.service';
 import {BuildingService} from '../../building/building.service';
 import {Building} from '../../building/building';
+import {ImgMapComponent} from 'ng2-img-map';
 
 
 @Component({
   selector: 'app-floor-details',
   templateUrl: './floor-details.component.html',
-  styleUrls: ['./floor-details.component.css']
+  styleUrls: ['./floor-details.component.css'],
 })
 export class FloorDetailsComponent implements OnInit {
   public floor: Floor = new Floor();
@@ -19,12 +20,37 @@ export class FloorDetailsComponent implements OnInit {
   public errorMessage: string;
   // public isOwner: boolean;
 
+  @ViewChild('imgMap')
+  imgMap: ImgMapComponent;
+  markers: number[][] = [[25, 25], [50, 50], [75, 75]];
+  onMark(marker: number[]) {
+    console.log('Markers', this.markers);
+  }
+  onChange(marker: number[]) {
+    console.log('Marker', marker);
+  }
+  selectMarker(index: number) {
+    this.imgMap.markerActive = index;
+    this.imgMap.draw();
+  }
+  removeMarker(index: number) {
+    this.markers.splice(index, 1);
+    if (index === this.imgMap.markerActive) {
+      this.imgMap.markerActive = null;
+    } else if (index < this.imgMap.markerActive) {
+      this.imgMap.markerActive--;
+    }
+    this.imgMap.draw();
+  }
+
   constructor(private route: ActivatedRoute,
               private floorService: FloorService,
               private buildingService: BuildingService,
               private authenticationService: AuthenticationBasicService,
               private ownerService: OwnerService) {
   }
+
+
 
   ngOnInit() {
     this.route.params
