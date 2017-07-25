@@ -21,6 +21,7 @@ export class FloorFormComponent implements OnInit {
   public titleCtrl: AbstractControl;
   public errorMessage: string;
   public showForm: any = false;
+  public image: string;
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -49,6 +50,7 @@ export class FloorFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.floor.picture = this.image;
     this.floorService.addFloor(this.floor)
       .subscribe(
         floor => {
@@ -78,31 +80,25 @@ export class FloorFormComponent implements OnInit {
       this.floor.picture = reader.result;
     };
   }*/
-  fileChange(input) {
-    const file = input.target.files[0];
-    const reader = new FileReader();
-
-    reader.addEventListener('load', (event: any) => {
-      this.floor.picture = this.resizeImage(file.result, file.type, 240, 240);
-    });
-  }
 
   addPicture(input) {
     const file = input.files[0];
     const reader = new FileReader();
 
     reader.addEventListener('load', (event: any) => {
-      this.floor.picture = this.resizeImage(event.target.result, file.type, 240, 240);
+      this.image = event.target.result;
     }, false);
 
     reader.readAsDataURL(file);
   }
 
-  resizeImage(imageData, type, MAX_WIDTH = 480, MAX_HEIGHT = 480) {
+  resizeImage(imageData, fileType, MAX_WIDTH = 480, MAX_HEIGHT = 480) {
     const img = document.createElement('img');
     img.src = imageData;
     let width = img.width;
     let height = img.height;
+    console.log(width);
+
     if (width > height) {
       if (width > MAX_WIDTH) {
         height *= MAX_WIDTH / width;
@@ -115,11 +111,11 @@ export class FloorFormComponent implements OnInit {
       }
     }
     const canvas = document.createElement('canvas');
-    // canvas.width = width;
-    // canvas.height = height;
+    canvas.width = width;
+    canvas.height = height;
     const ctx = canvas.getContext('2d');
     ctx.drawImage(img, 0, 0, width, height);
-    console.log(canvas.toDataURL(type));
-    return canvas.toDataURL(type);
+    // console.log(canvas.toDataURL(type));
+    return canvas.toDataURL(fileType);
   }
 }

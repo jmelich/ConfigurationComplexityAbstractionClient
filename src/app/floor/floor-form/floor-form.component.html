@@ -33,8 +33,8 @@
 
     <div *ngIf="showForm" class="form-group row">
       <input type="file" id="picture" autofocus=""  #file (change)="addPicture(file)" />
-      <div *ngIf="floor.picture" class="picture-container" >
-        <img [src]="floor.picture" />
+      <div *ngIf="image" class="picture-container" style="overflow: auto;max-height: 200px;">
+        <img [src]="image" />
       </div>
       <!--<app-loading class="container" ></app-loading>-->
     </div>
