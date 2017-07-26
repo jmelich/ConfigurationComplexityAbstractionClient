@@ -15,10 +15,6 @@
 </div>
 
 <div class="row">
-  <h3 class="col-md-12">Connectors</h3>
-</div>
-
-<div class="row">
   <div class="panel-group col-md-12">
     <div class="panel panel-default" *ngFor="let connector of connectors">
       <div class="panel-heading">
@@ -28,6 +24,15 @@
   </div>
 </div>
 
+<div class="form-group row">
+  <img-map
+    #imgMap
+    [src]="floor.picture"
+    markerRadius="15"
+    [markers]="markers"
+    (change)="onChange($event)"
+  ></img-map>
+</div>
 
 <div class="row">
   <div class="col-md-12">

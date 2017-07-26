@@ -20,29 +20,6 @@ export class FloorDetailsComponent implements OnInit {
   public errorMessage: string;
   // public isOwner: boolean;
 
-  @ViewChild('imgMap')
-  imgMap: ImgMapComponent;
-  markers: number[][] = [[25, 25], [50, 50], [75, 75]];
-  onMark(marker: number[]) {
-    console.log('Markers', this.markers);
-  }
-  onChange(marker: number[]) {
-    console.log('Marker', marker);
-  }
-  selectMarker(index: number) {
-    this.imgMap.markerActive = index;
-    this.imgMap.draw();
-  }
-  removeMarker(index: number) {
-    this.markers.splice(index, 1);
-    if (index === this.imgMap.markerActive) {
-      this.imgMap.markerActive = null;
-    } else if (index < this.imgMap.markerActive) {
-      this.imgMap.markerActive--;
-    }
-    this.imgMap.draw();
-  }
-
   constructor(private route: ActivatedRoute,
               private floorService: FloorService,
               private buildingService: BuildingService,
@@ -65,13 +42,6 @@ export class FloorDetailsComponent implements OnInit {
             this.buildingService.getBuilding(uri_building).subscribe(
               building => this.building = building
             );
-            /*if (this.building._links != null) {
-              this.ownerService.getOwner(this.building._links.owner.href).subscribe(
-                owner => {
-                  this.comment.user = owner.getUserName();
-                  this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
-                });
-            }*/
           },
           error => this.errorMessage = <any>error.message,
         );

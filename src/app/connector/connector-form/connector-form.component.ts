@@ -1,10 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Connector } from '../connector';
 import { ConnectorService } from '../connector.service';
 import { Router } from '@angular/router';
 import { FloorService } from '../../floor/floor.service';
 import {Floor} from '../../floor/floor';
+import {ImgMapComponent} from 'ng2-img-map';
 
 import { UpdateConnectorService } from '../update.connector.service';
 
@@ -21,6 +22,30 @@ export class ConnectorFormComponent implements OnInit {
   public titleCtrl: AbstractControl;
   public errorMessage: string;
   public showForm: any = false;
+
+  @ViewChild('imgMap')
+  imgMap: ImgMapComponent;
+  markers: number[][] = [[0, 0]];
+  onMark(marker: number[]) {
+    console.log('Markers', this.markers);
+    this.markers = [marker];
+  }
+  onChange(marker: number[]) {
+    console.log('Marker', marker);
+  }
+  selectMarker(index: number) {
+    this.imgMap.markerActive = index;
+    this.imgMap.draw();
+  }
+  removeMarker(index: number) {
+    this.markers.splice(index, 1);
+    if (index === this.imgMap.markerActive) {
+      this.imgMap.markerActive = null;
+    } else if (index < this.imgMap.markerActive) {
+      this.imgMap.markerActive--;
+    }
+    this.imgMap.draw();
+  }
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -53,6 +78,8 @@ export class ConnectorFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.connector.latitude = this.markers[0][0];
+    this.connector.longitude = this.markers[0][1];
     this.connectorService.addConnector(this.connector)
       .subscribe(
         connector => {

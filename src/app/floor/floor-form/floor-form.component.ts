@@ -67,20 +67,6 @@ export class FloorFormComponent implements OnInit {
     }
   }
 
-  /*fileChange(event) {
-    this.floor.picture = event.target.files[0];
-  }*/
-
-  /*fileChange(event): void {
-    const fileList: FileList = event.target.files;
-    const file: File = fileList[0];
-    const reader = new FileReader();
-    reader.readAsText(file);
-    reader.onloadend = (e) => {
-      this.floor.picture = reader.result;
-    };
-  }*/
-
   addPicture(input) {
     const file = input.files[0];
     const reader = new FileReader();
