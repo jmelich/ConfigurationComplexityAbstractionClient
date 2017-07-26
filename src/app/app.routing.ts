@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
+import { AboutComponent } from './about/about.component';
 import { CampusListComponent } from './campus/campus-list/campus-list.component';
 import { CampusFormComponent } from './campus/campus-form/campus-form.component';
 import { CampusDetailsComponent } from './campus/campus-details/campus-details.component';
@@ -30,7 +31,8 @@ import {ConnectorDetailsComponent} from './connector/connector-details/connector
 import {ConnectorEditComponent} from './connector/connector-edit/connector-edit.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'campuses', pathMatch: 'full' },
+  { path: '', redirectTo: 'about', pathMatch: 'full' },
+  { path: 'about', component: AboutComponent },
   { path: 'users/:id', component: UserDetailComponent },
   { path: 'campuses', component: CampusListComponent },
   { path: 'campuses/new', component: CampusFormComponent },
