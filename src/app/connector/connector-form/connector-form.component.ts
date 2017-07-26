@@ -80,6 +80,7 @@ export class ConnectorFormComponent implements OnInit {
   onSubmit(): void {
     this.connector.latitude = this.markers[0][0];
     this.connector.longitude = this.markers[0][1];
+    console.log(this.connector.latitude);
     this.connectorService.addConnector(this.connector)
       .subscribe(
         connector => {
