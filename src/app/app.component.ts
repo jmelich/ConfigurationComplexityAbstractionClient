@@ -12,7 +12,6 @@ export class AppComponent {
   constructor(private authentication: AuthenticationBasicService) {
   }
   isLoggedIn() {
-    console.log('PISCO:' + this.authentication.getCurrentUser().authorization);
     return this.authentication.getCurrentUser().authorization;
   }
 }
