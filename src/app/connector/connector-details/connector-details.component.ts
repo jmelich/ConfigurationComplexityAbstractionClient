@@ -113,4 +113,17 @@ export class ConnectorDetailsComponent implements OnInit {
       }
     );
   }
+  onChangePort(selection) {
+    console.log(selection.uri);
+    this.connector.connectedTo = selection.uri;
+  }
+  onSave() {
+    this.connectorService.updateConnector(this.connector)
+      .subscribe(
+        connector => {this.connector = connector;},
+        error => {
+          this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+        }
+      );
+  }
 }
