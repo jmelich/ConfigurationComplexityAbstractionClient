@@ -120,7 +120,7 @@ export class ConnectorDetailsComponent implements OnInit {
   onSave() {
     this.connectorService.updateConnector(this.connector)
       .subscribe(
-        connector => {this.connector = connector;},
+        connector => {this.connector = connector; },
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         }
