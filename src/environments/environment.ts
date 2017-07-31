@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  API: 'http://jmelich.sytes.net:8080'
+  API: 'http://localhost:8080'
 };
