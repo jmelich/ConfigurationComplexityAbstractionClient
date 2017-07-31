@@ -4,13 +4,18 @@ import { Connector } from '../connector';
 import {Floor} from '../../floor/floor';
 import {ImgMapComponent} from 'ng2-img-map';
 
+import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
+import { CustomModalContext, CustomModal } from './custom-modal-sample';
+import { Overlay, overlayConfigFactory } from 'angular2-modal';
 
 import { UpdateConnectorService } from '../update.connector.service';
+
 
 @Component({
   selector: 'app-connector-list',
   templateUrl: './connector-list.component.html',
-  styleUrls: ['./connector-list.component.css']
+  styleUrls: ['./connector-list.component.css'],
+  providers: [Modal]
 })
 export class ConnectorListComponent implements OnInit {
   public connectors: Connector[] = [];
@@ -25,6 +30,8 @@ export class ConnectorListComponent implements OnInit {
   }
   onChange(marker: number[]) {
     console.log('Marker', marker);
+    this.openCustom();
+    this.imgMap.markerActive = null;
   }
   selectMarker(index: number) {
     this.imgMap.markerActive = index;
@@ -41,7 +48,8 @@ export class ConnectorListComponent implements OnInit {
   }
 
   constructor(private connectorService: ConnectorService,
-              private updateService: UpdateConnectorService) {
+              private updateService: UpdateConnectorService,
+              public modal: Modal) {
     updateService.addedConnector$.subscribe(
       connector => {
         this.connectors.push(connector);
@@ -81,5 +89,29 @@ export class ConnectorListComponent implements OnInit {
     for (let connector of this.connectors){
         this.markers.push([connector.latitude, connector.longitude]);
     }
+  }
+
+  onClick2() {
+    this.modal.alert()
+      .size('lg')
+      .showClose(true)
+      .title('A simple Alert style modal window')
+      .body(`
+            <h4>Alert is a classic (title/body/footer) 1 button modal window that 
+            does not block.</h4>
+            <b>Configuration:</b>
+            <ul>
+                <li>Non blocking (click anywhere outside to dismiss)</li>
+                <li>Size large</li>
+                <li>Dismissed with default keyboard key (ESC)</li>
+                <li>Close wth button click</li>
+                <li>HTML content</li>
+            </ul>`)
+      .open();
+  }
+
+  openCustom() {
+    console.log(this.connectors[this.imgMap.markerActive - 1].title)
+    return this.modal.open(CustomModal,  overlayConfigFactory({ num1: 2, num2: 3, connector: this.connectors[this.imgMap.markerActive - 1] }, BSModalContext));
   }
 }

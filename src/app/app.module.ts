@@ -66,6 +66,10 @@ import {PortService} from './port/port.service';
 import {UpdateCampusService} from './campus/update.campus.service';
 import {ImgMapComponent} from 'ng2-img-map';
 
+import { ModalModule } from 'angular2-modal';
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+import {CustomModal} from "./connector/connector-list/custom-modal-sample";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -108,7 +112,8 @@ import {ImgMapComponent} from 'ng2-img-map';
     ConnectorEditComponent,
     ConnectorSearchComponent,
 
-    ImgMapComponent
+    ImgMapComponent,
+    CustomModal,
   ],
   imports: [
     BrowserModule,
@@ -118,11 +123,14 @@ import {ImgMapComponent} from 'ng2-img-map';
     RouterModule.forRoot(routes),
     LoginBasicModule,
     PaginationModule.forRoot(),
+    ModalModule.forRoot(),
+    BootstrapModalModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, OwnerService, UserService, OwnerService, CampusService,
     BuildingService, FloorService, DealerService, EquipmentService, CardService, ConnectorService, UpdateCardService,
     UpdateBuildingService, UpdateFloorService, UpdateDealerService, UpdateEquipmentService, UpdateConnectorService,
     PortService, UpdateCampusService ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ CustomModal ],
 })
 export class AppModule { }
