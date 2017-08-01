@@ -69,6 +69,7 @@ import {ImgMapComponent} from 'ng2-img-map';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import {CustomModalComponent} from './connector/connector-list/custom-modal-sample';
+import {ConnectorConfigService} from "./connector/connector-list/connector-config.service";
 
 @NgModule({
   declarations: [
@@ -129,7 +130,7 @@ import {CustomModalComponent} from './connector/connector-list/custom-modal-samp
   providers: [AuthenticationBasicService, LoggedInGuard, OwnerService, UserService, OwnerService, CampusService,
     BuildingService, FloorService, DealerService, EquipmentService, CardService, ConnectorService, UpdateCardService,
     UpdateBuildingService, UpdateFloorService, UpdateDealerService, UpdateEquipmentService, UpdateConnectorService,
-    PortService, UpdateCampusService ],
+    PortService, UpdateCampusService, ConnectorConfigService ],
   bootstrap: [AppComponent],
   entryComponents: [ CustomModalComponent ],
 })
