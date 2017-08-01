@@ -5,7 +5,7 @@ import {Floor} from '../../floor/floor';
 import {ImgMapComponent} from 'ng2-img-map';
 
 import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
-import { CustomModalContext, CustomModal } from './custom-modal-sample';
+import { CustomModalContext, CustomModalComponent } from './custom-modal-sample';
 import { Overlay, overlayConfigFactory } from 'angular2-modal';
 
 import { UpdateConnectorService } from '../update.connector.service';
@@ -112,6 +112,6 @@ export class ConnectorListComponent implements OnInit {
 
   openCustom() {
     console.log(this.connectors[this.imgMap.markerActive - 1].title)
-    return this.modal.open(CustomModal,  overlayConfigFactory({ num1: 2, num2: 3, connector: this.connectors[this.imgMap.markerActive - 1] }, BSModalContext));
+    return this.modal.open(CustomModalComponent,  overlayConfigFactory({ num1: 2, num2: 3, connector: this.connectors[this.imgMap.markerActive - 1] }, BSModalContext));
   }
 }

@@ -68,7 +68,7 @@ import {ImgMapComponent} from 'ng2-img-map';
 
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
-import {CustomModal} from "./connector/connector-list/custom-modal-sample";
+import {CustomModalComponent} from './connector/connector-list/custom-modal-sample';
 
 @NgModule({
   declarations: [
@@ -113,7 +113,7 @@ import {CustomModal} from "./connector/connector-list/custom-modal-sample";
     ConnectorSearchComponent,
 
     ImgMapComponent,
-    CustomModal,
+    CustomModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -131,6 +131,6 @@ import {CustomModal} from "./connector/connector-list/custom-modal-sample";
     UpdateBuildingService, UpdateFloorService, UpdateDealerService, UpdateEquipmentService, UpdateConnectorService,
     PortService, UpdateCampusService ],
   bootstrap: [AppComponent],
-  entryComponents: [ CustomModal ],
+  entryComponents: [ CustomModalComponent ],
 })
 export class AppModule { }
