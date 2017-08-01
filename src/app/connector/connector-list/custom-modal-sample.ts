@@ -64,4 +64,8 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
       error => this.errorMessage = <any>error.message
     );
   }
+
+  changed(option) {
+    console.log('radioButtonChanged');
+  }
 }
