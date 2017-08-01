@@ -11,10 +11,21 @@
         <p class="lead">I received an injection of the number <strong>{{context.num1}}</strong> and the number <strong>{{context.num2}}</strong></p>
         <span>What is the <strong>{{context.connector.title}}</strong>?</span>
         <input class="form-control" type="text" #answer (keyup)="onKeyUp(answer.value)" autofocus>
+        <div class="row" *ngIf="availableSettings.availableVLANs && currentSettings">
+          <h1>{{availableSettings.portSpeed}} {{currentSettings.connectedToVLANs}}</h1>
+          <div *ngFor="let vlan of availableSettings.availableVLANs.split('/')"  for='option' >
+            <input
+              #option
+              type="radio"
+              class = 'with-gap'
+              name='group3'
+              id='option'
+              [value]='vlan'
+              [checked]="vlan == currentSettings.connectedToVLANs"
+              (change) = 'changed(opt)'/>{{vlan}}
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row" *ngIf="availableSettings">
-    <h1>{{availableSettings.portSpeed}}</h1>
   </div>
 </div>

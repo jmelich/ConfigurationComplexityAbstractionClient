@@ -5,6 +5,7 @@ import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import {Connector} from '../connector';
 import {ConnectorAvailableSettings} from './connector-available-settings';
 import {ConnectorConfigService} from './connector-config.service';
+import {ConnectorCurrentSettings} from './connector-current-settings';
 
 export class CustomModalContext extends BSModalContext{
   public num1: number;
@@ -24,6 +25,7 @@ export class CustomModalContext extends BSModalContext{
 export class CustomModalComponent implements CloseGuard, ModalComponent<CustomModalContext>, OnInit{
   context: CustomModalContext;
   public availableSettings: ConnectorAvailableSettings = new ConnectorAvailableSettings();
+  public currentSettings: ConnectorCurrentSettings = new ConnectorCurrentSettings();
   public errorMessage: string;
 
   public wrongAnswer: boolean;
@@ -52,10 +54,14 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
     this.connectorConfigService.getAvailableSettings(this.context.connector).subscribe(
       availableSettings => {
         this.availableSettings = availableSettings;
-        console.log(availableSettings);
       },
       error => this.errorMessage = <any>error.message
     );
-    console.log('INIT EXECUTAT2');
+    this.connectorConfigService.getCurrentSettings(this.context.connector).subscribe(
+      currentSettings => {
+        this.currentSettings = currentSettings;
+      },
+      error => this.errorMessage = <any>error.message
+    );
   }
 }
