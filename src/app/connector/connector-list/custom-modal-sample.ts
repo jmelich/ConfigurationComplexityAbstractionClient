@@ -7,9 +7,7 @@ import {ConnectorAvailableSettings} from './connector-available-settings';
 import {ConnectorConfigService} from './connector-config.service';
 import {ConnectorCurrentSettings} from './connector-current-settings';
 
-export class CustomModalContext extends BSModalContext{
-  public num1: number;
-  public num2: number;
+export class CustomModalContext extends BSModalContext {
   public connector: Connector;
 }
 
@@ -27,6 +25,8 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
   public availableSettings: ConnectorAvailableSettings = new ConnectorAvailableSettings();
   public currentSettings: ConnectorCurrentSettings = new ConnectorCurrentSettings();
   public errorMessage: string;
+  public loadedAvailable = false;
+  public loadedCurrent = false;
 
   public wrongAnswer: boolean;
 
@@ -47,25 +47,40 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
   }
 
   beforeClose(): boolean {
-    return this.wrongAnswer;
+    return false;
   }
 
   ngOnInit() {
     this.connectorConfigService.getAvailableSettings(this.context.connector).subscribe(
       availableSettings => {
         this.availableSettings = availableSettings;
+        this.loadedAvailable = true;
       },
       error => this.errorMessage = <any>error.message
     );
     this.connectorConfigService.getCurrentSettings(this.context.connector).subscribe(
       currentSettings => {
         this.currentSettings = currentSettings;
+        this.loadedCurrent = true;
       },
       error => this.errorMessage = <any>error.message
     );
   }
 
-  changed(option) {
+  changedVLAN(option) {
     console.log('radioButtonChanged');
+  }
+  changedSpeed(option) {
+    console.log('radioButtonChanged');
+  }
+  changedMode(option) {
+    console.log('radioButtonChanged');
+  }
+  changedStatus(option) {
+    console.log('radioButtonChanged');
+  }
+  cancel() {
+    console.log('cancelled');
+    this.dialog.close();
   }
 }

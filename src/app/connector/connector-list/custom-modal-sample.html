@@ -7,23 +7,70 @@
   <div class="row" [ngClass]="{'myclass' : shouldUseMyClass}">
     <div class="col-xs-12">
       <div class="jumbotron">
-        <h1>Do the math to quit:</h1>
-        <p class="lead">I received an injection of the number <strong>{{context.num1}}</strong> and the number <strong>{{context.num2}}</strong></p>
-        <span>What is the <strong>{{context.connector.title}}</strong>?</span>
-        <input class="form-control" type="text" #answer (keyup)="onKeyUp(answer.value)" autofocus>
-        <div class="row" *ngIf="availableSettings.availableVLANs && currentSettings">
-          <h1>{{availableSettings.portSpeed}} {{currentSettings.connectedToVLANs}}</h1>
+        <div class="row" *ngIf="!(loadedAvailable && loadedCurrent)">
+          <p><img src="http://www.wallies.com/filebin/images/loading_apple.gif" alt="Loading" align="middle" height="42" width="42"> Loading...</p>
+        </div>
+        <div class="row" *ngIf="loadedAvailable && loadedCurrent">
+          <h2>Administrative Status:</h2>
+          <div *ngFor="let status of availableSettings.administrativeStatus.split('/')"  for='option' >
+            <input
+              #option
+              type="radio"
+              class = 'with-gap'
+              name='group1'
+              id='status'
+              [value]='status'
+              [checked]="status == currentSettings.administrativeStatus"
+              (change) = 'changedStatus(opt)'/>{{status}}
+          </div>
+          <h2>VLAN:</h2>
           <div *ngFor="let vlan of availableSettings.availableVLANs.split('/')"  for='option' >
             <input
               #option
               type="radio"
               class = 'with-gap'
               name='group3'
-              id='option'
+              id='vlan'
               [value]='vlan'
               [checked]="vlan == currentSettings.connectedToVLANs"
-              (change) = 'changed(opt)'/>{{vlan}}
+              (change) = 'changedVLAN(opt)'/>{{vlan}}
           </div>
+          <h2>SPEED:</h2>
+          <div *ngFor="let speed of availableSettings.portSpeed.split('/')"  for='option' >
+            <input
+              #option
+              type="radio"
+              class = 'with-gap'
+              name='group4'
+              id='speed'
+              [value]='speed'
+              [checked]="speed == currentSettings.portSpeed"
+              (change) = 'changedSpeed(opt)'/>{{speed}}
+          </div>
+          <h2>DUPLEX MODE:</h2>
+          <div *ngFor="let mode of availableSettings.duplexMode.split('/')"  for='option' >
+            <input
+              #option
+              type="radio"
+              class = 'with-gap'
+              name='group5'
+              id='mode'
+              [value]='mode'
+              [checked]="mode == currentSettings.currentDuplex"
+              (change) = 'changedMode(opt)'/>{{mode}}
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-9"></div>
+        <div class="col-md-3">
+          <button id="saveChanges" name="saveChanges" type="submit"
+                  class="btn btn-success pull-right" >Save Changes
+          </button>
+
+          <button id="cancelForm" name="cancelForm" (click)="cancel()"
+                  class="btn btn-danger pull-right">Cancel
+          </button>
         </div>
       </div>
     </div>
