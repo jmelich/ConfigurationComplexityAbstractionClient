@@ -36,5 +36,40 @@ export class ConnectorConfigService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-
+  // GET /connectors/id/setVLAN
+  setConnectorVLAN(connector: Connector, vlan: string): Observable<string> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+    return this.http.get('http://localhost:8080/connectors/1/setVLAN?vlan=' + vlan, options)
+      .map((res: Response) => res.json().code)
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+  // GET /connectors/id/setAdministrativeStatus
+  setConnectorStatus(connector: Connector, status: string): Observable<string> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+    return this.http.get('http://localhost:8080/connectors/1/setAdministrativeStatus?status=' + status, options)
+      .map((res: Response) => res.json().code)
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+  // GET /connectors/id/setAdministrativeStatus
+  setConnectorMode(connector: Connector, mode: string): Observable<string> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+    return this.http.get('http://localhost:8080/connectors/1/setDuplexMode?mode=' + mode, options)
+      .map((res: Response) => res.json().code)
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+  // GET /connectors/id/setPortSpeed
+  setConnectorSpeed(connector: Connector, speed: string): Observable<string> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+    return this.http.get('http://localhost:8080/connectors/1/setPortSpeed?speed=' + speed, options)
+      .map((res: Response) => res.json().code)
+      .catch((error: any) => Observable.throw(error.json()));
+  }
 }

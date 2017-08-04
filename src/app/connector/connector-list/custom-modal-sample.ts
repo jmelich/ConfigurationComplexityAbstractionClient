@@ -28,6 +28,11 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
   public loadedAvailable = false;
   public loadedCurrent = false;
 
+  public vlanOption: string;
+  public speedOption: string;
+  public modeOption: string;
+  public statusOption: string;
+
   public wrongAnswer: boolean;
 
   constructor(public dialog: DialogRef<CustomModalContext>, private connectorConfigService: ConnectorConfigService) {
@@ -67,20 +72,64 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
     );
   }
 
-  changedVLAN(option) {
-    console.log('radioButtonChanged');
+  changedVLAN(opt) {
+    this.vlanOption = opt;
+    console.log(opt);
   }
-  changedSpeed(option) {
-    console.log('radioButtonChanged');
+  changedSpeed(opt) {
+    if (opt === '1G') {
+      opt = '1000';
+    }
+    this.speedOption = opt.toLowerCase();
+    console.log(opt);
   }
-  changedMode(option) {
-    console.log('radioButtonChanged');
+  changedMode(opt) {
+    opt = opt.toLowerCase();
+    this.modeOption = opt;
+    console.log(opt);
   }
-  changedStatus(option) {
-    console.log('radioButtonChanged');
+  changedStatus(opt) {
+    this.statusOption = opt;
+    console.log(opt);
   }
   cancel() {
     console.log('cancelled');
     this.dialog.close();
   }
+  submit() {
+    this.submitSettings();
+    console.log('submitted');
+    this.dialog.close();
+  }
+  submitSettings() {
+    if (this.statusOption) { this.setStatus(); }
+    if (this.modeOption) { this.setMode(); }
+    if (this.speedOption) { this.setSpeed(); }
+    if (this.vlanOption) { this.setVLAN(); }
+  }
+  setStatus() {
+    this.connectorConfigService.setConnectorStatus(this.context.connector, this.statusOption).subscribe(
+      response => {},
+      error => this.errorMessage = <any>error.message
+    );
+  }
+  setMode() {
+    this.connectorConfigService.setConnectorMode(this.context.connector, this.modeOption).subscribe(
+      response => {},
+      error => this.errorMessage = <any>error.message
+    );
+  }
+  setSpeed() {
+    this.connectorConfigService.setConnectorSpeed(this.context.connector, this.speedOption).subscribe(
+      response => {},
+      error => this.errorMessage = <any>error.message
+    );
+  }
+  setVLAN() {
+    this.connectorConfigService.setConnectorVLAN(this.context.connector, this.vlanOption).subscribe(
+      response => {},
+      error => this.errorMessage = <any>error.message
+    );
+  }
+
 }
