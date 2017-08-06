@@ -7,6 +7,7 @@ import {environment} from '../../environments/environment';
 import {Equipment} from './equipment';
 import {Injectable} from '@angular/core';
 import {Dealer} from '../dealer/dealer';
+import {Card} from "../card/card";
 
 @Injectable()
 export class EquipmentService {
@@ -72,6 +73,13 @@ export class EquipmentService {
   getEquipmentsByTitleContainingAndInDealer(equipment: string, dealer: Dealer): Observable<Equipment[]> {
     return this.http.get(environment.API + '/equipments/search/findByTitleContainingIgnoreCaseAndIsInDealer?title=' + equipment + '&dealer=' + dealer.uri)
       .map((res: Response) => res.json()._embedded.equipments.map(json => new Equipment(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /ports/id/isInCard
+  getEquipmentByCard(card: Card): Observable<Equipment> {
+    return this.http.get(card._links.isInEquipment.href)
+      .map((res: Response) => new Equipment(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
 

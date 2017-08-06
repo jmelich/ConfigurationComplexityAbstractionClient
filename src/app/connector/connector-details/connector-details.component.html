@@ -37,8 +37,8 @@
   <div class="form-group row">
     <label class="col-md-3 control-label" for="isInFloor">Floor</label>
     <div class="col-md-9">
-      <select class="form-control" id="isInFloor"  [ngModel]="floor" (ngModelChange)="onChangeFloor($event)" name="isInFloor">
-        <option [ngValue]="floor" *ngFor="let floor of floors">{{floor.title}}</option>
+      <select class="form-control" id="isInFloor"  [(ngModel)]="portFloor" [compareWith]="objectComparator" (ngModelChange)="onChangeFloor($event)" name="isInFloor">
+        <option *ngFor="let floorItem of floors" [ngValue]="floorItem">{{floorItem.title}}</option>
       </select>
     </div>
   </div>
@@ -46,8 +46,8 @@
   <div class="form-group row">
     <label class="col-md-3 control-label" for="isInDealer">Dealer</label>
     <div class="col-md-9">
-      <select class="form-control" id="isInDealer"  [ngModel]="dealer" (ngModelChange)="onChangeDealer($event)" name="isInFloor">
-        <option [ngValue]="dealer" *ngFor="let dealer of dealers">{{dealer.title}}</option>
+      <select class="form-control" id="isInDealer"  [(ngModel)]="dealer" [compareWith]="objectComparator" (ngModelChange)="onChangeDealer($event)" name="isInDealer">
+        <option *ngFor="let dealerItem of dealers" [ngValue]="dealerItem">{{dealerItem.title}}</option>
       </select>
     </div>
   </div>
@@ -55,8 +55,8 @@
   <div class="form-group row">
     <label class="col-md-3 control-label" for="isInEquipment">Equipment</label>
     <div class="col-md-9">
-      <select class="form-control" id="isInEquipment"  [ngModel]="equipment" (ngModelChange)="onChangeEquipment($event)" name="isInEquipment">
-        <option [ngValue]="equipment" *ngFor="let equipment of equipments">{{equipment.title}}</option>
+      <select class="form-control" id="isInEquipment"  [(ngModel)]="equipment" [compareWith]="objectComparator" (ngModelChange)="onChangeEquipment($event)" name="isInEquipment">
+        <option *ngFor="let equipmentItem of equipments" [ngValue]="equipmentItem">{{equipmentItem.title}}</option>
       </select>
     </div>
   </div>
@@ -64,8 +64,8 @@
   <div class="form-group row">
     <label class="col-md-3 control-label" for="isInCard">Card</label>
     <div class="col-md-9">
-      <select class="form-control" id="isInCard"  [ngModel]="equipment" (ngModelChange)="onChangeCard($event)" name="isInCard">
-        <option [ngValue]="card" *ngFor="let card of cards">{{card.title}}</option>
+      <select class="form-control" id="isInCard"  [(ngModel)]="card" [compareWith]="objectComparator" (ngModelChange)="onChangeCard($event)" name="isInCard">
+        <option  *ngFor="let cardItem of cards" [ngValue]="cardItem">{{cardItem.title}}</option>
       </select>
     </div>
   </div>
@@ -73,8 +73,8 @@
   <div class="form-group row">
     <label class="col-md-3 control-label" for="port">Port</label>
     <div class="col-md-9">
-      <select class="form-control" id="port"  [ngModel]="port" name="port" (ngModelChange)="onChangePort($event)">
-        <option [ngValue]="port" *ngFor="let port of ports">{{port.title}}</option>
+      <select class="form-control" id="port"  [(ngModel)]="port" [compareWith]="objectComparator" name="port" (ngModelChange)="onChangePort($event)">
+        <option *ngFor="let portItem of ports" [ngValue]="portItem">{{portItem.title}}</option>
       </select>
     </div>
   </div>

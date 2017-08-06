@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<div class="form-group row">
+<div *ngIf="floor" class="form-group row">
   <img-map
     #imgMap
     [src]="floor.picture"

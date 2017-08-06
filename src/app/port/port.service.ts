@@ -7,6 +7,7 @@ import {environment} from '../../environments/environment';
 import {Port} from './port';
 import {Injectable} from '@angular/core';
 import {Card} from '../card/card';
+import {Connector} from "../connector/connector";
 
 @Injectable()
 export class PortService {
@@ -72,6 +73,13 @@ export class PortService {
   getCardOfPort(port: Port): Observable<Card> {
     return this.http.get(port._links.isInCard.href)
       .map((res: Response) => new Card(res.json()))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /ports/id/isInCard
+  getPortByConnector(connector: Connector): Observable<Port> {
+    return this.http.get(connector._links.connectedTo.href)
+      .map((res: Response) => new Port(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
 

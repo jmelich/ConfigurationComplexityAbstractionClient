@@ -25,10 +25,14 @@ import {Port} from '../../port/port';
 export class ConnectorDetailsComponent implements OnInit {
   public connector: Connector = new Connector();
   public floor: Floor = new Floor();
+  public portFloor: Floor = new Floor();
   public floors: Floor[] = [];
   public dealers: Dealer[] = [];
+  public dealer: Dealer = new Dealer();
   public equipments: Equipment[] = [];
+  public equipment: Equipment = new Equipment();
   public cards: Card[] = [];
+  public card: Card = new Card();
   public ports: Port[] = [];
   public port: Port;
   public errorMessage: string;
@@ -61,7 +65,10 @@ export class ConnectorDetailsComponent implements OnInit {
                   building => {
                     const uri_building = building.uri;
                     this.floorService.getFloorsOfBuilding(uri_building).subscribe(
-                      floors => this.floors = floors
+                      floors => {
+                        this.floors = floors;
+                        this.initialize();
+                      }
                     );
                   },
                   error => this.errorMessage = <any>error.message,
@@ -74,10 +81,61 @@ export class ConnectorDetailsComponent implements OnInit {
         );
       });
   }
+  initialize(): boolean {
+    this.portService.getPortByConnector(this.connector).subscribe(
+      port => {
+        this.port = port;
+        if (this.port) {
+          this.cardService.getCardByPort(this.port).subscribe(
+            card => {
+              this.card = card;
+              this.equipmentService.getEquipmentByCard(card).subscribe(
+                equipment => {
+                  this.equipment = equipment;
+                  this.dealerService.getDealerByEquipment(equipment).subscribe(
+                    dealer => {
+                      this.dealer = dealer;
+                      this.floorService.getFloorByDealer(dealer).subscribe(
+                        floor => {
+                          this.portFloor = floor;
+                          this.initializeEntities();
+                        },
+                        error => this.errorMessage = <any>error.message,
+                      );
+                    },
+                    error => this.errorMessage = <any>error.message,
+                  );
+                },
+                error => this.errorMessage = <any>error.message,
+              );
+            },
+            error => this.errorMessage = <any>error.message,
+          );
+        }
+      },
+      error => this.errorMessage = <any>error.message,
+    );
+    return true;
+  }
+  initializeEntities() {
+    this.dealerService.getDealersOfFloor(this.portFloor.uri).subscribe(
+      dealers => this.dealers = dealers
+    );
+    this.equipmentService.getEquipmentsOfDealer(this.dealer.uri).subscribe(
+      equipments => this.equipments = equipments
+    );
+    this.cardService.getCardsOfEquipment(this.equipment.uri).subscribe(
+      cards => this.cards = cards
+    );
+    this.portService.getPortsOfCard(this.card.uri).subscribe(
+      ports => this.ports = ports
+    );
+  }
 
 
   onChangeFloor(selection) {
-    this.dealerService.getDealersOfFloor(selection.uri).subscribe(
+    console.log(this.portFloor.uri);
+    this.dealerService.getDealersOfFloor(this.portFloor.uri).subscribe(
       dealers => {
         this.dealers = dealers;
         this.equipments = [];
@@ -88,7 +146,7 @@ export class ConnectorDetailsComponent implements OnInit {
   }
 
   onChangeDealer(selection) {
-    this.equipmentService.getEquipmentsOfDealer(selection.uri).subscribe(
+    this.equipmentService.getEquipmentsOfDealer(this.dealer.uri).subscribe(
       equipments => {
         this.equipments = equipments;
         this.cards = [];
@@ -125,5 +183,9 @@ export class ConnectorDetailsComponent implements OnInit {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         }
       );
+  }
+
+  objectComparator(o1: any, o2: any) {
+    return o1.uri === o2.uri;
   }
 }

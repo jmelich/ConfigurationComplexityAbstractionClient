@@ -6,6 +6,7 @@ import 'rxjs/add/observable/throw';
 import {environment} from '../../environments/environment';
 import {Card} from './card';
 import {Injectable} from '@angular/core';
+import {Port} from "../port/port";
 
 @Injectable()
 export class CardService {
@@ -65,6 +66,13 @@ export class CardService {
   getCardsByTitleContaining(card: string): Observable<Card[]> {
     return this.http.get(environment.API + '/cards/search/findByTitleContaining?title=' + card)
       .map((res: Response) => res.json()._embedded.cards.map(json => new Card(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /ports/id/isInCard
+  getCardByPort(port: Port): Observable<Card> {
+    return this.http.get(port._links.isInCard.href)
+      .map((res: Response) => new Card(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
 

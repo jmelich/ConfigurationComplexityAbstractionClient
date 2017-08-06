@@ -7,6 +7,7 @@ import {environment} from '../../environments/environment';
 import {Floor} from './floor';
 import {Injectable} from '@angular/core';
 import {Building} from "../building/building";
+import {Dealer} from "../dealer/dealer";
 
 @Injectable()
 export class FloorService {
@@ -79,6 +80,13 @@ export class FloorService {
   getBuildingOfFloor(floor: Floor): Observable<Building> {
     return this.http.get(floor._links.isInBuilding.href)
       .map((res: Response) => new Building(res.json()))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /ports/id/isInCard
+  getFloorByDealer(dealer: Dealer): Observable<Floor> {
+    return this.http.get(dealer._links.isInFloor.href)
+      .map((res: Response) => new Floor(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
