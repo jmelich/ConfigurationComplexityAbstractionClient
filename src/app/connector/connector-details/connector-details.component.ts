@@ -156,7 +156,7 @@ export class ConnectorDetailsComponent implements OnInit {
   }
 
   onChangeEquipment(selection) {
-    this.cardService.getCardsOfEquipment(selection.uri).subscribe(
+    this.cardService.getCardsOfEquipment(this.equipment.uri).subscribe(
       cards => {
         this.cards = cards;
         this.ports = [];
@@ -165,7 +165,7 @@ export class ConnectorDetailsComponent implements OnInit {
   }
   onChangeCard(selection) {
     console.log(selection.uri);
-    this.portService.getPortsOfCard(selection.uri).subscribe(
+    this.portService.getPortsOfCard(this.card.uri).subscribe(
       ports => {
         this.ports = ports;
       }
@@ -185,7 +185,22 @@ export class ConnectorDetailsComponent implements OnInit {
       );
   }
 
+  onDettach() {
+    this.portFloor = this.dealer = this.equipment = this.card = this.port = this.connector.connectedTo = null;
+    this.connectorService.updateConnector(this.connector)
+      .subscribe(
+        connector => {this.connector = connector; },
+        error => {
+          this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+        }
+      );
+  }
+
   objectComparator(o1: any, o2: any) {
-    return o1.uri === o2.uri;
+    if (o1 && o2) {
+      return o1.uri === o2.uri;
+    }else {
+      return false;
+    }
   }
 }

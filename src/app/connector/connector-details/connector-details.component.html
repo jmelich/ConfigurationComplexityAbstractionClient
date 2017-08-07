@@ -73,14 +73,18 @@
   <div class="form-group row">
     <label class="col-md-3 control-label" for="port">Port</label>
     <div class="col-md-9">
-      <select class="form-control" id="port"  [(ngModel)]="port" [compareWith]="objectComparator" name="port" (ngModelChange)="onChangePort($event)">
+      <select class="form-control" id="port"  [(ngModel)]="port" [compareWith]="objectComparator" (ngModelChange)="onChangePort($event)">
         <option *ngFor="let portItem of ports" [ngValue]="portItem">{{portItem.title}}</option>
       </select>
     </div>
   </div>
 
   <button name="save" (click)="onSave()"
-          class="btn btn-success pull-right"> Save attached Port
+          class="btn btn-success pull-right"> Save changes
+  </button>
+
+  <button name="dettach" (click)="onDettach()"
+          class="btn btn-danger pull-right"> Dettach
   </button>
 
 </div>
