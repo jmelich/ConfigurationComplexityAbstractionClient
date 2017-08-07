@@ -35,7 +35,15 @@ export class FloorListComponent implements OnInit {
       );
     }else {
       this.floorService.getAllFloors().subscribe(
-        floors => { this.floors = floors; },
+        floors => {
+          this.floors = floors;
+          for (let floor of floors) {
+            this.floorService.getBuildingOfFloor(floor).subscribe(
+              building => {
+                floor.isInBuilding = ' (' + building.title + ')';
+              });
+          }
+        },
         error => this.errorMessage = <any>error.message
       );
     }

@@ -18,7 +18,8 @@
   <div class="panel-group col-md-12">
     <div class="panel panel-default" *ngFor="let floor of floors">
       <div class="panel-heading">
-        <h4><a routerLink="{{floor.uri}}">{{floor.title}}</a></h4>
+        <h4><a *ngIf="floor.isInBuilding" routerLink="{{floor.uri}}">{{floor.title + floor.isInBuilding}}</a></h4>
+        <h4><a *ngIf="!floor.isInBuilding" routerLink="{{floor.uri}}">{{floor.title}}</a></h4>
       </div>
     </div>
   </div>
