@@ -25,6 +25,7 @@ export class FloorListComponent implements OnInit {
 
   onSearch(floors) {
     this.floors = floors;
+    this.fillIsInBuilding();
   }
 
   ngOnInit() {
@@ -37,16 +38,20 @@ export class FloorListComponent implements OnInit {
       this.floorService.getAllFloors().subscribe(
         floors => {
           this.floors = floors;
-          for (let floor of floors) {
-            this.floorService.getBuildingOfFloor(floor).subscribe(
-              building => {
-                floor.isInBuilding = ' (' + building.title + ')';
-              });
-          }
+          this.fillIsInBuilding();
         },
         error => this.errorMessage = <any>error.message
       );
     }
-
+  }
+  fillIsInBuilding() {
+    if (!this.building) {
+      for (let floor of this.floors) {
+        this.floorService.getBuildingOfFloor(floor).subscribe(
+          building => {
+            floor.isInBuilding = ' (' + building.title + ')';
+          });
+      }
+    }
   }
 }
