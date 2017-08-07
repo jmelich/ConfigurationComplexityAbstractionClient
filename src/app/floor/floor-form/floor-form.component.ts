@@ -7,6 +7,8 @@ import { BuildingService } from '../../building/building.service';
 import {Building} from '../../building/building';
 
 import { UpdateFloorService } from '../update.floor.service';
+import {Campus} from "../../campus/campus";
+import {CampusService} from "../../campus/campus.service";
 
 @Component({
   selector: 'app-floor-form',
@@ -17,6 +19,8 @@ export class FloorFormComponent implements OnInit {
   @Input() building: Building;
   public floor: Floor;
   public buildings: Building[] = [];
+  public campuses: Campus[] = [];
+  public campus: Campus;
   public floorForm: FormGroup;
   public titleCtrl: AbstractControl;
   public errorMessage: string;
@@ -25,12 +29,14 @@ export class FloorFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private router: Router,
+              private campusService: CampusService,
               private buildingService: BuildingService,
               private updateService: UpdateFloorService,
               private floorService: FloorService) {
     this.floorForm = fb.group({
       'title': ['Floor title', Validators.required],
       'description' : ['Floor description'],
+      'isInCampus'  : ['Floor campus'],
       'isInBuilding'  : ['Floor building'],
       'picture'  : ['Floor picture'],
     });
@@ -39,13 +45,21 @@ export class FloorFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.buildingService.getAllBuildings().subscribe(
-      buildings => { this.buildings = buildings; },
+    this.campusService.getAllCampuses().subscribe(
+      campuses => { this.campuses = campuses; },
       error => this.errorMessage = <any>error.message
     );
     if (this.building) {
       this.floor.isInBuilding = this.building.uri;
       this.floorForm.get('isInBuilding').disable();
+      this.floorForm.get('isInCampus').disable();
+
+      this.campusService.getCampusByBuilding(this.building).subscribe(
+        campus => {
+          this.campus = campus;
+          console.log(this.campus.uri);
+        }
+      );
     }
   }
 
@@ -103,5 +117,21 @@ export class FloorFormComponent implements OnInit {
     ctx.drawImage(img, 0, 0, width, height);
     // console.log(canvas.toDataURL(type));
     return canvas.toDataURL(fileType);
+  }
+
+  onChangeCampus(selection) {
+    this.buildingService.getBuildingsOfCampus(this.campus.uri).subscribe(
+      buildings => {
+        this.buildings = buildings;
+      }
+    );
+  }
+
+  objectComparator(o1: any, o2: any) {
+    if (o1 && o2) {
+      return o1.uri === o2.uri;
+    }else {
+      return false;
+    }
   }
 }
