@@ -17,7 +17,8 @@ export class BuildingService {
 
   // GET /buildings
   getAllBuildings(): Observable<Building[]> {
-    return this.http.get(`${environment.API}/buildings`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}/buildings`,options)
       .map((res: Response) => res.json()._embedded.buildings.map(json => new Building(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -25,9 +26,7 @@ export class BuildingService {
   // POST /buildings
   addBuilding(building: Building): Observable<Building> {
     const body = JSON.stringify(building);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({headers: headers});
+    const options = this.getOptions();
 
     return this.http.post(`${environment.API}/buildings`, body, options)
       .map((res: Response) => new Building(res.json()))
@@ -36,7 +35,8 @@ export class BuildingService {
 
   // GET /buildings/id
   getBuilding(uri: string): Observable<Building> {
-    return this.http.get(`${environment.API}${uri}`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}${uri}`, options)
       .map((res: Response) => new Building(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -44,9 +44,7 @@ export class BuildingService {
   // PATCH /buildings/id
   updateBuilding(building: Building): Observable<Building> {
     const body = JSON.stringify(building);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({headers: headers});
+    const options = this.getOptions();
 
     return this.http.patch(`${environment.API}${building.uri}`, body, options)
       .map((res: Response) => new Building(res.json()))
@@ -55,7 +53,8 @@ export class BuildingService {
 
   // GET /buildings
   getBuildingsOfCampus(uri: string): Observable<Building[]> {
-    return this.http.get(`${environment.API}${uri}/buildings`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}${uri}/buildings`, options)
       .map((res: Response) => res.json()._embedded.buildings.map(json => new Building(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -63,13 +62,15 @@ export class BuildingService {
 
   // GET /buildings/search/findByBuildingByTitleContaining?title
   getBuildingsByTitleContaining(building: string): Observable<Building[]> {
-    return this.http.get(environment.API + '/buildings/search/findByTitleContainingIgnoreCase?title=' + building)
+    const options = this.getOptions();
+    return this.http.get(environment.API + '/buildings/search/findByTitleContainingIgnoreCase?title=' + building, options)
       .map((res: Response) => res.json()._embedded.buildings.map(json => new Building(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   getBuildingsByTitleContainingAndInCampus(building: string, campus: Campus): Observable<Building[]> {
-    return this.http.get(environment.API + '/buildings/search/findByTitleContainingIgnoreCaseAndIsInCampus?title=' + building + '&campus=' + campus.uri)
+    const options = this.getOptions();
+    return this.http.get(environment.API + '/buildings/search/findByTitleContainingIgnoreCaseAndIsInCampus?title=' + building + '&campus=' + campus.uri, options)
       .map((res: Response) => res.json()._embedded.buildings.map(json => new Building(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -114,4 +115,19 @@ export class BuildingService {
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }*/
+
+  // DELETE /buildings/{id}
+  deleteBuilding(building: Building): Observable<Response> {
+    const options = this.getOptions();
+    return this.http.delete(environment.API + building.uri, options)
+      .map((res: Response) => res)
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  getOptions(): RequestOptions {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+    return options;
+  }
 }
