@@ -6,6 +6,7 @@ import { AuthenticationBasicService } from '../../login-basic/authentication-bas
 import { OwnerService } from '../../user/owner.service';
 import {Building} from '../../building/building';
 import {BuildingService} from '../../building/building.service';
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class CampusDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private campusService: CampusService,
+              private _location: Location,
               private buildingService: BuildingService,
               private authenticationService: AuthenticationBasicService,
               private ownerService: OwnerService) {
@@ -48,5 +50,15 @@ export class CampusDetailsComponent implements OnInit {
           error => this.errorMessage = <any>error.message,
         );
       });
+  }
+
+
+  onDelete(): void {
+    this.campusService.deleteCampus(this.campus)
+      .subscribe(
+        response => { this._location.back(); },
+        error => {
+          this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+        });
   }
 }
