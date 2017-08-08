@@ -7,6 +7,7 @@ import { OwnerService } from '../../user/owner.service';
 import {BuildingService} from '../../building/building.service';
 import {Building} from '../../building/building';
 import {ImgMapComponent} from 'ng2-img-map';
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class FloorDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private floorService: FloorService,
+              private _location: Location,
               private buildingService: BuildingService,
               private authenticationService: AuthenticationBasicService,
               private ownerService: OwnerService) {
@@ -46,5 +48,14 @@ export class FloorDetailsComponent implements OnInit {
           error => this.errorMessage = <any>error.message,
         );
       });
+  }
+
+  onDelete(): void {
+    this.floorService.deleteFloor(this.floor)
+      .subscribe(
+        response => { this._location.back(); },
+        error => {
+          this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+        });
   }
 }

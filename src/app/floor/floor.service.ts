@@ -18,7 +18,8 @@ export class FloorService {
 
   // GET /floors
   getAllFloors(): Observable<Floor[]> {
-    return this.http.get(`${environment.API}/floors`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}/floors`, options)
       .map((res: Response) => res.json()._embedded.floors.map(json => new Floor(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -26,9 +27,7 @@ export class FloorService {
   // POST /floors
   addFloor(floor: Floor): Observable<Floor> {
     const body = JSON.stringify(floor);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({headers: headers});
+    const options = this.getOptions();
 
     return this.http.post(`${environment.API}/floors`, body, options)
       .map((res: Response) => new Floor(res.json()))
@@ -37,7 +36,8 @@ export class FloorService {
 
   // GET /floors/id
   getFloor(uri: string): Observable<Floor> {
-    return this.http.get(`${environment.API}${uri}`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}${uri}`, options)
       .map((res: Response) => new Floor(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -45,9 +45,7 @@ export class FloorService {
   // PATCH /floors/id
   updateFloor(floor: Floor): Observable<Floor> {
     const body = JSON.stringify(floor);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({headers: headers});
+    const options = this.getOptions();
 
     return this.http.patch(`${environment.API}${floor.uri}`, body, options)
       .map((res: Response) => new Floor(res.json()))
@@ -56,7 +54,8 @@ export class FloorService {
 
   // GET /floors
   getFloorsOfBuilding(uri: string): Observable<Floor[]> {
-    return this.http.get(`${environment.API}${uri}/floors`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}${uri}/floors`, options)
       .map((res: Response) => res.json()._embedded.floors.map(json => new Floor(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -64,28 +63,32 @@ export class FloorService {
 
   // GET /floors/search/findByByTitleContaining?title
   getFloorsByTitleContaining(floor: string): Observable<Floor[]> {
-    return this.http.get(environment.API + '/floors/search/findByTitleContainingIgnoreCase?title=' + floor)
+    const options = this.getOptions();
+    return this.http.get(environment.API + '/floors/search/findByTitleContainingIgnoreCase?title=' + floor, options)
       .map((res: Response) => res.json()._embedded.floors.map(json => new Floor(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   // GET /floors/search/findByTitleContainingIgnoreCaseAndIsInBuilding?title
   getFloorsByTitleContainingAndInBuilding(floor: string, building: Building): Observable<Floor[]> {
-    return this.http.get(environment.API + '/floors/search/findByTitleContainingIgnoreCaseAndIsInBuilding?title=' + floor + '&building=' + building.uri)
+    const options = this.getOptions();
+    return this.http.get(environment.API + '/floors/search/findByTitleContainingIgnoreCaseAndIsInBuilding?title=' + floor + '&building=' + building.uri, options)
       .map((res: Response) => res.json()._embedded.floors.map(json => new Floor(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   // GET /floors/isInBuilding
   getBuildingOfFloor(floor: Floor): Observable<Building> {
-    return this.http.get(floor._links.isInBuilding.href)
+    const options = this.getOptions();
+    return this.http.get(floor._links.isInBuilding.href, options)
       .map((res: Response) => new Building(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   // GET /ports/id/isInCard
   getFloorByDealer(dealer: Dealer): Observable<Floor> {
-    return this.http.get(dealer._links.isInFloor.href)
+    const options = this.getOptions();
+    return this.http.get(dealer._links.isInFloor.href, options)
       .map((res: Response) => new Floor(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -130,4 +133,19 @@ export class FloorService {
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }*/
+
+  // DELETE /floors/{id}
+  deleteFloor(floor: Floor): Observable<Response> {
+    const options = this.getOptions();
+    return this.http.delete(environment.API + floor.uri, options)
+      .map((res: Response) => res)
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  getOptions(): RequestOptions {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+    return options;
+  }
 }
