@@ -17,7 +17,8 @@ export class ConnectorService {
 
   // GET /connectors
   getAllConnectors(): Observable<Connector[]> {
-    return this.http.get(`${environment.API}/connectors`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}/connectors`, options)
       .map((res: Response) => res.json()._embedded.connectors.map(json => new Connector(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -25,9 +26,7 @@ export class ConnectorService {
   // POST /connectors
   addConnector(connector: Connector): Observable<Connector> {
     const body = JSON.stringify(connector);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({headers: headers});
+    const options = this.getOptions();
 
     return this.http.post(`${environment.API}/connectors`, body, options)
       .map((res: Response) => new Connector(res.json()))
@@ -36,7 +35,8 @@ export class ConnectorService {
 
   // GET /connectors/id
   getConnector(uri: string): Observable<Connector> {
-    return this.http.get(`${environment.API}${uri}`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}${uri}`, options)
       .map((res: Response) => new Connector(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -44,9 +44,7 @@ export class ConnectorService {
   // PATCH /connectors/id
   updateConnector(connector: Connector): Observable<Connector> {
     const body = JSON.stringify(connector);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({headers: headers});
+    const options = this.getOptions();
 
     return this.http.patch(`${environment.API}${connector.uri}`, body, options)
       .map((res: Response) => new Connector(res.json()))
@@ -55,8 +53,8 @@ export class ConnectorService {
 
   // GET /connectors
   getConnectorsOfFloor(uri: string): Observable<Connector[]> {
-    console.log(`${environment.API}${uri}/connectors`);
-    return this.http.get(`${environment.API}${uri}/connectors`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}${uri}/connectors`, options)
       .map((res: Response) => res.json()._embedded.connectors.map(json => new Connector(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -64,14 +62,16 @@ export class ConnectorService {
 
   // GET /connectors/search/findByByTitleContaining?title
   getConnectorsByTitleContaining(connector: string): Observable<Connector[]> {
-    return this.http.get(environment.API + '/connectors/search/findByTitleContainingIgnoreCase?title=' + connector)
+    const options = this.getOptions();
+    return this.http.get(environment.API + '/connectors/search/findByTitleContainingIgnoreCase?title=' + connector, options)
       .map((res: Response) => res.json()._embedded.connectors.map(json => new Connector(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   // GET /connectors/search/findByByTitleContainingAndInFloor?title
   getConnectorsByTitleContainingAndInFloor(connector: string, floor: Floor): Observable<Connector[]> {
-    return this.http.get(environment.API + '/connectors/search/findByTitleContainingIgnoreCaseAndIsInFloor?title='  + connector + '&floor=' + floor.uri)
+    const options = this.getOptions();
+    return this.http.get(environment.API + '/connectors/search/findByTitleContainingIgnoreCaseAndIsInFloor?title='  + connector + '&floor=' + floor.uri, options)
       .map((res: Response) => res.json()._embedded.connectors.map(json => new Connector(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -116,4 +116,18 @@ export class ConnectorService {
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }*/
+
+  // DELETE /campuses/{id}
+  deleteConnector(connector: Connector): Observable<Response> {
+    const options = this.getOptions();
+    return this.http.delete(environment.API + connector.uri, options)
+      .map((res: Response) => res)
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+  getOptions(): RequestOptions {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+    return options;
+  }
 }

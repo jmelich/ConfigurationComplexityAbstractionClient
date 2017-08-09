@@ -15,6 +15,7 @@ import {CardService} from '../../card/card.service';
 import {Card} from '../../card/card';
 import {PortService} from '../../port/port.service';
 import {Port} from '../../port/port';
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class ConnectorDetailsComponent implements OnInit {
   // public isOwner: boolean;
 
   constructor(private route: ActivatedRoute,
+              private _location: Location,
               private connectorService: ConnectorService,
               private floorService: FloorService,
               private dealerService: DealerService,
@@ -202,5 +204,14 @@ export class ConnectorDetailsComponent implements OnInit {
     }else {
       return false;
     }
+  }
+
+  onDelete(): void {
+    this.connectorService.deleteConnector(this.connector)
+      .subscribe(
+        response => { this._location.back(); },
+        error => {
+          this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+        });
   }
 }
