@@ -6,6 +6,7 @@ import { AuthenticationBasicService } from '../../login-basic/authentication-bas
 import { OwnerService } from '../../user/owner.service';
 import {DealerService} from '../../dealer/dealer.service';
 import {Dealer} from '../../dealer/dealer';
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class EquipmentDetailsComponent implements OnInit {
   // public isOwner: boolean;
 
   constructor(private route: ActivatedRoute,
+              private _location: Location,
               private equipmentService: EquipmentService,
               private dealerService: DealerService,
               private authenticationService: AuthenticationBasicService,
@@ -51,5 +53,13 @@ export class EquipmentDetailsComponent implements OnInit {
           error => this.errorMessage = <any>error.message,
         );
       });
+  }
+  onDelete(): void {
+    this.equipmentService.deleteEquipment(this.equipment)
+      .subscribe(
+        response => { this._location.back(); },
+        error => {
+          this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+        });
   }
 }

@@ -18,7 +18,8 @@ export class EquipmentService {
 
   // GET /equipment
   getAllEquipments(): Observable<Equipment[]> {
-    return this.http.get(`${environment.API}/equipments`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}/equipments`, options)
       .map((res: Response) => res.json()._embedded.equipments.map(json => new Equipment(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -26,9 +27,7 @@ export class EquipmentService {
   // POST /equipments
   addEquipment(equipment: Equipment): Observable<Equipment> {
     const body = JSON.stringify(equipment);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({headers: headers});
+    const options = this.getOptions();
 
     return this.http.post(`${environment.API}/equipments`, body, options)
       .map((res: Response) => new Equipment(res.json()))
@@ -37,7 +36,8 @@ export class EquipmentService {
 
   // GET /equipments/id
   getEquipment(uri: string): Observable<Equipment> {
-    return this.http.get(`${environment.API}${uri}`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}${uri}`, options)
       .map((res: Response) => new Equipment(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -45,9 +45,7 @@ export class EquipmentService {
   // PATCH /equipments/id
   updateEquipment(equipment: Equipment): Observable<Equipment> {
     const body = JSON.stringify(equipment);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({headers: headers});
+    const options = this.getOptions();
 
     return this.http.patch(`${environment.API}${equipment.uri}`, body, options)
       .map((res: Response) => new Equipment(res.json()))
@@ -56,7 +54,8 @@ export class EquipmentService {
 
   // GET /equipments
   getEquipmentsOfDealer(uri: string): Observable<Equipment[]> {
-    return this.http.get(`${environment.API}${uri}/equipments`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}${uri}/equipments`, options)
       .map((res: Response) => res.json()._embedded.equipments.map(json => new Equipment(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -64,21 +63,24 @@ export class EquipmentService {
 
   // GET /equipments/search/findByByTitleContaining?title
   getEquipmentsByTitleContaining(equipment: string): Observable<Equipment[]> {
-    return this.http.get(environment.API + '/equipments/search/findByTitleContainingIgnoreCase?title=' + equipment)
+    const options = this.getOptions();
+    return this.http.get(environment.API + '/equipments/search/findByTitleContainingIgnoreCase?title=' + equipment, options)
       .map((res: Response) => res.json()._embedded.equipments.map(json => new Equipment(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   // GET /equipments/search/findByByTitleContaining?title
   getEquipmentsByTitleContainingAndInDealer(equipment: string, dealer: Dealer): Observable<Equipment[]> {
-    return this.http.get(environment.API + '/equipments/search/findByTitleContainingIgnoreCaseAndIsInDealer?title=' + equipment + '&dealer=' + dealer.uri)
+    const options = this.getOptions();
+    return this.http.get(environment.API + '/equipments/search/findByTitleContainingIgnoreCaseAndIsInDealer?title=' + equipment + '&dealer=' + dealer.uri, options)
       .map((res: Response) => res.json()._embedded.equipments.map(json => new Equipment(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   // GET /ports/id/isInCard
   getEquipmentByCard(card: Card): Observable<Equipment> {
-    return this.http.get(card._links.isInEquipment.href)
+    const options = this.getOptions();
+    return this.http.get(card._links.isInEquipment.href, options)
       .map((res: Response) => new Equipment(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -123,4 +125,18 @@ export class EquipmentService {
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }*/
+
+  // DELETE /campuses/{id}
+  deleteEquipment(equipment: Equipment): Observable<Response> {
+    const options = this.getOptions();
+    return this.http.delete(environment.API + equipment.uri, options)
+      .map((res: Response) => res)
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+  getOptions(): RequestOptions {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+    return options;
+  }
 }
