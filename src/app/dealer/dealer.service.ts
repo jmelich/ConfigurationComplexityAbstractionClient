@@ -18,7 +18,8 @@ export class DealerService {
 
   // GET /dealers
   getAllDealers(): Observable<Dealer[]> {
-    return this.http.get(`${environment.API}/dealers`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}/dealers`, options)
       .map((res: Response) => res.json()._embedded.dealers.map(json => new Dealer(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -26,10 +27,7 @@ export class DealerService {
   // POST /dealers
   addDealer(dealer: Dealer): Observable<Dealer> {
     const body = JSON.stringify(dealer);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({headers: headers});
-
+    const options = this.getOptions();
     return this.http.post(`${environment.API}/dealers`, body, options)
       .map((res: Response) => new Dealer(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
@@ -37,7 +35,8 @@ export class DealerService {
 
   // GET /dealers/id
   getDealer(uri: string): Observable<Dealer> {
-    return this.http.get(`${environment.API}${uri}`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}${uri}`, options)
       .map((res: Response) => new Dealer(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -45,10 +44,7 @@ export class DealerService {
   // PATCH /dealers/id
   updateDealer(dealer: Dealer): Observable<Dealer> {
     const body = JSON.stringify(dealer);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({headers: headers});
-
+    const options = this.getOptions();
     return this.http.patch(`${environment.API}${dealer.uri}`, body, options)
       .map((res: Response) => new Dealer(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
@@ -56,7 +52,8 @@ export class DealerService {
 
   // GET /dealers
   getDealersOfFloor(uri: string): Observable<Dealer[]> {
-    return this.http.get(`${environment.API}${uri}/dealers`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}${uri}/dealers`, options)
       .map((res: Response) => res.json()._embedded.dealers.map(json => new Dealer(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -64,20 +61,23 @@ export class DealerService {
 
   // GET /dealers/search/findByByTitleContaining?title
   getDealersByTitleContaining(dealer: string): Observable<Dealer[]> {
-    return this.http.get(environment.API + '/dealers/search/findByTitleContainingIgnoreCase?title=' + dealer)
+    const options = this.getOptions();
+    return this.http.get(environment.API + '/dealers/search/findByTitleContainingIgnoreCase?title=' + dealer, options)
       .map((res: Response) => res.json()._embedded.dealers.map(json => new Dealer(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   getDealersByTitleContainingAndInFloor(dealer: string, floor: Floor): Observable<Dealer[]> {
-    return this.http.get(environment.API + '/dealers/search/findByTitleContainingIgnoreCaseAndIsInFloor?title=' + dealer + '&floor=' + floor.uri)
+    const options = this.getOptions();
+    return this.http.get(environment.API + '/dealers/search/findByTitleContainingIgnoreCaseAndIsInFloor?title=' + dealer + '&floor=' + floor.uri, options)
       .map((res: Response) => res.json()._embedded.dealers.map(json => new Dealer(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   // GET /ports/id/isInCard
   getDealerByEquipment(equipment: Equipment): Observable<Dealer> {
-    return this.http.get(equipment._links.isInDealer.href)
+    const options = this.getOptions();
+    return this.http.get(equipment._links.isInDealer.href, options)
       .map((res: Response) => new Equipment(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -122,4 +122,19 @@ export class DealerService {
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }*/
+
+  // DELETE /floors/{id}
+  deleteDealer(dealer: Dealer): Observable<Response> {
+    const options = this.getOptions();
+    return this.http.delete(environment.API + dealer.uri, options)
+      .map((res: Response) => res)
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  getOptions(): RequestOptions {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+    return options;
+  }
 }
