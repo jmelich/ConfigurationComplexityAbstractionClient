@@ -17,7 +17,8 @@ export class CardService {
 
   // GET /cards
   getAllCards(): Observable<Card[]> {
-    return this.http.get(`${environment.API}/cards`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}/cards`, options)
       .map((res: Response) => res.json()._embedded.cards.map(json => new Card(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -25,9 +26,7 @@ export class CardService {
   // POST /cards
   addCard(card: Card): Observable<Card> {
     const body = JSON.stringify(card);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({headers: headers});
+    const options = this.getOptions();
 
     return this.http.post(`${environment.API}/cards`, body, options)
       .map((res: Response) => new Card(res.json()))
@@ -36,7 +35,8 @@ export class CardService {
 
   // GET /cards/id
   getCard(uri: string): Observable<Card> {
-    return this.http.get(`${environment.API}${uri}`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}${uri}`, options)
       .map((res: Response) => new Card(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -44,9 +44,7 @@ export class CardService {
   // PATCH /cards/id
   updateCard(card: Card): Observable<Card> {
     const body = JSON.stringify(card);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({headers: headers});
+    const options = this.getOptions();
 
     return this.http.patch(`${environment.API}${card.uri}`, body, options)
       .map((res: Response) => new Card(res.json()))
@@ -55,8 +53,8 @@ export class CardService {
 
   // GET /cards
   getCardsOfEquipment(uri: string): Observable<Card[]> {
-    console.log(`${environment.API}${uri}/cards`);
-    return this.http.get(`${environment.API}${uri}/cards`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}${uri}/cards`, options)
       .map((res: Response) => res.json()._embedded.cards.map(json => new Card(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -64,14 +62,16 @@ export class CardService {
 
   // GET /cards/search/findByByTitleContaining?title
   getCardsByTitleContaining(card: string): Observable<Card[]> {
-    return this.http.get(environment.API + '/cards/search/findByTitleContaining?title=' + card)
+    const options = this.getOptions();
+    return this.http.get(environment.API + '/cards/search/findByTitleContaining?title=' + card, options)
       .map((res: Response) => res.json()._embedded.cards.map(json => new Card(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   // GET /ports/id/isInCard
   getCardByPort(port: Port): Observable<Card> {
-    return this.http.get(port._links.isInCard.href)
+    const options = this.getOptions();
+    return this.http.get(port._links.isInCard.href, options)
       .map((res: Response) => new Card(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -116,4 +116,18 @@ export class CardService {
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }*/
+
+  // DELETE /campuses/{id}
+  deleteCard(card: Card): Observable<Response> {
+    const options = this.getOptions();
+    return this.http.delete(environment.API + card.uri, options)
+      .map((res: Response) => res)
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+  getOptions(): RequestOptions {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+    return options;
+  }
 }
