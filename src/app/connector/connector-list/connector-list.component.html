@@ -15,8 +15,12 @@
   <div class="panel-group col-md-12">
     <div class="panel panel-default" *ngFor="let connectorItem of connectors">
       <div class="panel-heading">
-          <h4><a routerLink="{{connectorItem.uri}}">{{connectorItem.title}}</a></h4>
-          <input type="image" src="assets/settings.png" style="max-width:50px; max-height:50px;" (click)="openCustom(connectorItem)"/>
+        <h4>
+          <a routerLink="{{connectorItem.uri}}">{{connectorItem.title}}</a>
+          <div>
+            <input type="image" src="assets/settings.png" style="max-width:30px; max-height:30px; float: right; margin-top: -25px;" (click)="openCustom(connectorItem)"/>
+          </div>
+        </h4>
       </div>
     </div>
   </div>
