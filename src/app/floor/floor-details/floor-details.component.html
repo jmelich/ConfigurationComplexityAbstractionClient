@@ -1,11 +1,8 @@
 <div class="row">
-  <div class="col-md-3">
-    <h3>Floor Details</h3>
+  <div class="col-md-4" style="width: auto; padding-left: 0px;">
+    <h2><strong>Floor {{floor.title}}</strong></h2>
   </div>
-</div>
-
-<div class="row">
-  <div class="col-md-1">
+  <div class="col-md-8 editbutton">
     <a class="btn btn-primary" role="button" routerLink="{{floor.uri}}/edit">Edit</a>
     <a class="btn btn-danger" role="button" (click)="onDelete()">Delete</a>
   </div>
@@ -32,7 +29,7 @@
   </div>
 </div>
 
-<div *ngIf="floor.uri !== undefined" class="row">
+<div *ngIf="floor.uri !== undefined" class="row" style="margin-left: 30px">
   <div class="col-md-12">
     <app-dealer-list [floor]="floor"></app-dealer-list>
   </div>
@@ -41,7 +38,7 @@
 
 
 
-<div *ngIf="floor.uri !== undefined" class="row">
+<div *ngIf="floor.uri !== undefined" class="row" style="margin-left: 30px">
   <div class="col-md-12">
     <app-connector-list [floor]="floor"></app-connector-list>
   </div>
