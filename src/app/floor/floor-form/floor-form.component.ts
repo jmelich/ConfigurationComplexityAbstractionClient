@@ -76,6 +76,7 @@ export class FloorFormComponent implements OnInit {
         });
     console.log(this.floor.uri);
     this.floor = new Floor();
+    this.image = null;
     if (this.building) {
       this.floor.isInBuilding = this.building.uri;
     }

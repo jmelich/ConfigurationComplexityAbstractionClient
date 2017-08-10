@@ -32,11 +32,16 @@
     </div>
 
     <div *ngIf="showForm" class="form-group row">
-      <input type="file" id="picture" autofocus=""  #file (change)="addPicture(file)" />
-      <div *ngIf="image" class="picture-container" style="overflow: auto;max-height: 200px;">
-        <img [src]="image" />
+      <label class="col-md-3 control-label" >Select file</label>
+      <div class="col-md-9">
+        <input type="file" id="picture" autofocus=""  #file (change)="addPicture(file)" />
       </div>
+
       <!--<app-loading class="container" ></app-loading>-->
+    </div>
+
+    <div *ngIf="image && showForm" class="picture-container form-group row imageView">
+      <img [src]="image" />
     </div>
 
     <div *ngIf="showForm" class="form-group row">
