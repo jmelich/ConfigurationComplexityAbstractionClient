@@ -26,6 +26,7 @@ export class CardListComponent implements OnInit {
 
   onSearch(cards) {
     this.cards = cards;
+    console.log('searching');
   }
 
   ngOnInit() {

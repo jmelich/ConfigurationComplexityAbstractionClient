@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {Card} from '../card';
 import {CardService} from '../card.service';
+import {Equipment} from '../../equipment/equipment';
 
 @Component({
   selector: 'app-card-search',
@@ -9,10 +10,9 @@ import {CardService} from '../card.service';
   styleUrls: ['card-search.component.css']
 })
 export class CardSearchComponent {
-  @Input()
-  cards: Card[];
-  @Output()
-  onSearchited: EventEmitter<any> = new EventEmitter();
+  @Input()  equipment: Equipment;
+  @Input()  cards: Card[];
+  @Output()  onSearchited: EventEmitter<any> = new EventEmitter();
   private card: string = null;
 
   public errorMessage: string;
@@ -28,13 +28,23 @@ export class CardSearchComponent {
       .subscribe((id) => {
         if (id != null) { this.card = `/cards/${id}`; }
       });
-    this.cardService.getCardsByTitleContaining(searchTerm).subscribe(
-      cards => {
-        // Send to output emitter
-        this.onSearchited.emit(cards);
-      },
-      error => this.errorMessage = <any>error.message
-    );
+    if (this.equipment !== undefined) {
+      this.cardService.getCardsByTitleContainingAndInEquipment(searchTerm, this.equipment).subscribe(
+        cards => {
+          // Send to output emitter
+          this.onSearchited.emit(cards);
+        },
+        error => this.errorMessage = <any>error.message
+      );
+    }else {
+      this.cardService.getCardsByTitleContaining(searchTerm).subscribe(
+        cards => {
+          // Send to output emitter
+          this.onSearchited.emit(cards);
+        },
+        error => this.errorMessage = <any>error.message
+      );
+    }
   }
 
 }

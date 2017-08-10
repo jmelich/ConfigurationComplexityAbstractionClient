@@ -1,14 +1,14 @@
 <div class="row">
-  <div class="col-md-4">
-    <h4 *ngIf="cards.length == 0">There are no cards registered</h4>
-    <h4 *ngIf="cards.length > 0">There are {{cards.length}} cards registered</h4>
+  <div class="row">
+    <h2 *ngIf="!equipment" class="col-md-12"> <strong>Cards:</strong></h2>
+    <h3 *ngIf="equipment" class="col-md-12"><strong>Cards in this equipment:</strong></h3>
   </div>
-  <!--<div class="col-md-8">
-    <h4>
-      <a class="btn btn-primary" role="button"
-         [routerLink]="['/cards/new']">Register New Card</a>
-    </h4>
-  </div>-->
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <app-card-search (onSearchited)="onSearch($event)" [cards]="cards" [equipment]="equipment"></app-card-search>
+  </div>
 </div>
 
 <!--<div class="row">

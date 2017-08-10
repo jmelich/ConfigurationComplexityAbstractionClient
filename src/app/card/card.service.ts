@@ -7,6 +7,7 @@ import {environment} from '../../environments/environment';
 import {Card} from './card';
 import {Injectable} from '@angular/core';
 import {Port} from "../port/port";
+import {Equipment} from "../equipment/equipment";
 
 @Injectable()
 export class CardService {
@@ -75,7 +76,12 @@ export class CardService {
       .map((res: Response) => new Card(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
-
+  getCardsByTitleContainingAndInEquipment(card: string, equipment: Equipment): Observable<Card[]> {
+    const options = this.getOptions();
+    return this.http.get(environment.API + '/cards/search/findByTitleContainingIgnoreCaseAndIsInEquipment?title=' + card + '&equipment=' + equipment.uri, options)
+      .map((res: Response) => res.json()._embedded.buildings.map(json => new Card(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
   /*
 
   // GET /comments/OrderById
