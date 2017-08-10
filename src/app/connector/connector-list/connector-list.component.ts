@@ -110,8 +110,11 @@ export class ConnectorListComponent implements OnInit {
       .open();
   }
 
-  openCustom() {
-    console.log(this.connectors[this.imgMap.markerActive - 1].title)
-    return this.modal.open(CustomModalComponent,  overlayConfigFactory({ connector: this.connectors[this.imgMap.markerActive - 1] }, BSModalContext));
+  openCustom(item?: Connector) {
+    if (item) {
+      return this.modal.open(CustomModalComponent,  overlayConfigFactory({ connector: item }, BSModalContext));
+    }else {
+      return this.modal.open(CustomModalComponent,  overlayConfigFactory({ connector: this.connectors[this.imgMap.markerActive - 1] }, BSModalContext));
+    }
   }
 }
