@@ -1,7 +1,7 @@
 <div class="container-fluid custom-modal-container">
   <div class="row custom-modal-header">
     <div class="col-sm-12">
-      <h1>Connector <strong>{{context.connector.title}}</strong> configuration </h1>
+      <h2><strong>{{context.connector.title}}</strong> configuration </h2>
     </div>
   </div>
   <div class="row" [ngClass]="{'myclass' : shouldUseMyClass}">
@@ -11,7 +11,9 @@
           <p><img src="http://www.wallies.com/filebin/images/loading_apple.gif" alt="Loading" align="middle" height="42" width="42"> Loading...</p>
         </div>
         <div class="row" *ngIf="loadedAvailable && loadedCurrent">
-          <h2>Administrative Status:</h2>
+          <h4><strong>Input Bytes:</strong>{{currentSettings.inputBytes}}</h4>
+          <h4><strong>Output Bytes:</strong>{{currentSettings.outputBytes}}</h4>
+          <h4>Administrative Status:</h4>
           <div *ngFor="let status of availableSettings.administrativeStatus.split('/')"  for='option' >
             <input
               #option
@@ -23,7 +25,7 @@
               [checked]="status == currentSettings.administrativeStatus"
               (change) = 'changedStatus(status)'/>{{status}}
           </div>
-          <h2>VLAN:</h2>
+          <h4>VLAN:</h4>
           <div *ngFor="let vlan of availableSettings.availableVLANs.split('/')"  for='option' >
             <input
               #option
@@ -35,7 +37,7 @@
               [checked]="vlan == currentSettings.connectedToVLANs"
               (change) = 'changedVLAN(vlan)'/>{{vlan}}
           </div>
-          <h2>SPEED:</h2>
+          <h4>SPEED:</h4>
           <div *ngFor="let speed of availableSettings.portSpeed.split('/')"  for='option' >
             <input
               #option
@@ -47,7 +49,7 @@
               [checked]="speed == currentSettings.portSpeed"
               (change) = 'changedSpeed(speed)'/>{{speed}}
           </div>
-          <h2>DUPLEX MODE:</h2>
+          <h4>DUPLEX MODE:</h4>
           <div *ngFor="let mode of availableSettings.duplexMode.split('/')"  for='option' >
             <input
               #option
@@ -64,7 +66,10 @@
     </div>
     <div class="col-xs-12">
       <div class="jumbotron">
-        <h2>hola holaaaa</h2>
+        <h4><strong>Running Directory:</strong>{{currentSettings.runningDirectory}}</h4>
+        <span>Save config to directory:</span>
+        <input class="form-control" type="text" #answer>
+        <label><input type="checkbox" value="">Certify config</label>
       </div>
     </div>
     <div class="form-group row">

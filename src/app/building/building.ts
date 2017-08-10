@@ -2,8 +2,6 @@ export class Building {
   uri: string;
   title: string;
   description: string;
-  latitude: number;
-  longitude: number;
   isInCampus: string;
   dateTime: string;
   lastModified: string;

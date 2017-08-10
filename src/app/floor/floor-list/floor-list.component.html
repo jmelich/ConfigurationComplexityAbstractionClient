@@ -1,14 +1,11 @@
 <div class="row">
-  <!--<div class="col-md-8">
-    <h4>
-      <a class="btn btn-primary" role="button"
-         [routerLink]="['/floors/new']">Register New Floor</a>
-    </h4>
-  </div>-->
+  <div class="row">
+    <h2 *ngIf="!building" class="col-md-12"> <strong>Floors:</strong></h2>
+    <h3 *ngIf="building" class="col-md-12"><strong>Floors in this building:</strong></h3>
+  </div>
 </div>
 
 <div class="row">
-  <h3 class="col-md-12">Floors</h3>
   <div class="col-md-12">
     <app-floor-search (onSearchited)="onSearch($event)" [floors]="floors" [building]="building"></app-floor-search>
   </div>

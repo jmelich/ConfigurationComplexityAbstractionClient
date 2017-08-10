@@ -31,8 +31,6 @@ export class BuildingFormComponent implements OnInit {
     this.buildingForm = fb.group({
       'title': ['Building title', Validators.required],
       'description' : ['Building description'],
-      'latitude' : ['Building latitude'],
-      'longitude' : ['Building longitude'],
       'isInCampus'  : ['Building campus']
     });
     this.titleCtrl = this.buildingForm.controls['title'];

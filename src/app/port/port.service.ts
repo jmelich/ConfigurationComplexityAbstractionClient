@@ -26,9 +26,7 @@ export class PortService {
   // POST /ports
   addPort(port: Port): Observable<Port> {
     const body = JSON.stringify(port);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({headers: headers});
+    const options = this.getOptions();
 
     return this.http.post(`${environment.API}/ports`, body, options)
       .map((res: Response) => new Port(res.json()))
@@ -45,9 +43,7 @@ export class PortService {
   // PATCH /ports/id
   updatePort(port: Port): Observable<Port> {
     const body = JSON.stringify(port);
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({headers: headers});
+    const options = this.getOptions();
 
     return this.http.patch(`${environment.API}${port.uri}`, body, options)
       .map((res: Response) => new Port(res.json()))
@@ -56,7 +52,8 @@ export class PortService {
 
   // GET /ports
   getPortsOfCard(uri: string): Observable<Port[]> {
-    return this.http.get(`${environment.API}${uri}/ports`)
+    const options = this.getOptions();
+    return this.http.get(`${environment.API}${uri}/ports`, options)
       .map((res: Response) => res.json()._embedded.ports.map(json => new Port(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -64,21 +61,24 @@ export class PortService {
 
   // GET /ports/search/findByByTitleContaining?title
   getPortsByTitleContaining(port: string): Observable<Port[]> {
-    return this.http.get(environment.API + '/ports/search/findByTitleContaining?title=' + port)
+    const options = this.getOptions();
+    return this.http.get(environment.API + '/ports/search/findByTitleContaining?title=' + port, options)
       .map((res: Response) => res.json()._embedded.ports.map(json => new Port(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   // GET /ports/isInCard
   getCardOfPort(port: Port): Observable<Card> {
-    return this.http.get(port._links.isInCard.href)
+    const options = this.getOptions();
+    return this.http.get(port._links.isInCard.href, options)
       .map((res: Response) => new Card(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   // GET /ports/id/isInCard
   getPortByConnector(connector: Connector): Observable<Port> {
-    return this.http.get(connector._links.connectedTo.href)
+    const options = this.getOptions();
+    return this.http.get(connector._links.connectedTo.href, options)
       .map((res: Response) => new Port(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -123,4 +123,11 @@ export class PortService {
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }*/
+
+  getOptions(): RequestOptions {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+    return options;
+  }
 }

@@ -1,6 +1,6 @@
 <div class="row">
-  <div class="col-md-4" style="width: auto;">
-    <h3>Campus Details</h3>
+  <div class="col-md-4" style="width: auto; padding-left: 0px;">
+    <h2><strong>Campus {{campus.title}}</strong></h2>
   </div>
   <div class="col-md-8 editbutton">
     <a class="btn btn-primary" role="button" routerLink="{{campus.uri}}/edit">Edit</a>
@@ -22,17 +22,6 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-2">
-    <h4>latitude</h4>
-    <p>{{campus.latitude}}</p>
-  </div>
-  <div class="col-md-2">
-    <h4>longitude</h4>
-    <p>{{campus.longitude}}</p>
-  </div>
-</div>
-
 
 <!--<div *ngIf="buildings" class="col-md-2">
   <h4>Buildings:</h4>
@@ -41,7 +30,7 @@
   </div>
 </div> -->
 
-<div *ngIf="campus.uri !== undefined" class="row">
+<div *ngIf="campus.uri !== undefined" class="row" style="margin-left: 30px;">
   <div class="col-md-12">
     <app-building-list [campus]="campus"></app-building-list>
   </div>

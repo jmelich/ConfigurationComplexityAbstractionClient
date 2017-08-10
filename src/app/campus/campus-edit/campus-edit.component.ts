@@ -25,8 +25,6 @@ export class CampusEditComponent implements OnInit {
     this.campusForm = fb.group({
       'title': ['Campus title', Validators.required],
       'description' : ['Campus description'],
-      'latitude' : ['Campus latitude'],
-      'longitude' : ['Campus longitude'],
     });
     this.titleCtrl = this.campusForm.controls['title'];
   }
