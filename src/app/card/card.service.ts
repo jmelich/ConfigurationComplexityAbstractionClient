@@ -64,7 +64,7 @@ export class CardService {
   // GET /cards/search/findByByTitleContaining?title
   getCardsByTitleContaining(card: string): Observable<Card[]> {
     const options = this.getOptions();
-    return this.http.get(environment.API + '/cards/search/findByTitleContaining?title=' + card, options)
+    return this.http.get(environment.API + '/cards/search/findByTitleContainingIgnoreCase?title=' + card, options)
       .map((res: Response) => res.json()._embedded.cards.map(json => new Card(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -79,7 +79,7 @@ export class CardService {
   getCardsByTitleContainingAndInEquipment(card: string, equipment: Equipment): Observable<Card[]> {
     const options = this.getOptions();
     return this.http.get(environment.API + '/cards/search/findByTitleContainingIgnoreCaseAndIsInEquipment?title=' + card + '&equipment=' + equipment.uri, options)
-      .map((res: Response) => res.json()._embedded.buildings.map(json => new Card(json)))
+      .map((res: Response) => res.json()._embedded.cards.map(json => new Card(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
   /*

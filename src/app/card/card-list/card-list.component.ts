@@ -26,12 +26,10 @@ export class CardListComponent implements OnInit {
 
   onSearch(cards) {
     this.cards = cards;
-    console.log('searching');
   }
 
   ngOnInit() {
     if ( this.equipment !== undefined) {
-      console.log(this.equipment.uri);
       this.cardService.getCardsOfEquipment(this.equipment.uri).subscribe(
         cards => { this.cards = cards; },
         error => this.errorMessage = <any>error.message

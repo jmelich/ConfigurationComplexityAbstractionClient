@@ -32,6 +32,7 @@ export class CardSearchComponent {
       this.cardService.getCardsByTitleContainingAndInEquipment(searchTerm, this.equipment).subscribe(
         cards => {
           // Send to output emitter
+          console.log('searching');
           this.onSearchited.emit(cards);
         },
         error => this.errorMessage = <any>error.message
