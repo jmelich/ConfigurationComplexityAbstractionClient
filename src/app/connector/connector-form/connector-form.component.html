@@ -44,26 +44,6 @@
       </div>
     </div>
 
-    <!-- Textarea -->
-    <div *ngIf="showForm" class="form-group row">
-      <label class="col-md-3 control-label" for="latitude">Connector latitude</label>
-      <div class="col-md-9">
-        <textarea class="form-control" id="latitude" name="latitude" placeholder="Latitude"
-                  [formControl]="connectorForm.controls['latitude']"
-                  [(ngModel)]="connector.latitude"></textarea>
-      </div>
-    </div>
-
-    <!-- Textarea -->
-    <div *ngIf="showForm" class="form-group row">
-      <label class="col-md-3 control-label" for="longitude">Connector longitude</label>
-      <div class="col-md-9">
-        <textarea class="form-control" id="longitude" name="longitude" placeholder="Longitude"
-                  [formControl]="connectorForm.controls['longitude']"
-                  [(ngModel)]="connector.longitude"></textarea>
-      </div>
-    </div>
-
     <div *ngIf="showForm && floor" class="form-group row">
       <img-map
         #imgMap

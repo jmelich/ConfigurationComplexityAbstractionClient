@@ -1,21 +1,14 @@
 <div class="row">
-  <!--<div class="col-md-8">
-    <h4>
-      <a class="btn btn-primary" role="button"
-         [routerLink]="['/equipments/new']">Register New Equipment</a>
-    </h4>
-  </div> -->
-</div>
-
-<div class="row">
-  <h3 class="col-md-12">Equipments</h3>
-  <div class="col-md-12">
-    <app-equipment-search (onSearchited)="onSearch($event)" [equipments]="equipments" [dealer]="dealer"></app-equipment-search>
+  <div class="row">
+    <h2 *ngIf="!dealer" class="col-md-12"> <strong>Equipment:</strong></h2>
+    <h3 *ngIf="dealer" class="col-md-12"><strong>Equipment in this floor:</strong></h3>
   </div>
 </div>
 
 <div class="row">
-  <h3 class="col-md-12">Equipments</h3>
+  <div class="col-md-12">
+    <app-equipment-search (onSearchited)="onSearch($event)" [equipments]="equipments" [dealer]="dealer"></app-equipment-search>
+  </div>
 </div>
 
 <div class="row">

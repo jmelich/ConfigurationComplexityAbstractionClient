@@ -1,14 +1,11 @@
 <div class="row">
-  <!--<div class="col-md-8">
-    <h4>
-      <a class="btn btn-primary" role="button"
-         [routerLink]="['/connectors/new']">Register New Connector</a>
-    </h4>
-  </div>-->
+  <div class="row">
+    <h2 *ngIf="!floor" class="col-md-12"> <strong>Connectors:</strong></h2>
+    <h3 *ngIf="floor" class="col-md-12"><strong>Connectors in this floor:</strong></h3>
+  </div>
 </div>
 
 <div class="row">
-  <h3 class="col-md-12">Connectors</h3>
   <div class="col-md-12">
     <app-connector-search (onSearchited)="onSearch($event)" [connectors]="connectors" [floor]="floor" ></app-connector-search>
   </div>
@@ -24,7 +21,7 @@
   </div>
 </div>
 
-<div *ngIf="floor" class="form-group row">
+<div *ngIf="floor" class="form-group row imageView">
   <img-map
     #imgMap
     [src]="floor.picture"
