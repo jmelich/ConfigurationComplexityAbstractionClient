@@ -21,7 +21,7 @@ export class ConnectorConfigService {
     const headers = new Headers({'Content-Type': 'application/json'});
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
     const options = new RequestOptions({headers: headers});
-    return this.http.get(`${environment.API}` + connector.uri + '/availableSettings', options)
+    return this.http.get(connector._links.self.href + '/availableSettings', options)
       .map((res: Response) => new ConnectorAvailableSettings(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -31,7 +31,7 @@ export class ConnectorConfigService {
     const headers = new Headers({'Content-Type': 'application/json'});
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
     const options = new RequestOptions({headers: headers});
-    return this.http.get(`${environment.API}` + connector.uri + '/currentSettings', options)
+    return this.http.get(connector._links.self.href + '/currentSettings', options)
       .map((res: Response) => new ConnectorCurrentSettings(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -41,7 +41,7 @@ export class ConnectorConfigService {
     const headers = new Headers({'Content-Type': 'application/json'});
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
     const options = new RequestOptions({headers: headers});
-    return this.http.get('http://localhost:8080/connectors/1/setVLAN?vlan=' + vlan, options)
+    return this.http.get(connector._links.self.href + '/setVLAN?vlan=' + vlan, options)
       .map((res: Response) => res.json().code)
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -50,7 +50,7 @@ export class ConnectorConfigService {
     const headers = new Headers({'Content-Type': 'application/json'});
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
     const options = new RequestOptions({headers: headers});
-    return this.http.get('http://localhost:8080/connectors/1/setAdministrativeStatus?status=' + status, options)
+    return this.http.get(connector._links.self.href + '/setAdministrativeStatus?status=' + status, options)
       .map((res: Response) => res.json().code)
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -59,7 +59,7 @@ export class ConnectorConfigService {
     const headers = new Headers({'Content-Type': 'application/json'});
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
     const options = new RequestOptions({headers: headers});
-    return this.http.get('http://localhost:8080/connectors/1/setDuplexMode?mode=' + mode, options)
+    return this.http.get(connector._links.self.href + '/setDuplexMode?mode=' + mode, options)
       .map((res: Response) => res.json().code)
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -68,7 +68,16 @@ export class ConnectorConfigService {
     const headers = new Headers({'Content-Type': 'application/json'});
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
     const options = new RequestOptions({headers: headers});
-    return this.http.get('http://localhost:8080/connectors/1/setPortSpeed?speed=' + speed, options)
+    return this.http.get(connector._links.self.href + '/setPortSpeed?speed=' + speed, options)
+      .map((res: Response) => res.json().code)
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+  // GET /connectors/id/saveConfig
+  saveConfig(connector: Connector, directory: string, certify: boolean): Observable<string> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+    return this.http.get(connector._links.self.href + '/saveConfig?directory=' + directory + '&certify=' + (certify ? 'true' : 'false'), options)
       .map((res: Response) => res.json().code)
       .catch((error: any) => Observable.throw(error.json()));
   }

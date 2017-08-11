@@ -68,8 +68,8 @@
       <div class="jumbotron">
         <h4><strong>Running Directory:</strong>{{currentSettings.runningDirectory}}</h4>
         <span>Save config to directory:</span>
-        <input class="form-control" type="text" #answer>
-        <label><input type="checkbox" value="">Certify config</label>
+        <input class="form-control" type="text" #answer [(ngModel)]="directory">
+        <label><input [(ngModel)]="certify" type="checkbox" value="">Certify config</label>
       </div>
     </div>
     <div class="form-group row">

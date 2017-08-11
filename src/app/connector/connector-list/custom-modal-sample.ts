@@ -32,6 +32,8 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
   public speedOption: string;
   public modeOption: string;
   public statusOption: string;
+  public directory: string;
+  public certify: boolean;
 
   public wrongAnswer: boolean;
 
@@ -67,6 +69,7 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
       currentSettings => {
         this.currentSettings = currentSettings;
         this.loadedCurrent = true;
+        this.directory = currentSettings.runningDirectory;
       },
       error => this.errorMessage = <any>error.message
     );
@@ -98,7 +101,6 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
   }
   submit() {
     this.submitSettings();
-    console.log('submitted');
     this.dialog.close();
   }
   submitSettings() {
@@ -106,6 +108,7 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
     if (this.modeOption) { this.setMode(); }
     if (this.speedOption) { this.setSpeed(); }
     if (this.vlanOption) { this.setVLAN(); }
+    this.saveConfig();
   }
   setStatus() {
     this.connectorConfigService.setConnectorStatus(this.context.connector, this.statusOption).subscribe(
@@ -132,4 +135,10 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
     );
   }
 
+  saveConfig() {
+    this.connectorConfigService.saveConfig(this.context.connector, this.directory, this.certify).subscribe(
+      response => {},
+      error => this.errorMessage = <any>error.message
+    );
+  }
 }
