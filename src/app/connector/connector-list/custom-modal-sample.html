@@ -64,7 +64,7 @@
         </div>
       </div>
     </div>
-    <div class="col-xs-12">
+    <div *ngIf="loadedAvailable && loadedCurrent" class="col-xs-12">
       <div class="jumbotron">
         <h4><strong>Running Directory:</strong>{{currentSettings.runningDirectory}}</h4>
         <span>Save config to directory:</span>
