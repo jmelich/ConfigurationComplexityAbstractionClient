@@ -1,4 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import { Router } from '@angular/router';
 import { ConnectorService } from '../connector.service';
 import { Connector } from '../connector';
 import {Floor} from '../../floor/floor';
@@ -9,6 +10,8 @@ import { CustomModalContext, CustomModalComponent } from './custom-modal-sample'
 import { Overlay, overlayConfigFactory } from 'angular2-modal';
 
 import { UpdateConnectorService } from '../update.connector.service';
+import {PortService} from '../../port/port.service';
+import {Toast, ToastsManager} from 'ng2-toastr';
 
 
 @Component({
@@ -48,8 +51,11 @@ export class ConnectorListComponent implements OnInit {
   }
 
   constructor(private connectorService: ConnectorService,
+              private portService: PortService,
               private updateService: UpdateConnectorService,
-              public modal: Modal) {
+              public modal: Modal,
+              public toastr: ToastsManager,
+              private router: Router) {
     updateService.addedConnector$.subscribe(
       connector => {
         this.connectors.push(connector);
@@ -111,10 +117,29 @@ export class ConnectorListComponent implements OnInit {
   }
 
   openCustom(item?: Connector) {
+    let connectorToConfig: Connector;
     if (item) {
-      return this.modal.open(CustomModalComponent,  overlayConfigFactory({ connector: item }, BSModalContext));
+      connectorToConfig = item;
     }else {
-      return this.modal.open(CustomModalComponent,  overlayConfigFactory({ connector: this.connectors[this.imgMap.markerActive - 1] }, BSModalContext));
+      connectorToConfig = this.connectors[this.imgMap.markerActive - 1];
     }
+    this.portService.getPortByConnector(connectorToConfig).subscribe(
+      port => {
+        return this.modal.open(CustomModalComponent,  overlayConfigFactory({ connector: item }, BSModalContext));
+      },
+      error => {
+        this.errorMessage = <any>error.message;
+        this.toastr.onClickToast()
+          .subscribe( toast => {
+            if (toast.data) {
+              // navigate to
+              this.router.navigate((toast.data as any).url);
+            }
+          });
+
+        this.toastr.warning('Connector NOT attached to a port (Click to Attach)', 'Alert!', {data: {url: [connectorToConfig.uri]}});
+        // this.toastr.warning('Connector NOT attached to a port (Click to Attach)');
+      }
+    );
   }
 }
