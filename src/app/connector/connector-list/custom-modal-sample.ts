@@ -6,6 +6,7 @@ import {Connector} from '../connector';
 import {ConnectorAvailableSettings} from './connector-available-settings';
 import {ConnectorConfigService} from './connector-config.service';
 import {ConnectorCurrentSettings} from './connector-current-settings';
+import {ToastsManager} from "ng2-toastr";
 
 export class CustomModalContext extends BSModalContext {
   public connector: Connector;
@@ -37,7 +38,9 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
 
   public wrongAnswer: boolean;
 
-  constructor(public dialog: DialogRef<CustomModalContext>, private connectorConfigService: ConnectorConfigService) {
+  constructor(public dialog: DialogRef<CustomModalContext>,
+              private connectorConfigService: ConnectorConfigService,
+              public toastr: ToastsManager) {
     this.context = dialog.context;
     this.wrongAnswer = true;
     dialog.setCloseGuard(this);
@@ -104,6 +107,7 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
     this.dialog.close();
   }
   submitSettings() {
+    this.toastr.info('Saving Configuration, wait for the Success Message');
     if (this.statusOption) { this.setStatus(); }
     if (this.modeOption) { this.setMode(); }
     if (this.speedOption) { this.setSpeed(); }
@@ -137,7 +141,7 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
 
   saveConfig() {
     this.connectorConfigService.saveConfig(this.context.connector, this.directory, this.certify).subscribe(
-      response => {},
+      response => {this.toastr.success('Saved Configuration'); },
       error => this.errorMessage = <any>error.message
     );
   }

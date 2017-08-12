@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, DoCheck, OnInit} from '@angular/core';
+import {AfterViewInit, Component, DoCheck, OnInit, ViewContainerRef} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConnectorService } from '../connector.service';
 import { Connector } from '../connector';
@@ -16,6 +16,7 @@ import {Card} from '../../card/card';
 import {PortService} from '../../port/port.service';
 import {Port} from '../../port/port';
 import {Location} from '@angular/common';
+import {ToastsManager} from 'ng2-toastr/ng2-toastr';
 
 
 @Component({
@@ -48,7 +49,8 @@ export class ConnectorDetailsComponent implements OnInit {
               private cardService: CardService,
               private portService: PortService,
               private authenticationService: AuthenticationBasicService,
-              private ownerService: OwnerService) {
+              private ownerService: OwnerService,
+              public toastr: ToastsManager) {
   }
 
   ngOnInit() {
@@ -180,7 +182,10 @@ export class ConnectorDetailsComponent implements OnInit {
   onSave() {
     this.connectorService.updateConnector(this.connector)
       .subscribe(
-        connector => {this.connector = connector; },
+        connector => {
+          this.connector = connector;
+          this.toastr.success('Connector Attached to a Port');
+          },
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         }
@@ -191,7 +196,10 @@ export class ConnectorDetailsComponent implements OnInit {
     this.portFloor = this.dealer = this.equipment = this.card = this.port = this.connector.connectedTo = null;
     this.connectorService.updateConnector(this.connector)
       .subscribe(
-        connector => {this.connector = connector; },
+        connector => {
+          this.connector = connector;
+          this.toastr.success('Connector Dettached from a Port');
+          },
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         }

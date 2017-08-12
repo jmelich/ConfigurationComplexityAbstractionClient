@@ -69,7 +69,12 @@ import {ImgMapComponent} from 'ng2-img-map';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import {CustomModalComponent} from './connector/connector-list/custom-modal-sample';
-import {ConnectorConfigService} from "./connector/connector-list/connector-config.service";
+import {ConnectorConfigService} from './connector/connector-list/connector-config.service';
+import {ToastModule, ToastOptions} from 'ng2-toastr/ng2-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CustomOption } from './custom-option';
+
+
 
 @NgModule({
   declarations: [
@@ -125,12 +130,14 @@ import {ConnectorConfigService} from "./connector/connector-list/connector-confi
     LoginBasicModule,
     PaginationModule.forRoot(),
     ModalModule.forRoot(),
-    BootstrapModalModule
+    BootstrapModalModule,
+    ToastModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, OwnerService, UserService, OwnerService, CampusService,
     BuildingService, FloorService, DealerService, EquipmentService, CardService, ConnectorService, UpdateCardService,
     UpdateBuildingService, UpdateFloorService, UpdateDealerService, UpdateEquipmentService, UpdateConnectorService,
-    PortService, UpdateCampusService, ConnectorConfigService ],
+    PortService, UpdateCampusService, ConnectorConfigService, {provide: ToastOptions, useClass: CustomOption}, ],
   bootstrap: [AppComponent],
   entryComponents: [ CustomModalComponent ],
 })
