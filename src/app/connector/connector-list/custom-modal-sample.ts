@@ -108,41 +108,68 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
   }
   submitSettings() {
     this.toastr.info('Saving Configuration, wait for the Success Message');
-    if (this.statusOption) { this.setStatus(); }
-    if (this.modeOption) { this.setMode(); }
-    if (this.speedOption) { this.setSpeed(); }
-    if (this.vlanOption) { this.setVLAN(); }
-    this.saveConfig();
+    this.setStatus();
   }
   setStatus() {
-    this.connectorConfigService.setConnectorStatus(this.context.connector, this.statusOption).subscribe(
-      response => {},
-      error => this.errorMessage = <any>error.message
-    );
+    console.log('setting status');
+    if (this.statusOption) {
+      this.connectorConfigService.setConnectorStatus(this.context.connector, this.statusOption).subscribe(
+        response => {this.setMode(); },
+        error => {this.errorMessage = <any>error.message; this.toastr.error('Error'); }
+      );
+    }else {
+      this.setMode();
+    }
+
   }
   setMode() {
-    this.connectorConfigService.setConnectorMode(this.context.connector, this.modeOption).subscribe(
-      response => {},
-      error => this.errorMessage = <any>error.message
-    );
+    console.log('setting mode');
+    if (this.modeOption ) {
+      this.connectorConfigService.setConnectorMode(this.context.connector, this.modeOption).subscribe(
+        response => {this.setSpeed(); },
+        error => {
+          this.errorMessage = <any>error.message;
+          this.toastr.error('Incompatible Speed With Duplex Mode');
+        }
+      );
+    }else {
+      this.setSpeed();
+    }
+
   }
   setSpeed() {
-    this.connectorConfigService.setConnectorSpeed(this.context.connector, this.speedOption).subscribe(
-      response => {},
-      error => this.errorMessage = <any>error.message
-    );
+    console.log('setting speed');
+    if (this.speedOption) {
+      this.connectorConfigService.setConnectorSpeed(this.context.connector, this.speedOption).subscribe(
+        response => {this.setVLAN(); },
+        error => {
+          this.errorMessage = <any>error.message;
+          this.toastr.error('Incompatible Speed With Duplex Mode');
+        }
+      );
+    }else {
+      this.setVLAN();
+    }
+
   }
   setVLAN() {
-    this.connectorConfigService.setConnectorVLAN(this.context.connector, this.vlanOption).subscribe(
-      response => {},
-      error => this.errorMessage = <any>error.message
-    );
+    console.log('setting vlan');
+    if (this.vlanOption) {
+      this.connectorConfigService.setConnectorVLAN(this.context.connector, this.vlanOption).subscribe(
+        response => {this.saveConfig(); },
+        error => {this.errorMessage = <any>error.message; this.toastr.error('Error'); }
+      );
+    }else {
+      this.saveConfig();
+    }
+
   }
 
   saveConfig() {
+    console.log('saving config');
     this.connectorConfigService.saveConfig(this.context.connector, this.directory, this.certify).subscribe(
       response => {this.toastr.success('Saved Configuration'); },
-      error => this.errorMessage = <any>error.message
+      error => {this.errorMessage = <any>error.message; this.toastr.error('Error'); }
     );
   }
 }

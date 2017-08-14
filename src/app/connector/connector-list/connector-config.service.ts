@@ -42,7 +42,7 @@ export class ConnectorConfigService {
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
     const options = new RequestOptions({headers: headers});
     return this.http.get(connector._links.self.href + '/setVLAN?vlan=' + vlan, options)
-      .map((res: Response) => res.json().code)
+      .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }
   // GET /connectors/id/setAdministrativeStatus
@@ -51,7 +51,7 @@ export class ConnectorConfigService {
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
     const options = new RequestOptions({headers: headers});
     return this.http.get(connector._links.self.href + '/setAdministrativeStatus?status=' + status, options)
-      .map((res: Response) => res.json().code)
+      .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }
   // GET /connectors/id/setAdministrativeStatus
@@ -60,7 +60,7 @@ export class ConnectorConfigService {
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
     const options = new RequestOptions({headers: headers});
     return this.http.get(connector._links.self.href + '/setDuplexMode?mode=' + mode, options)
-      .map((res: Response) => res.json().code)
+      .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }
   // GET /connectors/id/setPortSpeed
@@ -69,7 +69,7 @@ export class ConnectorConfigService {
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
     const options = new RequestOptions({headers: headers});
     return this.http.get(connector._links.self.href + '/setPortSpeed?speed=' + speed, options)
-      .map((res: Response) => res.json().code)
+      .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }
   // GET /connectors/id/saveConfig
@@ -78,7 +78,7 @@ export class ConnectorConfigService {
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
     const options = new RequestOptions({headers: headers});
     return this.http.get(connector._links.self.href + '/saveConfig?directory=' + directory + '&certify=' + (certify ? 'true' : 'false'), options)
-      .map((res: Response) => res.json().code)
+      .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }
 }
