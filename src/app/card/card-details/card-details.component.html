@@ -10,6 +10,16 @@
 
 <div class="row">
   <div class="col-md-4">
+    <h4>
+      <div>
+        <p>Is in Equipment: <a routerLink="{{equipment.uri}}">{{equipment.title}}</a></p>
+      </div>
+    </h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
     <h4>Title</h4>
     <p>{{card.title}}</p>
   </div>
@@ -33,13 +43,6 @@
   <div class="col-md-4">
     <h4>Number of Ports</h4>
     <p>{{card.numberOfPorts}}</p>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-4">
-    <h4>Is in Equipment</h4>
-    <p><a routerLink="{{equipment.uri}}">{{equipment.title}}</a></p>
   </div>
 </div>
 

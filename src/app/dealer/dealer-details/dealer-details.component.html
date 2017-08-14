@@ -10,6 +10,16 @@
 
 <div class="row">
   <div class="col-md-4">
+    <h4>
+      <div>
+        <p>Is in Floor: <a routerLink="{{floor.uri}}">{{floor.title}}</a></p>
+      </div>
+    </h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
     <h4>Title</h4>
     <p>{{dealer.title}}</p>
   </div>
@@ -19,13 +29,6 @@
   <div class="col-md-4">
     <h4>Description</h4>
     <p>{{dealer.description}}</p>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-4">
-    <h4>Is in Floor</h4>
-    <p><a routerLink="{{floor.uri}}">{{floor.title}}</a></p>
   </div>
 </div>
 
