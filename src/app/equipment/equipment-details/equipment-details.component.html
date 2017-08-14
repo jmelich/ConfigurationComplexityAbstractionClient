@@ -1,11 +1,8 @@
 <div class="row">
-  <div class="col-md-3">
-    <h3>Equipment Details</h3>
+  <div class="col-md-4" style="width: auto; padding-left: 0px;">
+    <h2><strong>Equipment {{equipment.title}}</strong></h2>
   </div>
-</div>
-
-<div class="row">
-  <div class="col-md-1">
+  <div class="col-md-8 editbutton">
     <a class="btn btn-primary" role="button" routerLink="{{equipment.uri}}/edit">Edit</a>
     <a class="btn btn-danger" role="button" (click)="onDelete()">Delete</a>
   </div>
@@ -60,7 +57,7 @@
   </div>
 </div>
 
-<div *ngIf="equipment.uri !== undefined" class="row">
+<div *ngIf="equipment.uri !== undefined" class="row" style="margin-left: 30px">
   <div class="col-md-12">
     <app-card-list [equipment]="equipment"></app-card-list>
   </div>
