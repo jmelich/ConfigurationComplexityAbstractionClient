@@ -1,11 +1,8 @@
 <div class="row">
-  <div class="col-md-3">
-    <h3>Connector Details</h3>
+  <div class="col-md-4" style="width: auto; padding-left: 0px;">
+    <h2><strong>Connector {{connector.title}}</strong></h2>
   </div>
-</div>
-
-<div class="row">
-  <div class="col-md-1">
+  <div class="col-md-8 editbutton">
     <a class="btn btn-primary" role="button" routerLink="{{connector.uri}}/edit">Edit</a>
     <a class="btn btn-danger" role="button" (click)="onDelete()">Delete</a>
   </div>
@@ -32,60 +29,62 @@
   </div>
 </div>
 
-<div class="row">
-  <h2>Connected to port...</h2>
+<div class="row" style="margin-left: 30px">
+  <h3><strong>Connected to port...</strong></h3>
 
-  <div class="form-group row">
-    <label class="col-md-3 control-label" for="isInFloor">Floor</label>
-    <div class="col-md-9">
-      <select class="form-control" id="isInFloor"  [(ngModel)]="portFloor" [compareWith]="objectComparator" (ngModelChange)="onChangeFloor($event)" name="isInFloor">
-        <option *ngFor="let floorItem of floors" [ngValue]="floorItem">{{floorItem.title}}</option>
-      </select>
+  <div style="margin-left: 30px">
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="isInFloor">Floor</label>
+      <div class="col-md-9">
+        <select class="form-control" id="isInFloor"  [(ngModel)]="portFloor" [compareWith]="objectComparator" (ngModelChange)="onChangeFloor($event)" name="isInFloor">
+          <option *ngFor="let floorItem of floors" [ngValue]="floorItem">{{floorItem.title}}</option>
+        </select>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group row">
-    <label class="col-md-3 control-label" for="isInDealer">Dealer</label>
-    <div class="col-md-9">
-      <select class="form-control" id="isInDealer"  [(ngModel)]="dealer" [compareWith]="objectComparator" (ngModelChange)="onChangeDealer($event)" name="isInDealer">
-        <option *ngFor="let dealerItem of dealers" [ngValue]="dealerItem">{{dealerItem.title}}</option>
-      </select>
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="isInDealer">Dealer</label>
+      <div class="col-md-9">
+        <select class="form-control" id="isInDealer"  [(ngModel)]="dealer" [compareWith]="objectComparator" (ngModelChange)="onChangeDealer($event)" name="isInDealer">
+          <option *ngFor="let dealerItem of dealers" [ngValue]="dealerItem">{{dealerItem.title}}</option>
+        </select>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group row">
-    <label class="col-md-3 control-label" for="isInEquipment">Equipment</label>
-    <div class="col-md-9">
-      <select class="form-control" id="isInEquipment"  [(ngModel)]="equipment" [compareWith]="objectComparator" (ngModelChange)="onChangeEquipment($event)" name="isInEquipment">
-        <option *ngFor="let equipmentItem of equipments" [ngValue]="equipmentItem">{{equipmentItem.title}}</option>
-      </select>
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="isInEquipment">Equipment</label>
+      <div class="col-md-9">
+        <select class="form-control" id="isInEquipment"  [(ngModel)]="equipment" [compareWith]="objectComparator" (ngModelChange)="onChangeEquipment($event)" name="isInEquipment">
+          <option *ngFor="let equipmentItem of equipments" [ngValue]="equipmentItem">{{equipmentItem.title}}</option>
+        </select>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group row">
-    <label class="col-md-3 control-label" for="isInCard">Card</label>
-    <div class="col-md-9">
-      <select class="form-control" id="isInCard"  [(ngModel)]="card" [compareWith]="objectComparator" (ngModelChange)="onChangeCard($event)" name="isInCard">
-        <option  *ngFor="let cardItem of cards" [ngValue]="cardItem">{{cardItem.title}}</option>
-      </select>
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="isInCard">Card</label>
+      <div class="col-md-9">
+        <select class="form-control" id="isInCard"  [(ngModel)]="card" [compareWith]="objectComparator" (ngModelChange)="onChangeCard($event)" name="isInCard">
+          <option  *ngFor="let cardItem of cards" [ngValue]="cardItem">{{cardItem.title}}</option>
+        </select>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group row">
-    <label class="col-md-3 control-label" for="port">Port</label>
-    <div class="col-md-9">
-      <select class="form-control" id="port"  [(ngModel)]="port" [compareWith]="objectComparator" (ngModelChange)="onChangePort($event)">
-        <option *ngFor="let portItem of ports" [ngValue]="portItem">{{portItem.title}}</option>
-      </select>
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="port">Port</label>
+      <div class="col-md-9">
+        <select class="form-control" id="port"  [(ngModel)]="port" [compareWith]="objectComparator" (ngModelChange)="onChangePort($event)">
+          <option *ngFor="let portItem of ports" [ngValue]="portItem">{{portItem.title}}</option>
+        </select>
+      </div>
     </div>
+
+    <button name="save" (click)="onSave()"
+            class="btn btn-success pull-right"> Save changes
+    </button>
+
+    <button name="dettach" (click)="onDettach()"
+            class="btn btn-danger pull-right"> Dettach
+    </button>
   </div>
-
-  <button name="save" (click)="onSave()"
-          class="btn btn-success pull-right"> Save changes
-  </button>
-
-  <button name="dettach" (click)="onDettach()"
-          class="btn btn-danger pull-right"> Dettach
-  </button>
 
 </div>
