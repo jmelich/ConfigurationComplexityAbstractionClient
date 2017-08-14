@@ -1,3 +1,3 @@
 <h4>Search Connector by title</h4>
-<input name="title" #searchTerm (keyup)="performSearch(searchTerm.value)">
+<input name="title" #searchTerm (keyup)="performSearch(searchTerm.value)" autocomplete='off'>
 <p i18n>{connectors.length, plural, =0 {No connectors found} =1 {1 connector found} other {{{connectors.length}} connectors found}}</p>
