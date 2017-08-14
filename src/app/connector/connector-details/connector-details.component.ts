@@ -85,6 +85,7 @@ export class ConnectorDetailsComponent implements OnInit {
           error => this.errorMessage = <any>error.message,
         );
       });
+    window.scroll(0, 0);
   }
   initialize(): boolean {
     this.portService.getPortByConnector(this.connector).subscribe(
