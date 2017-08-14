@@ -7,6 +7,7 @@ import { OwnerService } from '../../user/owner.service';
 import {DealerService} from '../../dealer/dealer.service';
 import {Dealer} from '../../dealer/dealer';
 import {Location} from '@angular/common';
+import {ToastsManager} from 'ng2-toastr';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class EquipmentDetailsComponent implements OnInit {
               private equipmentService: EquipmentService,
               private dealerService: DealerService,
               private authenticationService: AuthenticationBasicService,
-              private ownerService: OwnerService) {
+              private ownerService: OwnerService,
+              public toastr: ToastsManager) {
   }
 
   ngOnInit() {
@@ -60,6 +62,7 @@ export class EquipmentDetailsComponent implements OnInit {
         response => { this._location.back(); },
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+          this.toastr.error('Delete dependent entities before');
         });
   }
 }
