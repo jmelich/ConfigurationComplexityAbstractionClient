@@ -22,7 +22,7 @@
 </div>
 
 
-<div class="row">
+<div *ngIf="equipment" class="row">
   <div class="col-md-12">
     <app-card-form [equipment]="equipment"></app-card-form>
   </div>
