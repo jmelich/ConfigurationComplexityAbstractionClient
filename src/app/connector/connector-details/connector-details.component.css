@@ -1,3 +1,7 @@
 .editbutton{
   padding-top: 15px;
 }
+
+button {
+  margin: 3px;
+}
