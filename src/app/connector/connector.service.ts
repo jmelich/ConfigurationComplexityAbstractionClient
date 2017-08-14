@@ -7,6 +7,7 @@ import {environment} from '../../environments/environment';
 import {Connector} from './connector';
 import {Injectable} from '@angular/core';
 import {Floor} from "../floor/floor";
+import {Port} from "../port/port";
 
 @Injectable()
 export class ConnectorService {
@@ -73,6 +74,14 @@ export class ConnectorService {
     const options = this.getOptions();
     return this.http.get(environment.API + '/connectors/search/findByTitleContainingIgnoreCaseAndIsInFloor?title='  + connector + '&floor=' + floor.uri, options)
       .map((res: Response) => res.json()._embedded.connectors.map(json => new Connector(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /ports/isInCard
+  getConnectorOfPort(port: Port): Observable<Connector> {
+    const options = this.getOptions();
+    return this.http.get(port._links.connector.href, options)
+      .map((res: Response) => new Connector(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
 

@@ -83,6 +83,14 @@ export class PortService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  // GET /floors/search/findByTitleContainingIgnoreCaseAndIsInBuilding?title&card
+  getFloorsByTitleContainingAndInBuilding(port: string, card: Card): Observable<Port[]> {
+    const options = this.getOptions();
+    return this.http.get(environment.API + '/ports/search/findByTitleContainingIgnoreCaseAndIsInCardAndConnectorIsNullOrderByPortNumberAsc?title=' + '' + '&card=' + card.uri, options)
+      .map((res: Response) => res.json()._embedded.ports.map(json => new Port(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   /*
 
   // GET /comments/OrderById

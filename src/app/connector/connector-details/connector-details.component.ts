@@ -17,6 +17,7 @@ import {PortService} from '../../port/port.service';
 import {Port} from '../../port/port';
 import {Location} from '@angular/common';
 import {ToastsManager} from 'ng2-toastr/ng2-toastr';
+import {forEach} from "@angular/router/src/utils/collection";
 
 
 @Component({
@@ -169,9 +170,20 @@ export class ConnectorDetailsComponent implements OnInit {
   }
   onChangeCard(selection) {
     console.log(selection.uri);
-    this.portService.getPortsOfCard(this.card.uri).subscribe(
+    this.portService.getFloorsByTitleContainingAndInBuilding('', this.card).subscribe(
       ports => {
         this.ports = ports;
+        /*for (let port of ports) {
+          this.connectorService.getConnectorOfPort(port).subscribe(
+            connector => {
+              // this.ports.push(port);
+            },
+            error => {
+              this.errorMessage = <any>error.message;
+              this.ports.push(port);
+              },
+          );
+        }*/
       }
     );
   }
