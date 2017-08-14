@@ -125,7 +125,7 @@ export class ConnectorListComponent implements OnInit {
     }
     this.portService.getPortByConnector(connectorToConfig).subscribe(
       port => {
-        return this.modal.open(CustomModalComponent,  overlayConfigFactory({ connector: item }, BSModalContext));
+        return this.modal.open(CustomModalComponent,  overlayConfigFactory({ connector: connectorToConfig }, BSModalContext));
       },
       error => {
         this.errorMessage = <any>error.message;
