@@ -6,7 +6,7 @@ import 'rxjs/add/observable/throw';
 import {environment} from '../../environments/environment';
 import {Campus} from './campus';
 import {Injectable} from '@angular/core';
-import {Building} from "../building/building";
+import {Building} from '../building/building';
 
 @Injectable()
 export class CampusService {
@@ -51,7 +51,7 @@ export class CampusService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /campuses/ + search/findByDatasetContaining?dataset
+  // GET /campuses/search/findByCampusesByTitleContainingIgnoreCase?title={title}
   getCampusesByTitleContaining(campus: string): Observable<Campus[]> {
     const options = this.getOptions();
     return this.http.get(environment.API + '/campuses/search/findByTitleContainingIgnoreCase?title=' + campus, options)
@@ -59,7 +59,7 @@ export class CampusService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /campuses/id/isInCard
+  // GET /buildings/id/isInCampus
   getCampusByBuilding(building: Building): Observable<Campus> {
     const options = this.getOptions();
     return this.http.get(building._links.isInCampus.href, options)
@@ -74,6 +74,7 @@ export class CampusService {
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }
+
   getOptions(): RequestOptions {
     const headers = new Headers({'Content-Type': 'application/json'});
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
