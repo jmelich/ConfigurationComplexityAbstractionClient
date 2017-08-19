@@ -6,8 +6,6 @@ export class Connector {
   longitude: number;
   connectedTo: string;
   isInFloor: string;
-  dateTime: string;
-  lastModified: string;
   _links: any = {};
 
   constructor(values: Object = {}) {

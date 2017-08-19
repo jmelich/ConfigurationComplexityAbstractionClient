@@ -3,8 +3,6 @@ export class Dealer {
   title: string;
   description: string;
   isInFloor: string;
-  dateTime: string;
-  lastModified: string;
   _links: any = {};
 
   constructor(values: Object = {}) {

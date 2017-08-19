@@ -4,8 +4,6 @@ export class Port {
   description: string;
   portNumber: string;
   isInCard
-  dateTime: string;
-  lastModified: string;
   _links: any = {};
 
   constructor(values: Object = {}) {

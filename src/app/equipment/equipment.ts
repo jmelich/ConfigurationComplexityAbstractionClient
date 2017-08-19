@@ -7,8 +7,6 @@ export class Equipment {
   password: string;
   positionInStack;
   isInDealer: string;
-  dateTime: string;
-  lastModified: string;
   _links: any = {};
 
   constructor(values: Object = {}) {

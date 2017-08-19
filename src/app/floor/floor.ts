@@ -4,8 +4,6 @@ export class Floor {
   description: string;
   isInBuilding: string;
   picture: string;
-  dateTime: string;
-  lastModified: string;
   _links: any = {};
 
   constructor(values: Object = {}) {
