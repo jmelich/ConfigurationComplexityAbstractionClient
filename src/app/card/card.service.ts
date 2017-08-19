@@ -6,8 +6,8 @@ import 'rxjs/add/observable/throw';
 import {environment} from '../../environments/environment';
 import {Card} from './card';
 import {Injectable} from '@angular/core';
-import {Port} from "../port/port";
-import {Equipment} from "../equipment/equipment";
+import {Port} from '../port/port';
+import {Equipment} from '../equipment/equipment';
 
 @Injectable()
 export class CardService {
@@ -52,7 +52,7 @@ export class CardService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /cards
+  // GET /equipments/id/cards
   getCardsOfEquipment(uri: string): Observable<Card[]> {
     const options = this.getOptions();
     return this.http.get(`${environment.API}${uri}/cards`, options)
@@ -61,7 +61,7 @@ export class CardService {
   }
 
 
-  // GET /cards/search/findByByTitleContaining?title
+  // GET /cards/search/findByByTitleContainingIgnoreCase?title={title}
   getCardsByTitleContaining(card: string): Observable<Card[]> {
     const options = this.getOptions();
     return this.http.get(environment.API + '/cards/search/findByTitleContainingIgnoreCase?title=' + card, options)
@@ -76,6 +76,8 @@ export class CardService {
       .map((res: Response) => new Card(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
+
+  // GET /cards/search/findByTitleContainingIgnoreCaseAndIsInEquipment?title={title}&equipment={equipment}
   getCardsByTitleContainingAndInEquipment(card: string, equipment: Equipment): Observable<Card[]> {
     const options = this.getOptions();
     return this.http.get(environment.API + '/cards/search/findByTitleContainingIgnoreCaseAndIsInEquipment?title=' + card + '&equipment=' + equipment.uri, options)
@@ -90,6 +92,7 @@ export class CardService {
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }
+
   getOptions(): RequestOptions {
     const headers = new Headers({'Content-Type': 'application/json'});
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);

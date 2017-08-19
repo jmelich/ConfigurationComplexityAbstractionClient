@@ -7,7 +7,7 @@ import {environment} from '../../environments/environment';
 import {Port} from './port';
 import {Injectable} from '@angular/core';
 import {Card} from '../card/card';
-import {Connector} from "../connector/connector";
+import {Connector} from '../connector/connector';
 
 @Injectable()
 export class PortService {
@@ -75,7 +75,7 @@ export class PortService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /ports/id/isInCard
+  // GET /connectors/id/connectedTo
   getPortByConnector(connector: Connector): Observable<Port> {
     const options = this.getOptions();
     return this.http.get(connector._links.connectedTo.href, options)
@@ -83,7 +83,7 @@ export class PortService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /floors/search/findByTitleContainingIgnoreCaseAndIsInBuilding?title&card
+  // GET /ports/search/findByTitleContainingIgnoreCaseAndIsInCardAndConnectorIsNullOrderByPortNumberAsc?title={title}&card={id}
   getFloorsByTitleContainingAndInBuilding(port: string, card: Card): Observable<Port[]> {
     const options = this.getOptions();
     return this.http.get(environment.API + '/ports/search/findByTitleContainingIgnoreCaseAndIsInCardAndConnectorIsNullOrderByPortNumberAsc?title=' + '' + '&card=' + card.uri, options)

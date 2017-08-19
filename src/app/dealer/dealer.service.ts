@@ -6,8 +6,8 @@ import 'rxjs/add/observable/throw';
 import {environment} from '../../environments/environment';
 import {Dealer} from './dealer';
 import {Injectable} from '@angular/core';
-import {Floor} from "../floor/floor";
-import {Equipment} from "../equipment/equipment";
+import {Floor} from '../floor/floor';
+import {Equipment} from '../equipment/equipment';
 
 @Injectable()
 export class DealerService {
@@ -50,7 +50,7 @@ export class DealerService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /dealers
+  // GET /floors/id/dealers
   getDealersOfFloor(uri: string): Observable<Dealer[]> {
     const options = this.getOptions();
     return this.http.get(`${environment.API}${uri}/dealers`, options)
@@ -59,7 +59,7 @@ export class DealerService {
   }
 
 
-  // GET /dealers/search/findByByTitleContaining?title
+  // GET /dealers/search/findByByTitleContainingIgnoreCase?title={title}
   getDealersByTitleContaining(dealer: string): Observable<Dealer[]> {
     const options = this.getOptions();
     return this.http.get(environment.API + '/dealers/search/findByTitleContainingIgnoreCase?title=' + dealer, options)
@@ -67,6 +67,7 @@ export class DealerService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  // GET /dealers/search/findByByTitleContainingIgnoreCaseAndIsInFloor?title={title}&floor={id}
   getDealersByTitleContainingAndInFloor(dealer: string, floor: Floor): Observable<Dealer[]> {
     const options = this.getOptions();
     return this.http.get(environment.API + '/dealers/search/findByTitleContainingIgnoreCaseAndIsInFloor?title=' + dealer + '&floor=' + floor.uri, options)
@@ -74,7 +75,7 @@ export class DealerService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /ports/id/isInCard
+  // GET /equipment/id/isInDealer
   getDealerByEquipment(equipment: Equipment): Observable<Dealer> {
     const options = this.getOptions();
     return this.http.get(equipment._links.isInDealer.href, options)
@@ -82,7 +83,7 @@ export class DealerService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // DELETE /floors/{id}
+  // DELETE /dealers/{id}
   deleteDealer(dealer: Dealer): Observable<Response> {
     const options = this.getOptions();
     return this.http.delete(environment.API + dealer.uri, options)

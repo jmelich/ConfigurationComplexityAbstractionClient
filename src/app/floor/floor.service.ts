@@ -6,8 +6,8 @@ import 'rxjs/add/observable/throw';
 import {environment} from '../../environments/environment';
 import {Floor} from './floor';
 import {Injectable} from '@angular/core';
-import {Building} from "../building/building";
-import {Dealer} from "../dealer/dealer";
+import {Building} from '../building/building';
+import {Dealer} from '../dealer/dealer';
 
 @Injectable()
 export class FloorService {
@@ -61,7 +61,7 @@ export class FloorService {
   }
 
 
-  // GET /floors/search/findByByTitleContaining?title
+  // GET /floors/search/findByByTitleContainingIgnoreCase?title={title}
   getFloorsByTitleContaining(floor: string): Observable<Floor[]> {
     const options = this.getOptions();
     return this.http.get(environment.API + '/floors/search/findByTitleContainingIgnoreCase?title=' + floor, options)
@@ -69,7 +69,7 @@ export class FloorService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /floors/search/findByTitleContainingIgnoreCaseAndIsInBuilding?title
+  // GET /floors/search/findByTitleContainingIgnoreCaseAndIsInBuilding?title={title}&building={id}
   getFloorsByTitleContainingAndInBuilding(floor: string, building: Building): Observable<Floor[]> {
     const options = this.getOptions();
     return this.http.get(environment.API + '/floors/search/findByTitleContainingIgnoreCaseAndIsInBuilding?title=' + floor + '&building=' + building.uri, options)
@@ -85,7 +85,7 @@ export class FloorService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /ports/id/isInCard
+  // GET /dealersid/isInFloor
   getFloorByDealer(dealer: Dealer): Observable<Floor> {
     const options = this.getOptions();
     return this.http.get(dealer._links.isInFloor.href, options)

@@ -7,7 +7,7 @@ import {environment} from '../../environments/environment';
 import {Equipment} from './equipment';
 import {Injectable} from '@angular/core';
 import {Dealer} from '../dealer/dealer';
-import {Card} from "../card/card";
+import {Card} from '../card/card';
 
 @Injectable()
 export class EquipmentService {
@@ -52,7 +52,7 @@ export class EquipmentService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /equipments
+  // GET /dealers/id/equipments
   getEquipmentsOfDealer(uri: string): Observable<Equipment[]> {
     const options = this.getOptions();
     return this.http.get(`${environment.API}${uri}/equipments`, options)
@@ -61,7 +61,7 @@ export class EquipmentService {
   }
 
 
-  // GET /equipments/search/findByByTitleContaining?title
+  // GET /equipments/search/findByByTitleContainingIgnoreCase?title={title}
   getEquipmentsByTitleContaining(equipment: string): Observable<Equipment[]> {
     const options = this.getOptions();
     return this.http.get(environment.API + '/equipments/search/findByTitleContainingIgnoreCase?title=' + equipment, options)
@@ -69,7 +69,7 @@ export class EquipmentService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /equipments/search/findByByTitleContaining?title
+  // GET /equipments/search/findByByTitleContainingIgnoreCaseAndIsInDealer?title={title}&dealer={id}
   getEquipmentsByTitleContainingAndInDealer(equipment: string, dealer: Dealer): Observable<Equipment[]> {
     const options = this.getOptions();
     return this.http.get(environment.API + '/equipments/search/findByTitleContainingIgnoreCaseAndIsInDealer?title=' + equipment + '&dealer=' + dealer.uri, options)
@@ -77,7 +77,7 @@ export class EquipmentService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /ports/id/isInCard
+  // GET /cards/id/isInEquipment
   getEquipmentByCard(card: Card): Observable<Equipment> {
     const options = this.getOptions();
     return this.http.get(card._links.isInEquipment.href, options)
@@ -85,7 +85,7 @@ export class EquipmentService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // DELETE /campuses/{id}
+  // DELETE /equipment/{id}
   deleteEquipment(equipment: Equipment): Observable<Response> {
     const options = this.getOptions();
     return this.http.delete(environment.API + equipment.uri, options)
