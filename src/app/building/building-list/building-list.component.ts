@@ -3,7 +3,6 @@ import { BuildingService } from '../building.service';
 import { Building } from '../building';
 import {Campus} from '../../campus/campus';
 import {UpdateBuildingService} from '../update.building.service';
-import {isUndefined} from "util";
 
 @Component({
   selector: 'app-building-list',

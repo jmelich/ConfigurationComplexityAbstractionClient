@@ -3,7 +3,7 @@ export class Port {
   title: string;
   description: string;
   portNumber: string;
-  isInCard
+  isInCard;
   _links: any = {};
 
   constructor(values: Object = {}) {

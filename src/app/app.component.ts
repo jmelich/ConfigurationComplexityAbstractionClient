@@ -1,6 +1,6 @@
 import {Component, Injectable, ViewContainerRef} from '@angular/core';
 import {AuthenticationBasicService} from './login-basic/authentication-basic.service';
-import {ToastsManager} from "ng2-toastr";
+import {ToastsManager} from 'ng2-toastr';
 
 @Component({
   selector: 'app-root',

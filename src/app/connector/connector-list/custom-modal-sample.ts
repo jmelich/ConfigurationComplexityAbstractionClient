@@ -6,7 +6,7 @@ import {Connector} from '../connector';
 import {ConnectorAvailableSettings} from './connector-available-settings';
 import {ConnectorConfigService} from './connector-config.service';
 import {ConnectorCurrentSettings} from './connector-current-settings';
-import {ToastsManager} from "ng2-toastr";
+import {ToastsManager} from 'ng2-toastr';
 
 export class CustomModalContext extends BSModalContext {
   public connector: Connector;
@@ -21,7 +21,7 @@ export class CustomModalContext extends BSModalContext {
   styleUrls: ['./custom-modal-sample.css'],
 })
 
-export class CustomModalComponent implements CloseGuard, ModalComponent<CustomModalContext>, OnInit{
+export class CustomModalComponent implements CloseGuard, ModalComponent<CustomModalContext>, OnInit {
   context: CustomModalContext;
   public availableSettings: ConnectorAvailableSettings = new ConnectorAvailableSettings();
   public currentSettings: ConnectorCurrentSettings = new ConnectorCurrentSettings();

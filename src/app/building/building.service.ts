@@ -6,7 +6,7 @@ import 'rxjs/add/observable/throw';
 import {environment} from '../../environments/environment';
 import {Building} from './building';
 import {Injectable} from '@angular/core';
-import {Campus} from "../campus/campus";
+import {Campus} from '../campus/campus';
 
 @Injectable()
 export class BuildingService {

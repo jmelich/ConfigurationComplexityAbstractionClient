@@ -17,7 +17,6 @@ import {PortService} from '../../port/port.service';
 import {Port} from '../../port/port';
 import {Location} from '@angular/common';
 import {ToastsManager} from 'ng2-toastr/ng2-toastr';
-import {forEach} from "@angular/router/src/utils/collection";
 
 
 @Component({

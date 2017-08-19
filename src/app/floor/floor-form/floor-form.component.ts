@@ -5,10 +5,9 @@ import { FloorService } from '../floor.service';
 import { Router } from '@angular/router';
 import { BuildingService } from '../../building/building.service';
 import {Building} from '../../building/building';
-
 import { UpdateFloorService } from '../update.floor.service';
-import {Campus} from "../../campus/campus";
-import {CampusService} from "../../campus/campus.service";
+import {Campus} from '../../campus/campus';
+import {CampusService} from '../../campus/campus.service';
 
 @Component({
   selector: 'app-floor-form',

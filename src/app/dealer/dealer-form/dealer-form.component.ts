@@ -4,8 +4,8 @@ import { Dealer } from '../dealer';
 import { DealerService } from '../dealer.service';
 import { Router } from '@angular/router';
 import { FloorService } from '../../floor/floor.service';
-import {Floor} from '../../floor/floor';
-import {UpdateDealerService} from "../update.dealer.service";
+import { Floor } from '../../floor/floor';
+import { UpdateDealerService } from '../update.dealer.service';
 
 @Component({
   selector: 'app-dealer-form',
