@@ -18,7 +18,7 @@ export class BuildingService {
   // GET /buildings
   getAllBuildings(): Observable<Building[]> {
     const options = this.getOptions();
-    return this.http.get(`${environment.API}/buildings`,options)
+    return this.http.get(`${environment.API}/buildings`, options)
       .map((res: Response) => res.json()._embedded.buildings.map(json => new Building(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -51,7 +51,7 @@ export class BuildingService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /buildings
+  // GET /campuses/id/buildings
   getBuildingsOfCampus(uri: string): Observable<Building[]> {
     const options = this.getOptions();
     return this.http.get(`${environment.API}${uri}/buildings`, options)
@@ -60,7 +60,7 @@ export class BuildingService {
   }
 
 
-  // GET /buildings/search/findByBuildingByTitleContaining?title
+  // GET /buildings/search/findByBuildingByTitleContainingIgnoreCase?title={title}
   getBuildingsByTitleContaining(building: string): Observable<Building[]> {
     const options = this.getOptions();
     return this.http.get(environment.API + '/buildings/search/findByTitleContainingIgnoreCase?title=' + building, options)
@@ -68,6 +68,7 @@ export class BuildingService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  // GET /buildings/search/findByBuildingByTitleContainingIgnoreCase?title={title}&campus={idCampus}
   getBuildingsByTitleContainingAndInCampus(building: string, campus: Campus): Observable<Building[]> {
     const options = this.getOptions();
     return this.http.get(environment.API + '/buildings/search/findByTitleContainingIgnoreCaseAndIsInCampus?title=' + building + '&campus=' + campus.uri, options)
