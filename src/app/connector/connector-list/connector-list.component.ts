@@ -60,6 +60,7 @@ export class ConnectorListComponent implements OnInit {
       connector => {
         this.connectors.push(connector);
         this.markers.push([connector.latitude, connector.longitude]);
+        while (! this.imgMap) {}
         this.imgMap.draw();
       }
     );
