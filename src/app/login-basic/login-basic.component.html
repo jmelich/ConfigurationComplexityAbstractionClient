@@ -1,5 +1,5 @@
 <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }" *ngIf="isLoggedIn()" id="currentUser">
-  <a [routerLink]="['/users/'+getCurrentUserName()]">{{getCurrentUserName()}}</a>
+  <a>{{getCurrentUserName()}}</a>
 </li>
 <li *ngIf="isLoggedIn()">
   <a (click)="logout()" href="#" (click)="$event.preventDefault()">Logout</a>
