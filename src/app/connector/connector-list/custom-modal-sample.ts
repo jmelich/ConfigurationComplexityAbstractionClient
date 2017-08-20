@@ -35,6 +35,7 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
   public statusOption: string;
   public directory: string;
   public certify: boolean;
+  public saveChecked = true;
 
   public wrongAnswer: boolean;
 
@@ -167,9 +168,14 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
 
   saveConfig() {
     console.log('saving config');
-    this.connectorConfigService.saveConfig(this.context.connector, this.directory, this.certify).subscribe(
-      response => {this.toastr.success('Saved Configuration'); },
-      error => {this.errorMessage = <any>error.message; this.toastr.error('Error'); }
-    );
+    if (this.saveChecked) {
+      this.connectorConfigService.saveConfig(this.context.connector, this.directory, this.certify).subscribe(
+        response => {this.toastr.success('Config saved in specified directory (Click to close)', null, {dismiss: 'click'}); },
+        error => {this.errorMessage = <any>error.message; this.toastr.error('Error'); }
+      );
+    }else {
+      this.toastr.success('Config applied but not saved in a directory');
+    }
+
   }
 }
