@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { CampusService } from '../campus.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import {Location} from '@angular/common';
 
 
 @Component({

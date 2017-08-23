@@ -2,12 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CampusService } from '../campus.service';
 import { Campus } from '../campus';
-import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
-import { OwnerService } from '../../user/owner.service';
-import {Building} from '../../building/building';
-import {BuildingService} from '../../building/building.service';
-import {Location} from '@angular/common';
-import {ToastsManager} from 'ng2-toastr';
+import { Building } from '../../building/building';
+import { Location } from '@angular/common';
+import { ToastsManager } from 'ng2-toastr';
 
 
 @Component({
@@ -19,14 +16,10 @@ export class CampusDetailsComponent implements OnInit {
   public campus: Campus = new Campus();
   public buildings: Building[] = [];
   public errorMessage: string;
-  // public isOwner: boolean;
 
   constructor(private route: ActivatedRoute,
               private campusService: CampusService,
               private _location: Location,
-              private buildingService: BuildingService,
-              private authenticationService: AuthenticationBasicService,
-              private ownerService: OwnerService,
               public toastr: ToastsManager) {
   }
 
@@ -38,16 +31,6 @@ export class CampusDetailsComponent implements OnInit {
         this.campusService.getCampus(uri).subscribe(
           campus => {
             this.campus = campus;
-            /*if (this.campus._links != null) {
-              this.ownerService.getOwner(this.campus._links.owner.href).subscribe(
-                owner => {
-                  this.comment.user = owner.getUserName();
-                  this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
-                });
-            }*/
-            /*this.buildingService.getBuildingsOfCampus(uri).subscribe(
-              buildings => this.buildings = buildings
-            );*/
           },
           error => this.errorMessage = <any>error.message,
         );

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {Campus} from '../campus';
-import {CampusService} from '../campus.service';
+import { Campus } from '../campus';
+import { CampusService } from '../campus.service';
 
 @Component({
   selector: 'app-campus-search',
