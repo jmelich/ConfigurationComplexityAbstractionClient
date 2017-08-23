@@ -1,13 +1,13 @@
-import {AuthenticationBasicService} from '../login-basic/authentication-basic.service';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import { AuthenticationBasicService } from '../login-basic/authentication-basic.service';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import {environment} from '../../environments/environment';
-import {Port} from './port';
-import {Injectable} from '@angular/core';
-import {Card} from '../card/card';
-import {Connector} from '../connector/connector';
+import { environment } from '../../environments/environment';
+import { Port } from './port';
+import { Injectable } from '@angular/core';
+import { Card } from '../card/card';
+import { Connector } from '../connector/connector';
 
 @Injectable()
 export class PortService {
