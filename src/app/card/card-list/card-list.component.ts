@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CardService } from '../card.service';
 import { Card } from '../card';
-import {Equipment} from '../../equipment/equipment';
+import { Equipment } from '../../equipment/equipment';
 
 import { UpdateCardService } from '../update.card.service';
 

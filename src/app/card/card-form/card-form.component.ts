@@ -2,9 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Card } from '../card';
 import { CardService } from '../card.service';
-import { Router } from '@angular/router';
 import { EquipmentService } from '../../equipment/equipment.service';
-import {Equipment} from '../../equipment/equipment';
+import { Equipment } from '../../equipment/equipment';
 
 import { UpdateCardService } from '../update.card.service';
 
@@ -23,7 +22,6 @@ export class CardFormComponent implements OnInit {
   public showForm: any = false;
 
   constructor(private fb: FormBuilder,
-              private router: Router,
               private equipmentService: EquipmentService,
               private updateService: UpdateCardService,
               private cardService: CardService) {

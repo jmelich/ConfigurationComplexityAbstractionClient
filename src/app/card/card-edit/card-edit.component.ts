@@ -4,8 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { CardService } from '../card.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import {EquipmentService} from '../../equipment/equipment.service';
-import {Equipment} from '../../equipment/equipment';
+import { EquipmentService } from '../../equipment/equipment.service';
+import { Equipment } from '../../equipment/equipment';
 
 
 @Component({

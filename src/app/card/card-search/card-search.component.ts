@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {Card} from '../card';
-import {CardService} from '../card.service';
-import {Equipment} from '../../equipment/equipment';
+import { Card } from '../card';
+import { CardService } from '../card.service';
+import { Equipment } from '../../equipment/equipment';
 
 @Component({
   selector: 'app-card-search',
