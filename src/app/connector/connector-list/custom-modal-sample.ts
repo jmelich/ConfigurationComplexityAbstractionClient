@@ -2,19 +2,17 @@ import {Component, OnInit} from '@angular/core';
 
 import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
 import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
-import {Connector} from '../connector';
-import {ConnectorAvailableSettings} from './connector-available-settings';
-import {ConnectorConfigService} from './connector-config.service';
-import {ConnectorCurrentSettings} from './connector-current-settings';
-import {ToastsManager} from 'ng2-toastr';
+import { Connector } from '../connector';
+import { ConnectorAvailableSettings } from './connector-available-settings';
+import { ConnectorConfigService } from './connector-config.service';
+import { ConnectorCurrentSettings } from './connector-current-settings';
+import { ToastsManager } from 'ng2-toastr';
 
 export class CustomModalContext extends BSModalContext {
   public connector: Connector;
 }
 
-/**
- * A Sample of how simple it is to create a new window, with its own injects.
- */
+
 @Component({
   selector: 'app-modal-content',
   templateUrl: './custom-modal-sample.html',
@@ -81,38 +79,39 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
 
   changedVLAN(opt) {
     this.vlanOption = opt;
-    console.log(opt);
   }
+
   changedSpeed(opt) {
     if (opt === '1G') {
       opt = '1000';
     }
     this.speedOption = opt.toLowerCase();
-    console.log(opt);
   }
+
   changedMode(opt) {
     opt = opt.toLowerCase();
     this.modeOption = opt;
-    console.log(opt);
   }
+
   changedStatus(opt) {
     this.statusOption = opt;
-    console.log(opt);
   }
+
   cancel() {
-    console.log('cancelled');
     this.dialog.close();
   }
+
   submit() {
     this.submitSettings();
     this.dialog.close();
   }
+
   submitSettings() {
     this.toastr.info('Saving Configuration, wait for the Success Message');
     this.setStatus();
   }
+
   setStatus() {
-    console.log('setting status');
     if (this.statusOption) {
       this.connectorConfigService.setConnectorStatus(this.context.connector, this.statusOption).subscribe(
         response => {this.setMode(); },
@@ -123,8 +122,8 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
     }
 
   }
+
   setMode() {
-    console.log('setting mode');
     if (this.modeOption ) {
       this.connectorConfigService.setConnectorMode(this.context.connector, this.modeOption).subscribe(
         response => {this.setSpeed(); },
@@ -138,8 +137,8 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
     }
 
   }
+
   setSpeed() {
-    console.log('setting speed');
     if (this.speedOption) {
       this.connectorConfigService.setConnectorSpeed(this.context.connector, this.speedOption).subscribe(
         response => {this.setVLAN(); },
@@ -153,8 +152,8 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
     }
 
   }
+
   setVLAN() {
-    console.log('setting vlan');
     if (this.vlanOption) {
       this.connectorConfigService.setConnectorVLAN(this.context.connector, this.vlanOption).subscribe(
         response => {this.saveConfig(); },
@@ -167,7 +166,6 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
   }
 
   saveConfig() {
-    console.log('saving config');
     if (this.saveChecked) {
       this.connectorConfigService.saveConfig(this.context.connector, this.directory, this.certify).subscribe(
         response => {this.toastr.success('Config saved in specified directory (Click to close)', null, {dismiss: 'click'}); },
@@ -176,6 +174,5 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
     }else {
       this.toastr.success('Config applied but not saved in a directory');
     }
-
   }
 }

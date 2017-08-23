@@ -2,16 +2,16 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { ConnectorService } from '../connector.service';
 import { Connector } from '../connector';
-import {Floor} from '../../floor/floor';
-import {ImgMapComponent} from 'ng2-img-map';
+import { Floor } from '../../floor/floor';
+import { ImgMapComponent } from 'ng2-img-map';
 
 import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import { CustomModalContext, CustomModalComponent } from './custom-modal-sample';
 import { Overlay, overlayConfigFactory } from 'angular2-modal';
 
 import { UpdateConnectorService } from '../update.connector.service';
-import {PortService} from '../../port/port.service';
-import {Toast, ToastsManager} from 'ng2-toastr';
+import { PortService } from '../../port/port.service';
+import { Toast, ToastsManager } from 'ng2-toastr';
 
 
 @Component({
@@ -28,18 +28,22 @@ export class ConnectorListComponent implements OnInit {
   @ViewChild('imgMap')
   imgMap: ImgMapComponent;
   markers: number[][] = [[0, 0]];
+
   onMark(marker: number[]) {
     console.log('Markers', this.markers);
   }
+
   onChange(marker: number[]) {
     console.log('Marker', marker);
     this.openCustom();
     this.imgMap.markerActive = null;
   }
+
   selectMarker(index: number) {
     this.imgMap.markerActive = index;
     this.imgMap.draw();
   }
+
   removeMarker(index: number) {
     this.markers.splice(index, 1);
     if (index === this.imgMap.markerActive) {
@@ -95,25 +99,6 @@ export class ConnectorListComponent implements OnInit {
     for (let connector of this.connectors){
         this.markers.push([connector.latitude, connector.longitude]);
     }
-  }
-
-  onClick2() {
-    this.modal.alert()
-      .size('lg')
-      .showClose(true)
-      .title('A simple Alert style modal window')
-      .body(`
-            <h4>Alert is a classic (title/body/footer) 1 button modal window that 
-            does not block.</h4>
-            <b>Configuration:</b>
-            <ul>
-                <li>Non blocking (click anywhere outside to dismiss)</li>
-                <li>Size large</li>
-                <li>Dismissed with default keyboard key (ESC)</li>
-                <li>Close wth button click</li>
-                <li>HTML content</li>
-            </ul>`)
-      .open();
   }
 
   openCustom(item?: Connector) {

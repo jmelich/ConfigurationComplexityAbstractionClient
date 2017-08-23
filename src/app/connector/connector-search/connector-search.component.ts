@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {Connector} from '../connector';
-import {ConnectorService} from '../connector.service';
-import {Floor} from '../../floor/floor';
+import { Connector } from '../connector';
+import { ConnectorService } from '../connector.service';
+import { Floor } from '../../floor/floor';
 
 @Component({
   selector: 'app-connector-search',
@@ -11,8 +11,8 @@ import {Floor} from '../../floor/floor';
 })
 export class ConnectorSearchComponent {
   @Input() floor: Floor;
-  @Input()  connectors: Connector[];
-  @Output()  onSearchited: EventEmitter<any> = new EventEmitter();
+  @Input() connectors: Connector[];
+  @Output() onSearchited: EventEmitter<any> = new EventEmitter();
   private connector: string = null;
 
   public errorMessage: string;

@@ -1,22 +1,19 @@
-import {AfterViewInit, Component, DoCheck, OnInit, ViewContainerRef} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConnectorService } from '../connector.service';
 import { Connector } from '../connector';
-import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
-import { OwnerService } from '../../user/owner.service';
-import {FloorService} from '../../floor/floor.service';
-import {Floor} from '../../floor/floor';
-import {BuildingService} from '../../building/building.service';
-import {DealerService} from '../../dealer/dealer.service';
-import {Dealer} from '../../dealer/dealer';
-import {EquipmentService} from '../../equipment/equipment.service';
-import {Equipment} from '../../equipment/equipment';
-import {CardService} from '../../card/card.service';
-import {Card} from '../../card/card';
-import {PortService} from '../../port/port.service';
-import {Port} from '../../port/port';
-import {Location} from '@angular/common';
-import {ToastsManager} from 'ng2-toastr/ng2-toastr';
+import { FloorService } from '../../floor/floor.service';
+import { Floor } from '../../floor/floor';
+import { DealerService } from '../../dealer/dealer.service';
+import { Dealer } from '../../dealer/dealer';
+import { EquipmentService } from '../../equipment/equipment.service';
+import { Equipment } from '../../equipment/equipment';
+import { CardService } from '../../card/card.service';
+import { Card } from '../../card/card';
+import { PortService } from '../../port/port.service';
+import { Port } from '../../port/port';
+import { Location } from '@angular/common';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 
 @Component({
@@ -38,7 +35,6 @@ export class ConnectorDetailsComponent implements OnInit {
   public ports: Port[] = [];
   public port: Port;
   public errorMessage: string;
-  // public isOwner: boolean;
 
   constructor(private route: ActivatedRoute,
               private _location: Location,
@@ -48,8 +44,6 @@ export class ConnectorDetailsComponent implements OnInit {
               private equipmentService: EquipmentService,
               private cardService: CardService,
               private portService: PortService,
-              private authenticationService: AuthenticationBasicService,
-              private ownerService: OwnerService,
               public toastr: ToastsManager) {
   }
 
@@ -86,6 +80,7 @@ export class ConnectorDetailsComponent implements OnInit {
       });
     window.scroll(0, 0);
   }
+
   initialize(): boolean {
     this.portService.getPortByConnector(this.connector).subscribe(
       port => {
@@ -122,6 +117,7 @@ export class ConnectorDetailsComponent implements OnInit {
     );
     return true;
   }
+
   initializeEntities() {
     this.dealerService.getDealersOfFloor(this.portFloor.uri).subscribe(
       dealers => this.dealers = dealers
@@ -136,7 +132,6 @@ export class ConnectorDetailsComponent implements OnInit {
       ports => this.ports = ports
     );
   }
-
 
   onChangeFloor(selection) {
     console.log(this.portFloor.uri);
@@ -168,29 +163,21 @@ export class ConnectorDetailsComponent implements OnInit {
       }
     );
   }
+
   onChangeCard(selection) {
     console.log(selection.uri);
     this.portService.getFloorsByTitleContainingAndInBuilding('', this.card).subscribe(
       ports => {
         this.ports = ports;
-        /*for (let port of ports) {
-          this.connectorService.getConnectorOfPort(port).subscribe(
-            connector => {
-              // this.ports.push(port);
-            },
-            error => {
-              this.errorMessage = <any>error.message;
-              this.ports.push(port);
-              },
-          );
-        }*/
       }
     );
   }
+
   onChangePort(selection) {
     console.log(selection.uri);
     this.connector.connectedTo = selection.uri;
   }
+
   onSave() {
     this.connectorService.updateConnector(this.connector)
       .subscribe(
