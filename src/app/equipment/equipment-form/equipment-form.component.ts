@@ -1,11 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Equipment } from '../equipment';
 import { EquipmentService } from '../equipment.service';
-import { Router } from '@angular/router';
 import { DealerService } from '../../dealer/dealer.service';
-import {Dealer} from '../../dealer/dealer';
-
+import { Dealer } from '../../dealer/dealer';
 import { UpdateEquipmentService } from '../update.equipment.service';
 
 @Component({
@@ -23,7 +21,6 @@ export class EquipmentFormComponent implements OnInit {
   public showForm: any = false;
 
   constructor(private fb: FormBuilder,
-              private router: Router,
               private dealerService: DealerService,
               private updateService: UpdateEquipmentService,
               private equipmentService: EquipmentService) {
@@ -62,7 +59,6 @@ export class EquipmentFormComponent implements OnInit {
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         });
-    console.log(this.equipment.uri);
     this.equipment = new Equipment;
     if (this.dealer) {
       this.equipment.isInDealer = this.dealer.uri;

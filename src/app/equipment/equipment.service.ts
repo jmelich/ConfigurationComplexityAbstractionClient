@@ -1,13 +1,13 @@
-import {AuthenticationBasicService} from '../login-basic/authentication-basic.service';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import { AuthenticationBasicService } from '../login-basic/authentication-basic.service';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import {environment} from '../../environments/environment';
-import {Equipment} from './equipment';
-import {Injectable} from '@angular/core';
-import {Dealer} from '../dealer/dealer';
-import {Card} from '../card/card';
+import { environment } from '../../environments/environment';
+import { Equipment } from './equipment';
+import { Injectable } from '@angular/core';
+import { Dealer } from '../dealer/dealer';
+import { Card } from '../card/card';
 
 @Injectable()
 export class EquipmentService {
@@ -92,6 +92,7 @@ export class EquipmentService {
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }
+
   getOptions(): RequestOptions {
     const headers = new Headers({'Content-Type': 'application/json'});
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);

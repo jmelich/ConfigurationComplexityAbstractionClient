@@ -4,8 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { EquipmentService } from '../equipment.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import {DealerService} from '../../dealer/dealer.service';
-import {Dealer} from '../../dealer/dealer';
+import { DealerService } from '../../dealer/dealer.service';
+import { Dealer } from '../../dealer/dealer';
 
 
 @Component({

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import {Equipment} from './equipment';
+import { Equipment } from './equipment';
 
 @Injectable()
 export class UpdateEquipmentService {

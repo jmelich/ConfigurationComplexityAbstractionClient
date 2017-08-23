@@ -2,12 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EquipmentService } from '../equipment.service';
 import { Equipment } from '../equipment';
-import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
-import { OwnerService } from '../../user/owner.service';
-import {DealerService} from '../../dealer/dealer.service';
-import {Dealer} from '../../dealer/dealer';
-import {Location} from '@angular/common';
-import {ToastsManager} from 'ng2-toastr';
+import { DealerService } from '../../dealer/dealer.service';
+import { Dealer } from '../../dealer/dealer';
+import { Location } from '@angular/common';
+import { ToastsManager } from 'ng2-toastr';
 
 
 @Component({
@@ -20,14 +18,11 @@ export class EquipmentDetailsComponent implements OnInit {
   public dealer: Dealer = new Dealer();
   public errorMessage: string;
   public showChildForm: any = false;
-  // public isOwner: boolean;
 
   constructor(private route: ActivatedRoute,
               private _location: Location,
               private equipmentService: EquipmentService,
               private dealerService: DealerService,
-              private authenticationService: AuthenticationBasicService,
-              private ownerService: OwnerService,
               public toastr: ToastsManager) {
   }
 
@@ -44,13 +39,6 @@ export class EquipmentDetailsComponent implements OnInit {
             this.dealerService.getDealer(uri_dealer).subscribe(
               dealer => this.dealer = dealer
             );
-            /*if (this.building._links != null) {
-              this.ownerService.getOwner(this.building._links.owner.href).subscribe(
-                owner => {
-                  this.comment.user = owner.getUserName();
-                  this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
-                });
-            }*/
           },
           error => this.errorMessage = <any>error.message,
         );
