@@ -4,8 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DealerService } from '../dealer.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import {FloorService} from '../../floor/floor.service';
-import {Floor} from '../../floor/floor';
+import { FloorService } from '../../floor/floor.service';
+import { Floor } from '../../floor/floor';
 
 
 @Component({

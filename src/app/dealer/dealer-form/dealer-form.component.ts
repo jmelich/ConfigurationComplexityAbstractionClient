@@ -1,8 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Dealer } from '../dealer';
 import { DealerService } from '../dealer.service';
-import { Router } from '@angular/router';
 import { FloorService } from '../../floor/floor.service';
 import { Floor } from '../../floor/floor';
 import { UpdateDealerService } from '../update.dealer.service';
@@ -22,7 +21,6 @@ export class DealerFormComponent implements OnInit {
   public showForm: any = false;
 
   constructor(private fb: FormBuilder,
-              private router: Router,
               private dealerService: DealerService,
               private updateService: UpdateDealerService,
               private floorService: FloorService) {
@@ -58,7 +56,6 @@ export class DealerFormComponent implements OnInit {
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         });
-    console.log(this.dealer.uri);
     this.dealer = new Dealer();
     if (this.floor) {
       this.dealer.isInFloor = this.floor.uri;

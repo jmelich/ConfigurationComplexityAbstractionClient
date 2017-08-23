@@ -1,13 +1,13 @@
-import {AuthenticationBasicService} from '../login-basic/authentication-basic.service';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import { AuthenticationBasicService } from '../login-basic/authentication-basic.service';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import {environment} from '../../environments/environment';
-import {Dealer} from './dealer';
-import {Injectable} from '@angular/core';
-import {Floor} from '../floor/floor';
-import {Equipment} from '../equipment/equipment';
+import { environment } from '../../environments/environment';
+import { Dealer } from './dealer';
+import { Injectable } from '@angular/core';
+import { Floor } from '../floor/floor';
+import { Equipment } from '../equipment/equipment';
 
 @Injectable()
 export class DealerService {
@@ -57,7 +57,6 @@ export class DealerService {
       .map((res: Response) => res.json()._embedded.dealers.map(json => new Dealer(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
-
 
   // GET /dealers/search/findByByTitleContainingIgnoreCase?title={title}
   getDealersByTitleContaining(dealer: string): Observable<Dealer[]> {

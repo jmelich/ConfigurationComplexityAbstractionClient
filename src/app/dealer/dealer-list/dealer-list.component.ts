@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { DealerService } from '../dealer.service';
 import { Dealer } from '../dealer';
-import {Floor} from '../../floor/floor';
-import {UpdateDealerService} from '../update.dealer.service';
+import { Floor } from '../../floor/floor';
+import { UpdateDealerService } from '../update.dealer.service';
 
 @Component({
   selector: 'app-dealer-list',
