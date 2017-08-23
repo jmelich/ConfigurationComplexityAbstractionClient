@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import {Building} from './building';
+import { Building } from './building';
 
 @Injectable()
 export class UpdateBuildingService {

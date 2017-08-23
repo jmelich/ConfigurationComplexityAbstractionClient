@@ -4,7 +4,7 @@ import { Building } from '../building';
 import { BuildingService } from '../building.service';
 import { Router } from '@angular/router';
 import { CampusService } from '../../campus/campus.service';
-import {Campus} from '../../campus/campus';
+import { Campus } from '../../campus/campus';
 
 import { UpdateBuildingService } from '../update.building.service';
 

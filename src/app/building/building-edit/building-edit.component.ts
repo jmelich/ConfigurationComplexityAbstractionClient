@@ -4,8 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { BuildingService } from '../building.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import {CampusService} from '../../campus/campus.service';
-import {Campus} from '../../campus/campus';
+import { CampusService } from '../../campus/campus.service';
+import { Campus } from '../../campus/campus';
 
 
 @Component({
