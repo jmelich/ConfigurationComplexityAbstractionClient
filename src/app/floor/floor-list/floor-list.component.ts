@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FloorService } from '../floor.service';
 import { Floor } from '../floor';
-import {Building} from '../../building/building';
-import {UpdateFloorService} from '../update.floor.service';
+import { Building } from '../../building/building';
+import { UpdateFloorService } from '../update.floor.service';
 
 @Component({
   selector: 'app-floor-list',

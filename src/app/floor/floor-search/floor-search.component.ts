@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {Floor} from '../floor';
-import {FloorService} from '../floor.service';
-import {Building} from '../../building/building';
+import { Floor } from '../floor';
+import { FloorService } from '../floor.service';
+import { Building } from '../../building/building';
 
 @Component({
   selector: 'app-floor-search',
@@ -45,7 +45,5 @@ export class FloorSearchComponent {
         error => this.errorMessage = <any>error.message
       );
     }
-
   }
-
 }

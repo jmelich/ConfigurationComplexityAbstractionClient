@@ -1,13 +1,13 @@
-import {AuthenticationBasicService} from '../login-basic/authentication-basic.service';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import { AuthenticationBasicService } from '../login-basic/authentication-basic.service';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import {environment} from '../../environments/environment';
-import {Floor} from './floor';
-import {Injectable} from '@angular/core';
-import {Building} from '../building/building';
-import {Dealer} from '../dealer/dealer';
+import { Floor } from './floor';
+import { Injectable } from '@angular/core';
+import { Building } from '../building/building';
+import { Dealer } from '../dealer/dealer';
 
 @Injectable()
 export class FloorService {
@@ -59,7 +59,6 @@ export class FloorService {
       .map((res: Response) => res.json()._embedded.floors.map(json => new Floor(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
-
 
   // GET /floors/search/findByByTitleContainingIgnoreCase?title={title}
   getFloorsByTitleContaining(floor: string): Observable<Floor[]> {

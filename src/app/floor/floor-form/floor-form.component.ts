@@ -1,13 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Floor } from '../floor';
 import { FloorService } from '../floor.service';
-import { Router } from '@angular/router';
 import { BuildingService } from '../../building/building.service';
-import {Building} from '../../building/building';
+import { Building } from '../../building/building';
 import { UpdateFloorService } from '../update.floor.service';
-import {Campus} from '../../campus/campus';
-import {CampusService} from '../../campus/campus.service';
+import { Campus } from '../../campus/campus';
+import { CampusService } from '../../campus/campus.service';
 
 @Component({
   selector: 'app-floor-form',
@@ -27,7 +26,6 @@ export class FloorFormComponent implements OnInit {
   public image: string;
 
   constructor(private fb: FormBuilder,
-              private router: Router,
               private campusService: CampusService,
               private buildingService: BuildingService,
               private updateService: UpdateFloorService,
@@ -90,33 +88,6 @@ export class FloorFormComponent implements OnInit {
     }, false);
 
     reader.readAsDataURL(file);
-  }
-
-  resizeImage(imageData, fileType, MAX_WIDTH = 480, MAX_HEIGHT = 480) {
-    const img = document.createElement('img');
-    img.src = imageData;
-    let width = img.width;
-    let height = img.height;
-    console.log(width);
-
-    if (width > height) {
-      if (width > MAX_WIDTH) {
-        height *= MAX_WIDTH / width;
-        width = MAX_WIDTH;
-      }
-    } else {
-      if (height > MAX_HEIGHT) {
-        width *= MAX_HEIGHT / height;
-        height = MAX_HEIGHT;
-      }
-    }
-    const canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(img, 0, 0, width, height);
-    // console.log(canvas.toDataURL(type));
-    return canvas.toDataURL(fileType);
   }
 
   onChangeCampus(selection) {

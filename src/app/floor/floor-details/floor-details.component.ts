@@ -2,12 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FloorService } from '../floor.service';
 import { Floor } from '../floor';
-import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
-import { OwnerService } from '../../user/owner.service';
-import {BuildingService} from '../../building/building.service';
-import {Building} from '../../building/building';
-import {Location} from '@angular/common';
-import {ToastsManager} from 'ng2-toastr';
+import { BuildingService } from '../../building/building.service';
+import { Building } from '../../building/building';
+import { Location } from '@angular/common';
+import { ToastsManager } from 'ng2-toastr';
 
 
 @Component({
@@ -19,18 +17,13 @@ export class FloorDetailsComponent implements OnInit {
   public floor: Floor = new Floor();
   public building: Building = new Building();
   public errorMessage: string;
-  // public isOwner: boolean;
 
   constructor(private route: ActivatedRoute,
               private floorService: FloorService,
               private _location: Location,
               private buildingService: BuildingService,
-              private authenticationService: AuthenticationBasicService,
-              private ownerService: OwnerService,
               public toastr: ToastsManager) {
   }
-
-
 
   ngOnInit() {
     this.route.params
