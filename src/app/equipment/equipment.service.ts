@@ -6,7 +6,7 @@ import 'rxjs/add/observable/throw';
 import { environment } from '../../environments/environment';
 import { Equipment } from './equipment';
 import { Injectable } from '@angular/core';
-import { Dealer } from '../dealer/dealer';
+import { EquipmentRoom } from '../equipmentRoom/equipmentRoom';
 import { Card } from '../card/card';
 
 @Injectable()
@@ -52,8 +52,8 @@ export class EquipmentService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /dealers/id/equipments
-  getEquipmentsOfDealer(uri: string): Observable<Equipment[]> {
+  // GET /equipmentRooms/id/equipments
+  getEquipmentsOfEquipmentRoom(uri: string): Observable<Equipment[]> {
     const options = this.getOptions();
     return this.http.get(`${environment.API}${uri}/equipments`, options)
       .map((res: Response) => res.json()._embedded.equipments.map(json => new Equipment(json)))
@@ -69,10 +69,10 @@ export class EquipmentService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /equipments/search/findByByTitleContainingIgnoreCaseAndIsInDealer?title={title}&dealer={id}
-  getEquipmentsByTitleContainingAndInDealer(equipment: string, dealer: Dealer): Observable<Equipment[]> {
+  // GET /equipments/search/findByByTitleContainingIgnoreCaseAndIsInEquipmentRoom?title={title}&equipmentRoom={id}
+  getEquipmentsByTitleContainingAndInEquipmentRoom(equipment: string, equipmentRoom: EquipmentRoom): Observable<Equipment[]> {
     const options = this.getOptions();
-    return this.http.get(environment.API + '/equipments/search/findByTitleContainingIgnoreCaseAndIsInDealer?title=' + equipment + '&dealer=' + dealer.uri, options)
+    return this.http.get(environment.API + '/equipments/search/findByTitleContainingIgnoreCaseAndIsInEquipmentRoom?title=' + equipment + '&equipmentRoom=' + equipmentRoom.uri, options)
       .map((res: Response) => res.json()._embedded.equipments.map(json => new Equipment(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }

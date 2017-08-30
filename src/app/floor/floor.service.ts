@@ -7,7 +7,7 @@ import {environment} from '../../environments/environment';
 import { Floor } from './floor';
 import { Injectable } from '@angular/core';
 import { Building } from '../building/building';
-import { Dealer } from '../dealer/dealer';
+import { EquipmentRoom } from '../equipmentRoom/equipmentRoom';
 
 @Injectable()
 export class FloorService {
@@ -84,10 +84,10 @@ export class FloorService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /dealersid/isInFloor
-  getFloorByDealer(dealer: Dealer): Observable<Floor> {
+  // GET /equipmentRoomsid/isInFloor
+  getFloorByEquipmentRoom(equipmentRoom: EquipmentRoom): Observable<Floor> {
     const options = this.getOptions();
-    return this.http.get(dealer._links.isInFloor.href, options)
+    return this.http.get(equipmentRoom._links.isInFloor.href, options)
       .map((res: Response) => new Floor(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }

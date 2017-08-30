@@ -1,4 +1,4 @@
-export class Dealer {
+export class EquipmentRoom {
   uri: string;
   title: string;
   description: string;

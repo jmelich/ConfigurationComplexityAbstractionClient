@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Dealer } from '../dealer';
+import { EquipmentRoom } from '../equipmentRoom';
 import { ActivatedRoute } from '@angular/router';
-import { DealerService } from '../dealer.service';
+import { EquipmentRoomService } from '../equipmentRoom.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FloorService } from '../../floor/floor.service';
@@ -9,40 +9,40 @@ import { Floor } from '../../floor/floor';
 
 
 @Component({
-  selector: 'app-dealer-edit',
-  templateUrl: './dealer-edit.component.html',
-  styleUrls: ['./dealer-edit.component.css']
+  selector: 'app-equipmentRoom-edit',
+  templateUrl: './equipmentRoom-edit.component.html',
+  styleUrls: ['./equipmentRoom-edit.component.css']
 })
-export class DealerEditComponent implements OnInit {
-  public dealer: Dealer = new Dealer();
+export class EquipmentRoomEditComponent implements OnInit {
+  public equipmentRoom: EquipmentRoom = new EquipmentRoom();
   public floors: Floor[] = [];
   public floor: Floor = new Floor();
   public errorMessage: string;
-  public dealerForm: FormGroup;
+  public equipmentRoomForm: FormGroup;
   public titleCtrl: AbstractControl;
 
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
-              private dealerService: DealerService,
+              private equipmentRoomService: EquipmentRoomService,
               private floorService: FloorService,
               private router: Router) {
-    this.dealerForm = fb.group({
-      'title': ['Dealer title', Validators.required],
-      'description' : ['Dealer description'],
-      'isInFloor'  : ['Dealer floor']
+    this.equipmentRoomForm = fb.group({
+      'title': ['EquipmentRoom title', Validators.required],
+      'description' : ['EquipmentRoom description'],
+      'isInFloor'  : ['EquipmentRoom floor']
     });
-    this.titleCtrl = this.dealerForm.controls['title'];
+    this.titleCtrl = this.equipmentRoomForm.controls['title'];
   }
 
   ngOnInit() {
     this.route.params
       .map(params => params['id'])
       .subscribe((id) => {
-        const uri = `/dealers/${id}`;
-        this.dealerService.getDealer(uri).subscribe(
-          dealer => {
-            this.dealer = dealer;
-            const uri_floor = `/dealers/${id}/isInFloor`;
+        const uri = `/equipmentRooms/${id}`;
+        this.equipmentRoomService.getEquipmentRoom(uri).subscribe(
+          equipmentRoom => {
+            this.equipmentRoom = equipmentRoom;
+            const uri_floor = `/equipmentRooms/${id}/isInFloor`;
             this.floorService.getFloor(uri_floor).subscribe(
               floor => this.floor = floor
             );
@@ -58,9 +58,9 @@ export class DealerEditComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.dealerService.updateDealer(this.dealer)
+    this.equipmentRoomService.updateEquipmentRoom(this.equipmentRoom)
       .subscribe(
-        dealer => { this.router.navigate([dealer.uri]); },
+        equipmentRoom => { this.router.navigate([equipmentRoom.uri]); },
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         });

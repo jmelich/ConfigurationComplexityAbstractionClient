@@ -4,8 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { EquipmentService } from '../equipment.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DealerService } from '../../dealer/dealer.service';
-import { Dealer } from '../../dealer/dealer';
+import { EquipmentRoomService } from '../../equipmentRoom/equipmentRoom.service';
+import { EquipmentRoom } from '../../equipmentRoom/equipmentRoom';
 
 
 @Component({
@@ -15,8 +15,8 @@ import { Dealer } from '../../dealer/dealer';
 })
 export class EquipmentEditComponent implements OnInit {
   public equipment: Equipment = new Equipment();
-  public dealers: Dealer[] = [];
-  public dealer: Dealer = new Dealer();
+  public equipmentRooms: EquipmentRoom[] = [];
+  public equipmentRoom: EquipmentRoom = new EquipmentRoom();
   public errorMessage: string;
   public equipmentForm: FormGroup;
   public titleCtrl: AbstractControl;
@@ -24,7 +24,7 @@ export class EquipmentEditComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
               private equipmentService: EquipmentService,
-              private dealerService: DealerService,
+              private equipmentRoomService: EquipmentRoomService,
               private router: Router) {
     this.equipmentForm = fb.group({
       'title': ['Equipment title', Validators.required],
@@ -34,7 +34,7 @@ export class EquipmentEditComponent implements OnInit {
       'username' : ['Equipment username'],
       'password' : ['Equipment password'],
       'positionInStack' : ['Position in stack'],
-      'isInDealer'  : ['Equipment dealer']
+      'isInEquipmentRoom'  : ['Equipment equipmentRoom']
     });
     this.titleCtrl = this.equipmentForm.controls['title'];
   }
@@ -47,17 +47,17 @@ export class EquipmentEditComponent implements OnInit {
         this.equipmentService.getEquipment(uri).subscribe(
           equipment => {
             this.equipment = equipment;
-            const uri_dealer = `/equipments/${id}/isInDealer`;
-            this.dealerService.getDealer(uri_dealer).subscribe(
-              dealer => this.dealer = dealer
+            const uri_equipmentRoom = `/equipments/${id}/isInEquipmentRoom`;
+            this.equipmentRoomService.getEquipmentRoom(uri_equipmentRoom).subscribe(
+              equipmentRoom => this.equipmentRoom = equipmentRoom
             );
             },
           error => this.errorMessage = <any>error.message,
         );
       });
 
-    this.dealerService.getAllDealers().subscribe(
-      dealers => { this.dealers = dealers; },
+    this.equipmentRoomService.getAllEquipmentRooms().subscribe(
+      equipmentRooms => { this.equipmentRooms = equipmentRooms; },
       error => this.errorMessage = <any>error.message
     );
   }

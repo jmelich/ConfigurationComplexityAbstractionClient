@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EquipmentService } from '../equipment.service';
 import { Equipment } from '../equipment';
-import { DealerService } from '../../dealer/dealer.service';
-import { Dealer } from '../../dealer/dealer';
+import { EquipmentRoomService } from '../../equipmentRoom/equipmentRoom.service';
+import { EquipmentRoom } from '../../equipmentRoom/equipmentRoom';
 import { Location } from '@angular/common';
 import { ToastsManager } from 'ng2-toastr';
 
@@ -15,14 +15,14 @@ import { ToastsManager } from 'ng2-toastr';
 })
 export class EquipmentDetailsComponent implements OnInit {
   public equipment: Equipment = new Equipment();
-  public dealer: Dealer = new Dealer();
+  public equipmentRoom: EquipmentRoom = new EquipmentRoom();
   public errorMessage: string;
   public showChildForm: any = false;
 
   constructor(private route: ActivatedRoute,
               private _location: Location,
               private equipmentService: EquipmentService,
-              private dealerService: DealerService,
+              private equipmentRoomService: EquipmentRoomService,
               public toastr: ToastsManager) {
   }
 
@@ -35,9 +35,9 @@ export class EquipmentDetailsComponent implements OnInit {
           equipment => {
             this.equipment = equipment;
 
-            const uri_dealer = `/equipments/${id}/isInDealer`;
-            this.dealerService.getDealer(uri_dealer).subscribe(
-              dealer => this.dealer = dealer
+            const uri_equipmentRoom = `/equipments/${id}/isInEquipmentRoom`;
+            this.equipmentRoomService.getEquipmentRoom(uri_equipmentRoom).subscribe(
+              equipmentRoom => this.equipmentRoom = equipmentRoom
             );
           },
           error => this.errorMessage = <any>error.message,

@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-md-6" style="width: auto; padding-left: 0px;">
-    <h2><strong>Dealer {{dealer.title}}</strong></h2>
+    <h2><strong>Equipment Room {{equipmentRoom.title}}</strong></h2>
   </div>
   <div class="col-md-6 editbutton">
-    <a class="btn btn-primary" role="button" routerLink="{{dealer.uri}}/edit">Edit</a>
+    <a class="btn btn-primary" role="button" routerLink="{{equipmentRoom.uri}}/edit">Edit</a>
     <a class="btn btn-danger" role="button" (click)="onDelete()">Delete</a>
   </div>
 </div>
@@ -21,20 +21,20 @@
 <div class="row">
   <div class="col-md-4">
     <h4>Title</h4>
-    <p>{{dealer.title}}</p>
+    <p>{{equipmentRoom.title}}</p>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-4">
     <h4>Description</h4>
-    <p>{{dealer.description}}</p>
+    <p>{{equipmentRoom.description}}</p>
   </div>
 </div>
 
-<div *ngIf="dealer.uri !== undefined" class="row" style="margin-left: 30px">
+<div *ngIf="equipmentRoom.uri !== undefined" class="row" style="margin-left: 30px">
   <div class="col-md-12">
-    <app-equipment-list [dealer]="dealer"></app-equipment-list>
+    <app-equipment-list [equipmentRoom]="equipmentRoom"></app-equipment-list>
   </div>
 </div>
 

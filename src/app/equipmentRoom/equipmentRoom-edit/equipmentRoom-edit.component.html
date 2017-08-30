@@ -1,15 +1,15 @@
-<h2>Edit Dealer</h2>
-<form id="dealer-form" [formGroup]="dealerForm" (ngSubmit)="onSubmit()" autocomplete='off'>
+<h2>Edit Equipment Room</h2>
+<form id="equipmentRoom-form" [formGroup]="equipmentRoomForm" (ngSubmit)="onSubmit()" autocomplete='off'>
   <fieldset>
 
     <!-- Text input-->
     <div class="form-group row">
-      <label class="col-md-3 control-label" for="title">Dealer Title*</label>
+      <label class="col-md-3 control-label" for="title">Equipment Room Title*</label>
       <div class="col-md-9">
         <input id="title" name="title" type="text" placeholder="Title" class="form-control input-md"
                [class.has-error]="titleCtrl.touched && titleCtrl.hasError('required')"
-               [formControl]="dealerForm.controls['title']"
-               [(ngModel)]="dealer.title">
+               [formControl]="equipmentRoomForm.controls['title']"
+               [(ngModel)]="equipmentRoom.title">
         <div *ngIf="titleCtrl.touched && titleCtrl.hasError('required')" class="label-warning">
           A title is required
         </div>
@@ -18,11 +18,11 @@
 
     <!-- Textarea -->
     <div class="form-group row">
-      <label class="col-md-3 control-label" for="description">Dealer Description</label>
+      <label class="col-md-3 control-label" for="description">Equipment Room Description</label>
       <div class="col-md-9">
         <textarea class="form-control" id="description" name="description" placeholder="Description"
-                  [formControl]="dealerForm.controls['description']"
-                  [(ngModel)]="dealer.description"></textarea>
+                  [formControl]="equipmentRoomForm.controls['description']"
+                  [(ngModel)]="equipmentRoom.description"></textarea>
       </div>
     </div>
 
@@ -30,8 +30,8 @@
     <div class="form-group row">
       <div class="col-md-3"></div>
       <div class="col-md-9">
-        <button id="createDealer" name="createDealer" type="submit"
-                class="btn btn-success pull-right" [disabled]="!dealerForm.valid">Save
+        <button id="createEquipmentRoom" name="createEquipmentRoom" type="submit"
+                class="btn btn-success pull-right" [disabled]="!equipmentRoomForm.valid">Save
         </button>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DealerService } from '../dealer.service';
-import { Dealer } from '../dealer';
+import { EquipmentRoomService } from '../equipmentRoom.service';
+import { EquipmentRoom } from '../equipmentRoom';
 import { FloorService } from '../../floor/floor.service';
 import { Floor } from '../../floor/floor';
 import { Location } from '@angular/common';
@@ -9,17 +9,17 @@ import { ToastsManager } from 'ng2-toastr';
 
 
 @Component({
-  selector: 'app-dealer-details',
-  templateUrl: './dealer-details.component.html',
-  styleUrls: ['./dealer-details.component.css']
+  selector: 'app-equipmentRoom-details',
+  templateUrl: './equipmentRoom-details.component.html',
+  styleUrls: ['./equipmentRoom-details.component.css']
 })
-export class DealerDetailsComponent implements OnInit {
-  public dealer: Dealer = new Dealer();
+export class EquipmentRoomDetailsComponent implements OnInit {
+  public equipmentRoom: EquipmentRoom = new EquipmentRoom();
   public floor: Floor = new Floor();
   public errorMessage: string;
 
   constructor(private route: ActivatedRoute,
-              private dealerService: DealerService,
+              private equipmentRoomService: EquipmentRoomService,
               private floorService: FloorService,
               private _location: Location,
               public toastr: ToastsManager) {
@@ -29,12 +29,12 @@ export class DealerDetailsComponent implements OnInit {
     this.route.params
       .map(params => params['id'])
       .subscribe((id) => {
-        const uri = `/dealers/${id}`;
-        this.dealerService.getDealer(uri).subscribe(
-          dealer => {
-            this.dealer = dealer;
+        const uri = `/equipmentRooms/${id}`;
+        this.equipmentRoomService.getEquipmentRoom(uri).subscribe(
+          equipmentRoom => {
+            this.equipmentRoom = equipmentRoom;
 
-            const uri_floor = `/dealers/${id}/isInFloor`;
+            const uri_floor = `/equipmentRooms/${id}/isInFloor`;
             this.floorService.getFloor(uri_floor).subscribe(
               floor => this.floor = floor
             );
@@ -45,7 +45,7 @@ export class DealerDetailsComponent implements OnInit {
   }
 
   onDelete(): void {
-    this.dealerService.deleteDealer(this.dealer)
+    this.equipmentRoomService.deleteEquipmentRoom(this.equipmentRoom)
       .subscribe(
         response => { this._location.back(); },
         error => {

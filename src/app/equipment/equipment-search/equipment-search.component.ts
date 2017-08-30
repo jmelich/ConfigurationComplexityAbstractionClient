@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {Equipment} from '../equipment';
 import {EquipmentService} from '../equipment.service';
-import {Dealer} from '../../dealer/dealer';
+import {EquipmentRoom} from '../../equipmentRoom/equipmentRoom';
 
 @Component({
   selector: 'app-equipment-search',
@@ -11,7 +11,7 @@ import {Dealer} from '../../dealer/dealer';
 })
 export class EquipmentSearchComponent {
   @Input()  equipments: Equipment[];
-  @Input()  dealer: Dealer;
+  @Input()  equipmentRoom: EquipmentRoom;
   @Output()  onSearchited: EventEmitter<any> = new EventEmitter();
   private equipment: string = null;
 
@@ -28,8 +28,8 @@ export class EquipmentSearchComponent {
       .subscribe((id) => {
         if (id != null) { this.equipment = `/equipments/${id}`; }
       });
-    if (this.dealer !== undefined) {
-      this.equipmentService.getEquipmentsByTitleContainingAndInDealer(searchTerm, this.dealer).subscribe(
+    if (this.equipmentRoom !== undefined) {
+      this.equipmentService.getEquipmentsByTitleContainingAndInEquipmentRoom(searchTerm, this.equipmentRoom).subscribe(
         equipments => {
           // Send to output emitter
           this.onSearchited.emit(equipments);

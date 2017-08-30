@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { EquipmentService } from '../equipment.service';
 import { Equipment } from '../equipment';
-import {Dealer} from '../../dealer/dealer';
+import { EquipmentRoom } from '../../equipmentRoom/equipmentRoom';
 
 import { UpdateEquipmentService } from '../update.equipment.service';
 
@@ -12,7 +12,7 @@ import { UpdateEquipmentService } from '../update.equipment.service';
 })
 export class EquipmentListComponent implements OnInit {
   public equipments: Equipment[] = [];
-  @Input() dealer: Dealer;
+  @Input() equipmentRoom: EquipmentRoom;
   public errorMessage: string;
 
   constructor(private equipmentService: EquipmentService,
@@ -29,8 +29,8 @@ export class EquipmentListComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.dealer !== undefined) {
-      this.equipmentService.getEquipmentsOfDealer(this.dealer.uri).subscribe(
+    if (this.equipmentRoom !== undefined) {
+      this.equipmentService.getEquipmentsOfEquipmentRoom(this.equipmentRoom.uri).subscribe(
         equipments => { this.equipments = equipments; },
         error => this.errorMessage = <any>error.message
       );

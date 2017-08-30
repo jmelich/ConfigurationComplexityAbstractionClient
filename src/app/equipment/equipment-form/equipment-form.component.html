@@ -32,12 +32,12 @@
     </div>
 
     <div *ngIf="showForm" class="form-group row">
-      <label class="col-md-3 control-label" for="isInDealer">Dealer</label>
+      <label class="col-md-3 control-label" for="isInEquipmentRoom">EquipmentRoom</label>
       <div class="col-md-9">
-        <select class="form-control" id="isInDealer" name="isInDealer"
-                [formControl]="equipmentForm.controls['isInDealer']"
-                [(ngModel)]="equipment.isInDealer">
-          <option *ngFor="let dealer of dealers" [ngValue]="dealer.uri">{{dealer.title}}</option>
+        <select class="form-control" id="isInEquipmentRoom" name="isInEquipmentRoom"
+                [formControl]="equipmentForm.controls['isInEquipmentRoom']"
+                [(ngModel)]="equipment.isInEquipmentRoom">
+          <option *ngFor="let equipmentRoom of equipmentRooms" [ngValue]="equipmentRoom.uri">{{equipmentRoom.title}}</option>
         </select>
       </div>
     </div>

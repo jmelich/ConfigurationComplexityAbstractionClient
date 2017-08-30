@@ -6,7 +6,7 @@ export class Equipment {
   username: string;
   password: string;
   positionInStack;
-  isInDealer: string;
+  isInEquipmentRoom: string;
   _links: any = {};
 
   constructor(values: Object = {}) {

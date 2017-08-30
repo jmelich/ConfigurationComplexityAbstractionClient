@@ -46,10 +46,10 @@
     </div>
 
     <div class="form-group row">
-      <label class="col-md-3 control-label" for="isInDealer">Dealer</label>
+      <label class="col-md-3 control-label" for="isInEquipmentRoom">EquipmentRoom</label>
       <div class="col-md-9">
-        <select class="form-control" id="isInDealer"  [(ngModel)]="dealer" [compareWith]="objectComparator" (ngModelChange)="onChangeDealer($event)" name="isInDealer">
-          <option *ngFor="let dealerItem of dealers" [ngValue]="dealerItem">{{dealerItem.title}}</option>
+        <select class="form-control" id="isInEquipmentRoom"  [(ngModel)]="equipmentRoom" [compareWith]="objectComparator" (ngModelChange)="onChangeEquipmentRoom($event)" name="isInEquipmentRoom">
+          <option *ngFor="let equipmentRoomItem of equipmentRooms" [ngValue]="equipmentRoomItem">{{equipmentRoomItem.title}}</option>
         </select>
       </div>
     </div>

@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Equipment } from '../equipment';
 import { EquipmentService } from '../equipment.service';
-import { DealerService } from '../../dealer/dealer.service';
-import { Dealer } from '../../dealer/dealer';
+import { EquipmentRoomService } from '../../equipmentRoom/equipmentRoom.service';
+import { EquipmentRoom } from '../../equipmentRoom/equipmentRoom';
 import { UpdateEquipmentService } from '../update.equipment.service';
 
 @Component({
@@ -13,15 +13,15 @@ import { UpdateEquipmentService } from '../update.equipment.service';
 })
 export class EquipmentFormComponent implements OnInit {
   public equipment: Equipment;
-  @Input() dealer:  Dealer;
-  public dealers: Dealer[] = [];
+  @Input() equipmentRoom:  EquipmentRoom;
+  public equipmentRooms: EquipmentRoom[] = [];
   public equipmentForm: FormGroup;
   public titleCtrl: AbstractControl;
   public errorMessage: string;
   public showForm: any = false;
 
   constructor(private fb: FormBuilder,
-              private dealerService: DealerService,
+              private equipmentRoomService: EquipmentRoomService,
               private updateService: UpdateEquipmentService,
               private equipmentService: EquipmentService) {
     this.equipmentForm = fb.group({
@@ -32,20 +32,20 @@ export class EquipmentFormComponent implements OnInit {
       'username' : ['Equipment username'],
       'password' : ['Equipment password'],
       'positionInStack' : ['Position in stack'],
-      'isInDealer'  : ['Equipment dealer']
+      'isInEquipmentRoom'  : ['Equipment equipmentRoom']
     });
     this.titleCtrl = this.equipmentForm.controls['title'];
     this.equipment = new Equipment();
   }
 
   ngOnInit() {
-    this.dealerService.getAllDealers().subscribe(
-      dealers => { this.dealers = dealers; },
+    this.equipmentRoomService.getAllEquipmentRooms().subscribe(
+      equipmentRooms => { this.equipmentRooms = equipmentRooms; },
       error => this.errorMessage = <any>error.message
     );
-    if (this.dealer) {
-      this.equipment.isInDealer = this.dealer.uri;
-      this.equipmentForm.get('isInDealer').disable();
+    if (this.equipmentRoom) {
+      this.equipment.isInEquipmentRoom = this.equipmentRoom.uri;
+      this.equipmentForm.get('isInEquipmentRoom').disable();
     }
   }
 
@@ -60,8 +60,8 @@ export class EquipmentFormComponent implements OnInit {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         });
     this.equipment = new Equipment;
-    if (this.dealer) {
-      this.equipment.isInDealer = this.dealer.uri;
+    if (this.equipmentRoom) {
+      this.equipment.isInEquipmentRoom = this.equipmentRoom.uri;
     }
   }
 }

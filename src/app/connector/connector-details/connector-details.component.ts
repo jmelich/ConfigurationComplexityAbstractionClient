@@ -4,8 +4,8 @@ import { ConnectorService } from '../connector.service';
 import { Connector } from '../connector';
 import { FloorService } from '../../floor/floor.service';
 import { Floor } from '../../floor/floor';
-import { DealerService } from '../../dealer/dealer.service';
-import { Dealer } from '../../dealer/dealer';
+import { EquipmentRoomService } from '../../equipmentRoom/equipmentRoom.service';
+import { EquipmentRoom } from '../../equipmentRoom/equipmentRoom';
 import { EquipmentService } from '../../equipment/equipment.service';
 import { Equipment } from '../../equipment/equipment';
 import { CardService } from '../../card/card.service';
@@ -26,8 +26,8 @@ export class ConnectorDetailsComponent implements OnInit {
   public floor: Floor = new Floor();
   public portFloor: Floor = new Floor();
   public floors: Floor[] = [];
-  public dealers: Dealer[] = [];
-  public dealer: Dealer = new Dealer();
+  public equipmentRooms: EquipmentRoom[] = [];
+  public equipmentRoom: EquipmentRoom = new EquipmentRoom();
   public equipments: Equipment[] = [];
   public equipment: Equipment = new Equipment();
   public cards: Card[] = [];
@@ -40,7 +40,7 @@ export class ConnectorDetailsComponent implements OnInit {
               private _location: Location,
               private connectorService: ConnectorService,
               private floorService: FloorService,
-              private dealerService: DealerService,
+              private equipmentRoomService: EquipmentRoomService,
               private equipmentService: EquipmentService,
               private cardService: CardService,
               private portService: PortService,
@@ -92,10 +92,10 @@ export class ConnectorDetailsComponent implements OnInit {
               this.equipmentService.getEquipmentByCard(card).subscribe(
                 equipment => {
                   this.equipment = equipment;
-                  this.dealerService.getDealerByEquipment(equipment).subscribe(
-                    dealer => {
-                      this.dealer = dealer;
-                      this.floorService.getFloorByDealer(dealer).subscribe(
+                  this.equipmentRoomService.getEquipmentRoomByEquipment(equipment).subscribe(
+                    equipmentRoom => {
+                      this.equipmentRoom = equipmentRoom;
+                      this.floorService.getFloorByEquipmentRoom(equipmentRoom).subscribe(
                         floor => {
                           this.portFloor = floor;
                           this.initializeEntities();
@@ -119,10 +119,10 @@ export class ConnectorDetailsComponent implements OnInit {
   }
 
   initializeEntities() {
-    this.dealerService.getDealersOfFloor(this.portFloor.uri).subscribe(
-      dealers => this.dealers = dealers
+    this.equipmentRoomService.getEquipmentRoomsOfFloor(this.portFloor.uri).subscribe(
+      equipmentRooms => this.equipmentRooms = equipmentRooms
     );
-    this.equipmentService.getEquipmentsOfDealer(this.dealer.uri).subscribe(
+    this.equipmentService.getEquipmentsOfEquipmentRoom(this.equipmentRoom.uri).subscribe(
       equipments => this.equipments = equipments
     );
     this.cardService.getCardsOfEquipment(this.equipment.uri).subscribe(
@@ -135,9 +135,9 @@ export class ConnectorDetailsComponent implements OnInit {
 
   onChangeFloor(selection) {
     console.log(this.portFloor.uri);
-    this.dealerService.getDealersOfFloor(this.portFloor.uri).subscribe(
-      dealers => {
-        this.dealers = dealers;
+    this.equipmentRoomService.getEquipmentRoomsOfFloor(this.portFloor.uri).subscribe(
+      equipmentRooms => {
+        this.equipmentRooms = equipmentRooms;
         this.equipments = [];
         this.cards = [];
         this.ports = [];
@@ -145,8 +145,8 @@ export class ConnectorDetailsComponent implements OnInit {
     );
   }
 
-  onChangeDealer(selection) {
-    this.equipmentService.getEquipmentsOfDealer(this.dealer.uri).subscribe(
+  onChangeEquipmentRoom(selection) {
+    this.equipmentService.getEquipmentsOfEquipmentRoom(this.equipmentRoom.uri).subscribe(
       equipments => {
         this.equipments = equipments;
         this.cards = [];
@@ -192,7 +192,7 @@ export class ConnectorDetailsComponent implements OnInit {
   }
 
   onDettach() {
-    this.portFloor = this.dealer = this.equipment = this.card = this.port = this.connector.connectedTo = null;
+    this.portFloor = this.equipmentRoom = this.equipment = this.card = this.port = this.connector.connectedTo = null;
     this.connectorService.updateConnector(this.connector)
       .subscribe(
         connector => {

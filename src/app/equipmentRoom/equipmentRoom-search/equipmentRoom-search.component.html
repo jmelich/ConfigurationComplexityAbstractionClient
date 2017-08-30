@@ -1,0 +1,3 @@
+<h4>Search Equipment Room by title</h4>
+<input name="title" #searchTerm (keyup)="performSearch(searchTerm.value)" autocomplete='off'>
+<p i18n>{equipmentRooms.length, plural, =0 {No Equipment Rooms found} =1 {1 Equipment Room found} other {{{equipmentRooms.length}} equipmentRooms found}}</p>

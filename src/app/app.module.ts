@@ -31,12 +31,12 @@ import { FloorEditComponent } from 'app/floor/floor-edit/floor-edit.component';
 import { FloorDetailsComponent } from './floor/floor-details/floor-details.component';
 import { FloorSearchComponent } from 'app/floor/floor-search/floor-search.component';
 import { FloorService } from './floor/floor.service';
-import { DealerListComponent } from './dealer/dealer-list/dealer-list.component';
-import { DealerFormComponent } from './dealer/dealer-form/dealer-form.component';
-import { DealerDetailsComponent } from './dealer/dealer-details/dealer-details.component';
-import { DealerEditComponent } from './dealer/dealer-edit/dealer-edit.component';
-import { DealerSearchComponent } from './dealer/dealer-search/dealer-search.component';
-import { DealerService } from './dealer/dealer.service';
+import { EquipmentRoomListComponent } from './equipmentRoom/equipmentRoom-list/equipmentRoom-list.component';
+import { EquipmentRoomFormComponent } from './equipmentRoom/equipmentRoom-form/equipmentRoom-form.component';
+import { EquipmentRoomDetailsComponent } from './equipmentRoom/equipmentRoom-details/equipmentRoom-details.component';
+import { EquipmentRoomEditComponent } from './equipmentRoom/equipmentRoom-edit/equipmentRoom-edit.component';
+import { EquipmentRoomSearchComponent } from './equipmentRoom/equipmentRoom-search/equipmentRoom-search.component';
+import { EquipmentRoomService } from './equipmentRoom/equipmentRoom.service';
 import { EquipmentListComponent } from './equipment/equipment-list/equipment-list.component';
 import { EquipmentFormComponent } from './equipment/equipment-form/equipment-form.component';
 import { EquipmentDetailsComponent } from './equipment/equipment-details/equipment-details.component';
@@ -52,7 +52,7 @@ import { CardService } from './card/card.service';
 import { UpdateCardService } from './card/update.card.service';
 import { UpdateBuildingService } from './building/update.building.service';
 import { UpdateFloorService } from './floor/update.floor.service';
-import { UpdateDealerService } from './dealer/update.dealer.service';
+import { UpdateEquipmentRoomService } from './equipmentRoom/update.equipmentRoom.service';
 import { UpdateEquipmentService } from './equipment/update.equipment.service';
 import { ConnectorListComponent } from './connector/connector-list/connector-list.component';
 import { ConnectorFormComponent } from './connector/connector-form/connector-form.component';
@@ -94,11 +94,11 @@ import { CustomOption } from './custom-option';
     FloorDetailsComponent,
     FloorEditComponent,
     FloorSearchComponent,
-    DealerListComponent,
-    DealerFormComponent,
-    DealerDetailsComponent,
-    DealerEditComponent,
-    DealerSearchComponent,
+    EquipmentRoomListComponent,
+    EquipmentRoomFormComponent,
+    EquipmentRoomDetailsComponent,
+    EquipmentRoomEditComponent,
+    EquipmentRoomSearchComponent,
     EquipmentListComponent,
     EquipmentFormComponent,
     EquipmentDetailsComponent,
@@ -132,8 +132,8 @@ import { CustomOption } from './custom-option';
     BrowserAnimationsModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, OwnerService, UserService, OwnerService, CampusService,
-    BuildingService, FloorService, DealerService, EquipmentService, CardService, ConnectorService, UpdateCardService,
-    UpdateBuildingService, UpdateFloorService, UpdateDealerService, UpdateEquipmentService, UpdateConnectorService,
+    BuildingService, FloorService, EquipmentRoomService, EquipmentService, CardService, ConnectorService, UpdateCardService,
+    UpdateBuildingService, UpdateFloorService, UpdateEquipmentRoomService, UpdateEquipmentService, UpdateConnectorService,
     PortService, UpdateCampusService, ConnectorConfigService, {provide: ToastOptions, useClass: CustomOption}, ],
   bootstrap: [AppComponent],
   entryComponents: [ CustomModalComponent ],
