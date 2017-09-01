@@ -6,7 +6,7 @@ import { Floor } from '../../floor/floor';
 import { ImgMapComponent } from 'ng2-img-map';
 
 import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
-import { CustomModalContext, CustomModalComponent } from './custom-modal-sample';
+import { ModalConfigContext, ModalConfigComponent } from './modal-config';
 import { Overlay, overlayConfigFactory } from 'angular2-modal';
 
 import { UpdateConnectorService } from '../update.connector.service';
@@ -35,7 +35,7 @@ export class ConnectorListComponent implements OnInit {
 
   onChange(marker: number[]) {
     console.log('Marker', marker);
-    this.openCustom();
+    this.openModal();
     this.imgMap.markerActive = null;
   }
 
@@ -101,7 +101,7 @@ export class ConnectorListComponent implements OnInit {
     }
   }
 
-  openCustom(item?: Connector) {
+  openModal(item?: Connector) {
     let connectorToConfig: Connector;
     if (item) {
       connectorToConfig = item;
@@ -110,7 +110,7 @@ export class ConnectorListComponent implements OnInit {
     }
     this.portService.getPortByConnector(connectorToConfig).subscribe(
       port => {
-        return this.modal.open(CustomModalComponent,  overlayConfigFactory({ connector: connectorToConfig }, BSModalContext));
+        return this.modal.open(ModalConfigComponent,  overlayConfigFactory({ connector: connectorToConfig }, BSModalContext));
       },
       error => {
         this.errorMessage = <any>error.message;

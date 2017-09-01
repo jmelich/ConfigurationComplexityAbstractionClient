@@ -8,19 +8,19 @@ import { ConnectorConfigService } from './connector-config.service';
 import { ConnectorCurrentSettings } from './connector-current-settings';
 import { ToastsManager } from 'ng2-toastr';
 
-export class CustomModalContext extends BSModalContext {
+export class ModalConfigContext extends BSModalContext {
   public connector: Connector;
 }
 
 
 @Component({
-  selector: 'app-modal-content',
-  templateUrl: './custom-modal-sample.html',
-  styleUrls: ['./custom-modal-sample.css'],
+  selector: 'app-modal-config',
+  templateUrl: './modal-config.html',
+  styleUrls: ['./modal-config.css'],
 })
 
-export class CustomModalComponent implements CloseGuard, ModalComponent<CustomModalContext>, OnInit {
-  context: CustomModalContext;
+export class ModalConfigComponent implements CloseGuard, ModalComponent<ModalConfigContext>, OnInit {
+  context: ModalConfigContext;
   public availableSettings: ConnectorAvailableSettings = new ConnectorAvailableSettings();
   public currentSettings: ConnectorCurrentSettings = new ConnectorCurrentSettings();
   public errorMessage: string;
@@ -37,7 +37,7 @@ export class CustomModalComponent implements CloseGuard, ModalComponent<CustomMo
 
   public wrongAnswer: boolean;
 
-  constructor(public dialog: DialogRef<CustomModalContext>,
+  constructor(public dialog: DialogRef<ModalConfigContext>,
               private connectorConfigService: ConnectorConfigService,
               public toastr: ToastsManager) {
     this.context = dialog.context;

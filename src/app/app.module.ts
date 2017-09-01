@@ -66,7 +66,7 @@ import { UpdateCampusService } from './campus/update.campus.service';
 import { ImgMapComponent } from 'ng2-img-map';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
-import { CustomModalComponent } from './connector/connector-list/custom-modal-sample';
+import { ModalConfigComponent } from './connector/connector-list/modal-config';
 import { ConnectorConfigService } from './connector/connector-list/connector-config.service';
 import { ToastModule, ToastOptions } from 'ng2-toastr/ng2-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -116,7 +116,7 @@ import { CustomOption } from './custom-option';
     ConnectorSearchComponent,
 
     ImgMapComponent,
-    CustomModalComponent,
+    ModalConfigComponent,
   ],
   imports: [
     BrowserModule,
@@ -136,6 +136,6 @@ import { CustomOption } from './custom-option';
     UpdateBuildingService, UpdateFloorService, UpdateEquipmentRoomService, UpdateEquipmentService, UpdateConnectorService,
     PortService, UpdateCampusService, ConnectorConfigService, {provide: ToastOptions, useClass: CustomOption}, ],
   bootstrap: [AppComponent],
-  entryComponents: [ CustomModalComponent ],
+  entryComponents: [ ModalConfigComponent ],
 })
 export class AppModule { }
