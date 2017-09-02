@@ -30,18 +30,16 @@ export class ConnectorListComponent implements OnInit {
   markers: number[][] = [[0, 0]];
 
   onMark(marker: number[]) {
-    console.log('Markers', this.markers);
   }
 
   onChange(marker: number[]) {
-    console.log('Marker', marker);
     this.openModal();
     this.imgMap.markerActive = null;
   }
 
   selectMarker(index: number) {
     this.imgMap.markerActive = index;
-    this.imgMap.draw();
+    window.setTimeout(() => this.imgMap.draw(), 1000);
   }
 
   removeMarker(index: number) {
@@ -51,7 +49,7 @@ export class ConnectorListComponent implements OnInit {
     } else if (index < this.imgMap.markerActive) {
       this.imgMap.markerActive--;
     }
-    this.imgMap.draw();
+    window.setTimeout(() => this.imgMap.draw(), 1000);
   }
 
   constructor(private connectorService: ConnectorService,
@@ -64,7 +62,7 @@ export class ConnectorListComponent implements OnInit {
       connector => {
         this.connectors.push(connector);
         this.markers.push([connector.latitude, connector.longitude]);
-        this.imgMap.draw();
+        window.setTimeout(() => this.imgMap.draw(), 1000);
       }
     );
   }
@@ -72,12 +70,11 @@ export class ConnectorListComponent implements OnInit {
   onSearch(connectors) {
     this.connectors = connectors;
     this.connectorsToMarkers();
-    this.imgMap.draw();
+    window.setTimeout(() => this.imgMap.draw(), 1000);
   }
 
   ngOnInit() {
     if ( this.floor !== undefined) {
-      console.log(this.floor.uri);
       this.connectorService.getConnectorsOfFloor(this.floor.uri).subscribe(
         connectors => {
           this.connectors = connectors;
